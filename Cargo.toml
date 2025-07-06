@@ -2,5 +2,9 @@
 resolver = "3"
 members = ["disassembler" , "eva"]
 
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
 [workspace.dependencies]
-eva-disassembler = { path = "./disassembler/" }
+eva-disassembler = { version = "0.1.0", path = "./disassembler/" }
