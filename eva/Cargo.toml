@@ -1,6 +1,7 @@
 [package]
-name = "eva-disassembler"
+name = "eva"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+eva-disassembler.workspace = true
