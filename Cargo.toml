@@ -5,6 +5,8 @@ members = ["disassembler" , "eva"]
 [workspace.package]
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
+repository = "https://github.com/evanalyzer/eva"
 
 [workspace.dependencies]
 eva-disassembler = { version = "0.1.0", path = "./disassembler/" }
