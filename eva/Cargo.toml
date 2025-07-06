@@ -1,5 +1,5 @@
 [package]
-name = "eva"
+name = "evanalyzer"
 description = "EVM analysis toolkit"
 version.workspace = true
 edition.workspace = true
