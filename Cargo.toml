@@ -10,3 +10,6 @@ repository = "https://github.com/evanalyzer/eva"
 
 [workspace.dependencies]
 eva-disassembler = { version = "0.1.0", path = "./disassembler/" }
+
+[workspace.lints.clippy]
+pedantic = "warn"

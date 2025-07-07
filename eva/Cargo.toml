@@ -8,3 +8,6 @@ repository.workspace = true
 
 [dependencies]
 eva-disassembler = { workspace = true }
+
+[lints]
+workspace = true
