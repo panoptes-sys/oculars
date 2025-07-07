@@ -9,7 +9,14 @@ license = "MIT"
 repository = "https://github.com/evanalyzer/eva"
 
 [workspace.dependencies]
-eva-disassembler = { version = "0.1.0", path = "./crates/disassembler/" }
+eva-dasm = { version = "0.1.0", path = "./crates/dasm/" }
 
 [workspace.lints.clippy]
 pedantic = "warn"
+
+missing_docs_in_private_items = "warn"
+missing_panics_doc = "warn"
+missing_errors_doc = "warn"
+
+[workspace.lints.rust]
+missing_docs = "warn"
