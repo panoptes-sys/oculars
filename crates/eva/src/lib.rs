@@ -1,1 +1,1 @@
-pub use eva_disassembler::*;
+pub use eva_dasm as dasm;
