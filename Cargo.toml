@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["disassembler" , "eva"]
+members = ["crates/*"]
 
 [workspace.package]
 version = "0.1.0"
@@ -9,7 +9,7 @@ license = "MIT"
 repository = "https://github.com/evanalyzer/eva"
 
 [workspace.dependencies]
-eva-disassembler = { version = "0.1.0", path = "./disassembler/" }
+eva-disassembler = { version = "0.1.0", path = "./crates/disassembler/" }
 
 [workspace.lints.clippy]
 pedantic = "warn"
