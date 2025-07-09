@@ -305,3 +305,32 @@ pub enum OpCode {
     /// Halt execution and register account for later deletion or send all Ether to address (post-Cancun).
     SELFDESTRUCT = 0xFF,
 }
+
+/// Implement formatting for opcodes.
+macro_rules! impl_format {
+    ($($fmt: ident),+) => {
+        $(impl std::fmt::$fmt for OpCode {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                std::fmt::$fmt::fmt(&(*self as u8), f)
+            }
+        })+
+    };
+}
+
+impl_format!(LowerHex, UpperHex, Binary, Octal);
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn opcode_format_sanity() {
+        let gas = OpCode::GAS;
+
+        assert_eq!(format!("{gas}"), "GAS");
+        assert_eq!(format!("{gas:x}"), "5a");
+        assert_eq!(format!("{gas:X}"), "5A");
+        assert_eq!(format!("{gas:b}"), "1011010");
+        assert_eq!(format!("{gas:o}"), "132");
+    }
+}
