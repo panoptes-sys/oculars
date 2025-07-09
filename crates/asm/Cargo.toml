@@ -9,6 +9,7 @@ repository.workspace = true
 
 [dependencies]
 strum.workspace = true
+derive_more = { workspace = true, features = ["display"] }
 
 [lints]
 workspace = true
