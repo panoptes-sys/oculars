@@ -89,6 +89,8 @@ impl OpCode {
     /// assert_eq!(OpCode::Known(Mnemonic::PUSH7).is_push(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_push(), false);
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn is_push(&self) -> bool {
         match self {
             OpCode::Known(mnemonic) => mnemonic.is_push(),
@@ -104,6 +106,8 @@ impl OpCode {
     /// assert_eq!(OpCode::Known(Mnemonic::DUP2).is_dup(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_dup(), false);
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn is_dup(&self) -> bool {
         match self {
             OpCode::Known(mnemonic) => mnemonic.is_dup(),
@@ -119,6 +123,8 @@ impl OpCode {
     /// assert_eq!(OpCode::Known(Mnemonic::SWAP2).is_swap(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_swap(), false);
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn is_swap(&self) -> bool {
         match self {
             OpCode::Known(mnemonic) => mnemonic.is_swap(),
@@ -134,6 +140,8 @@ impl OpCode {
     /// assert_eq!(OpCode::Known(Mnemonic::LOG2).is_log(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_log(), false);
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn is_log(&self) -> bool {
         match self {
             OpCode::Known(mnemonic) => mnemonic.is_log(),
@@ -164,6 +172,7 @@ impl PartialEq<u8> for OpCode {
 }
 
 impl PartialOrd<u8> for OpCode {
+    #[inline]
     fn partial_cmp(&self, other: &u8) -> Option<std::cmp::Ordering> {
         u8::from(self).partial_cmp(other)
     }
@@ -177,6 +186,7 @@ impl From<OpCode> for u8 {
 }
 
 impl From<&OpCode> for u8 {
+    #[inline]
     fn from(opcode: &OpCode) -> Self {
         opcode.into_byte()
     }
@@ -512,6 +522,8 @@ impl Mnemonic {
     /// assert_eq!(Mnemonic::PUSH7.is_push(), true);
     /// assert_eq!(Mnemonic::GAS.is_push(), false);
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn is_push(&self) -> bool {
         matches!(
             self,
@@ -559,6 +571,8 @@ impl Mnemonic {
     /// assert_eq!(Mnemonic::DUP2.is_dup(), true);
     /// assert_eq!(Mnemonic::GAS.is_dup(), false);
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn is_dup(&self) -> bool {
         matches!(
             self,
@@ -589,6 +603,8 @@ impl Mnemonic {
     /// assert_eq!(Mnemonic::SWAP2.is_swap(), true);
     /// assert_eq!(Mnemonic::GAS.is_swap(), false);
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn is_swap(&self) -> bool {
         matches!(
             self,
@@ -619,6 +635,8 @@ impl Mnemonic {
     /// assert_eq!(Mnemonic::LOG2.is_log(), true);
     /// assert_eq!(Mnemonic::GAS.is_log(), false);
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn is_log(&self) -> bool {
         matches!(
             self,

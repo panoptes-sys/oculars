@@ -37,6 +37,8 @@ pub trait InstructionMeta {
     /// assert_eq!(Push::new([0; 10]).is_push(), true);
     /// assert_eq!(Gas.is_push(), false);
     /// ```
+    #[must_use]
+    #[inline]
     fn is_push(&self) -> bool {
         self.opcode().is_push()
     }
@@ -49,6 +51,8 @@ pub trait InstructionMeta {
     /// assert_eq!(Dup::<10>::new().is_dup(), true);
     /// assert_eq!(Gas.is_dup(), false);
     /// ```
+    #[must_use]
+    #[inline]
     fn is_dup(&self) -> bool {
         self.opcode().is_dup()
     }
@@ -61,6 +65,8 @@ pub trait InstructionMeta {
     /// assert_eq!(Swap::<10>::new().is_swap(), true);
     /// assert_eq!(Gas.is_swap(), false);
     /// ```
+    #[must_use]
+    #[inline]
     fn is_swap(&self) -> bool {
         self.opcode().is_swap()
     }
@@ -73,6 +79,8 @@ pub trait InstructionMeta {
     /// assert_eq!(Log::<3>::new().is_log(), true);
     /// assert_eq!(Gas.is_log(), false);
     /// ```
+    #[must_use]
+    #[inline]
     fn is_log(&self) -> bool {
         self.opcode().is_log()
     }
