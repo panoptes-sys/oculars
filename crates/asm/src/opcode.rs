@@ -26,60 +26,6 @@ pub enum OpCode {
     Unknown(u8),
 }
 
-impl PartialEq<Mnemonic> for OpCode {
-    #[inline]
-    fn eq(&self, other: &Mnemonic) -> bool {
-        u8::from(self) == *other as u8
-    }
-}
-
-impl PartialOrd<Mnemonic> for OpCode {
-    #[inline]
-    fn partial_cmp(&self, other: &Mnemonic) -> Option<std::cmp::Ordering> {
-        u8::from(self).partial_cmp(&(*other as u8))
-    }
-}
-
-impl PartialEq<u8> for OpCode {
-    #[inline]
-    fn eq(&self, other: &u8) -> bool {
-        u8::from(self).eq(other)
-    }
-}
-
-impl PartialOrd<u8> for OpCode {
-    fn partial_cmp(&self, other: &u8) -> Option<std::cmp::Ordering> {
-        u8::from(self).partial_cmp(other)
-    }
-}
-
-impl From<OpCode> for u8 {
-    #[inline]
-    fn from(opcode: OpCode) -> Self {
-        opcode.into_byte()
-    }
-}
-
-impl From<&OpCode> for u8 {
-    fn from(opcode: &OpCode) -> Self {
-        opcode.into_byte()
-    }
-}
-
-impl From<u8> for OpCode {
-    #[inline]
-    fn from(byte: u8) -> Self {
-        Self::from_byte(byte)
-    }
-}
-
-impl From<Mnemonic> for OpCode {
-    #[inline]
-    fn from(value: Mnemonic) -> Self {
-        Self::Known(value)
-    }
-}
-
 impl OpCode {
     /// Convert a byte into an [`OpCode`], returning [`OpCode::Unknown`] if no known mnemonic
     /// exists.
@@ -133,6 +79,120 @@ impl OpCode {
             OpCode::Known(mnemonic) => mnemonic as u8,
             OpCode::Unknown(byte) => byte,
         }
+    }
+
+    /// Returns a value signifying whether this opcode is of the type `PUSHx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::Known(Mnemonic::PUSH7).is_push(), true);
+    /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_push(), false);
+    /// ```
+    pub const fn is_push(&self) -> bool {
+        match self {
+            OpCode::Known(mnemonic) => mnemonic.is_push(),
+            OpCode::Unknown(_) => false,
+        }
+    }
+
+    /// Returns a value signifying whether this opcode is of the type `DUPx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::Known(Mnemonic::DUP2).is_dup(), true);
+    /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_dup(), false);
+    /// ```
+    pub const fn is_dup(&self) -> bool {
+        match self {
+            OpCode::Known(mnemonic) => mnemonic.is_dup(),
+            OpCode::Unknown(_) => false,
+        }
+    }
+
+    /// Returns a value signifying whether this opcode is of the type `SWAPx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::Known(Mnemonic::SWAP2).is_swap(), true);
+    /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_swap(), false);
+    /// ```
+    pub const fn is_swap(&self) -> bool {
+        match self {
+            OpCode::Known(mnemonic) => mnemonic.is_swap(),
+            OpCode::Unknown(_) => false,
+        }
+    }
+
+    /// Returns a value signifying whether this opcode is of the type `LOGx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::Known(Mnemonic::LOG2).is_log(), true);
+    /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_log(), false);
+    /// ```
+    pub const fn is_log(&self) -> bool {
+        match self {
+            OpCode::Known(mnemonic) => mnemonic.is_log(),
+            OpCode::Unknown(_) => false,
+        }
+    }
+}
+
+impl PartialEq<Mnemonic> for OpCode {
+    #[inline]
+    fn eq(&self, other: &Mnemonic) -> bool {
+        u8::from(self) == *other as u8
+    }
+}
+
+impl PartialOrd<Mnemonic> for OpCode {
+    #[inline]
+    fn partial_cmp(&self, other: &Mnemonic) -> Option<std::cmp::Ordering> {
+        u8::from(self).partial_cmp(&(*other as u8))
+    }
+}
+
+impl PartialEq<u8> for OpCode {
+    #[inline]
+    fn eq(&self, other: &u8) -> bool {
+        u8::from(self).eq(other)
+    }
+}
+
+impl PartialOrd<u8> for OpCode {
+    fn partial_cmp(&self, other: &u8) -> Option<std::cmp::Ordering> {
+        u8::from(self).partial_cmp(other)
+    }
+}
+
+impl From<OpCode> for u8 {
+    #[inline]
+    fn from(opcode: OpCode) -> Self {
+        opcode.into_byte()
+    }
+}
+
+impl From<&OpCode> for u8 {
+    fn from(opcode: &OpCode) -> Self {
+        opcode.into_byte()
+    }
+}
+
+impl From<u8> for OpCode {
+    #[inline]
+    fn from(byte: u8) -> Self {
+        Self::from_byte(byte)
+    }
+}
+
+impl From<Mnemonic> for OpCode {
+    #[inline]
+    fn from(value: Mnemonic) -> Self {
+        Self::Known(value)
     }
 }
 
@@ -441,6 +501,130 @@ pub enum Mnemonic {
     INVALID = 0xFE,
     /// Halt execution and register account for later deletion or send all Ether to address (post-Cancun).
     SELFDESTRUCT = 0xFF,
+}
+
+impl Mnemonic {
+    /// Returns a value signifying whether this mnemonic is of the type `PUSHx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::Mnemonic;
+    /// assert_eq!(Mnemonic::PUSH7.is_push(), true);
+    /// assert_eq!(Mnemonic::GAS.is_push(), false);
+    /// ```
+    pub const fn is_push(&self) -> bool {
+        matches!(
+            self,
+            Self::PUSH0
+                | Self::PUSH1
+                | Self::PUSH2
+                | Self::PUSH3
+                | Self::PUSH4
+                | Self::PUSH5
+                | Self::PUSH6
+                | Self::PUSH7
+                | Self::PUSH8
+                | Self::PUSH9
+                | Self::PUSH10
+                | Self::PUSH11
+                | Self::PUSH12
+                | Self::PUSH13
+                | Self::PUSH14
+                | Self::PUSH15
+                | Self::PUSH16
+                | Self::PUSH17
+                | Self::PUSH18
+                | Self::PUSH19
+                | Self::PUSH20
+                | Self::PUSH21
+                | Self::PUSH22
+                | Self::PUSH23
+                | Self::PUSH24
+                | Self::PUSH25
+                | Self::PUSH26
+                | Self::PUSH27
+                | Self::PUSH28
+                | Self::PUSH29
+                | Self::PUSH30
+                | Self::PUSH31
+                | Self::PUSH32
+        )
+    }
+
+    /// Returns a value signifying whether this mnemonic is of the type `DUPx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::Mnemonic;
+    /// assert_eq!(Mnemonic::DUP2.is_dup(), true);
+    /// assert_eq!(Mnemonic::GAS.is_dup(), false);
+    /// ```
+    pub const fn is_dup(&self) -> bool {
+        matches!(
+            self,
+            Self::DUP1
+                | Self::DUP2
+                | Self::DUP3
+                | Self::DUP4
+                | Self::DUP5
+                | Self::DUP6
+                | Self::DUP7
+                | Self::DUP8
+                | Self::DUP9
+                | Self::DUP10
+                | Self::DUP11
+                | Self::DUP12
+                | Self::DUP13
+                | Self::DUP14
+                | Self::DUP15
+                | Self::DUP16
+        )
+    }
+
+    /// Returns a value signifying whether this mnemonic is of the type `SWAPx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::Mnemonic;
+    /// assert_eq!(Mnemonic::SWAP2.is_swap(), true);
+    /// assert_eq!(Mnemonic::GAS.is_swap(), false);
+    /// ```
+    pub const fn is_swap(&self) -> bool {
+        matches!(
+            self,
+            Self::SWAP1
+                | Self::SWAP2
+                | Self::SWAP3
+                | Self::SWAP4
+                | Self::SWAP5
+                | Self::SWAP6
+                | Self::SWAP7
+                | Self::SWAP8
+                | Self::SWAP9
+                | Self::SWAP10
+                | Self::SWAP11
+                | Self::SWAP12
+                | Self::SWAP13
+                | Self::SWAP14
+                | Self::SWAP15
+                | Self::SWAP16
+        )
+    }
+
+    /// Returns a value signifying whether this mnemonic is of the type `LOGx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::Mnemonic;
+    /// assert_eq!(Mnemonic::LOG2.is_log(), true);
+    /// assert_eq!(Mnemonic::GAS.is_log(), false);
+    /// ```
+    pub const fn is_log(&self) -> bool {
+        matches!(
+            self,
+            Self::LOG0 | Self::LOG1 | Self::LOG2 | Self::LOG3 | Self::LOG4
+        )
+    }
 }
 
 impl PartialEq<OpCode> for Mnemonic {

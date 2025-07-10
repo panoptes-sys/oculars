@@ -28,6 +28,54 @@ use crate::opcode::OpCode;
 pub trait InstructionMeta {
     /// Return the operation code associated with this instruction.
     fn opcode(&self) -> OpCode;
+
+    /// Returns a value signifying whether this instruction is of the type `PUSHx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::instruction::{Push, Gas, InstructionMeta};
+    /// assert_eq!(Push::new([0; 10]).is_push(), true);
+    /// assert_eq!(Gas.is_push(), false);
+    /// ```
+    fn is_push(&self) -> bool {
+        self.opcode().is_push()
+    }
+
+    /// Returns a value signifying whether this instruction is of the type `DUPx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::instruction::{Dup, Gas, InstructionMeta};
+    /// assert_eq!(Dup::<10>::new().is_dup(), true);
+    /// assert_eq!(Gas.is_dup(), false);
+    /// ```
+    fn is_dup(&self) -> bool {
+        self.opcode().is_dup()
+    }
+
+    /// Returns a value signifying whether this instruction is of the type `SWAPx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::instruction::{Swap, Gas, InstructionMeta};
+    /// assert_eq!(Swap::<10>::new().is_swap(), true);
+    /// assert_eq!(Gas.is_swap(), false);
+    /// ```
+    fn is_swap(&self) -> bool {
+        self.opcode().is_swap()
+    }
+
+    /// Returns a value signifying whether this instruction is of the type `LOGx`.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::instruction::{Log, Gas, InstructionMeta};
+    /// assert_eq!(Log::<3>::new().is_log(), true);
+    /// assert_eq!(Gas.is_log(), false);
+    /// ```
+    fn is_log(&self) -> bool {
+        self.opcode().is_log()
+    }
 }
 
 /// EVM instruction.
