@@ -39,6 +39,7 @@ version = "0.1.0"
 name = "evanalyzer"
 version = "0.1.0"
 dependencies = [
+ "eva-asm",
  "eva-dasm",
 ]
 
