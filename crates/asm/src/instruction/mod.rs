@@ -26,14 +26,8 @@ use crate::opcode::OpCode;
 
 /// General instruction information.
 pub trait InstructionMeta {
-    /// Operation code associated with this instruction.
-    const OPCODE: OpCode;
-
     /// Return the operation code associated with this instruction.
-    #[inline]
-    fn opcode(&self) -> OpCode {
-        Self::OPCODE
-    }
+    fn opcode(&self) -> OpCode;
 }
 
 /// EVM instruction.

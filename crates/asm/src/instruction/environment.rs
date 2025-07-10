@@ -1,115 +1,150 @@
 //! Environmental information.
 
-use crate::{instruction::InstructionMeta, opcode::OpCode};
+use crate::{
+    instruction::InstructionMeta,
+    opcode::{Mnemonic, OpCode},
+};
 
 /// Get address of currently executing account.
 pub struct Address;
 
 impl InstructionMeta for Address {
-    const OPCODE: OpCode = OpCode::ADDRESS;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::ADDRESS)
+    }
 }
 
 /// Get balance of the given account.
 pub struct Balance;
 
 impl InstructionMeta for Balance {
-    const OPCODE: OpCode = OpCode::BALANCE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::BALANCE)
+    }
 }
 
 /// Get execution origination address.
 pub struct Origin;
 
 impl InstructionMeta for Origin {
-    const OPCODE: OpCode = OpCode::ORIGIN;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::ORIGIN)
+    }
 }
 
 /// Get caller address.
 pub struct Caller;
 
 impl InstructionMeta for Caller {
-    const OPCODE: OpCode = OpCode::CALLER;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::CALLER)
+    }
 }
 
 /// Get deposited value by the instruction/transaction responsible for this execution.
 pub struct CallValue;
 
 impl InstructionMeta for CallValue {
-    const OPCODE: OpCode = OpCode::CALLVALUE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::CALLVALUE)
+    }
 }
 
 /// Get input data of current environment.
 pub struct CallDataLoad;
 
 impl InstructionMeta for CallDataLoad {
-    const OPCODE: OpCode = OpCode::CALLDATALOAD;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::CALLDATALOAD)
+    }
 }
 
 /// Get size of input data in current environment.
 pub struct CallDataSize;
 
 impl InstructionMeta for CallDataSize {
-    const OPCODE: OpCode = OpCode::CALLDATASIZE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::CALLDATASIZE)
+    }
 }
 
 /// Copy input data in current environment to memory.
 pub struct CallDataCopy;
 
 impl InstructionMeta for CallDataCopy {
-    const OPCODE: OpCode = OpCode::CALLDATACOPY;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::CALLDATACOPY)
+    }
 }
 
 /// Get size of code running in current environment.
 pub struct CodeSize;
 
 impl InstructionMeta for CodeSize {
-    const OPCODE: OpCode = OpCode::CODESIZE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::CODESIZE)
+    }
 }
 
 /// Copy code running in current environment to memory.
 pub struct CodeCopy;
 
 impl InstructionMeta for CodeCopy {
-    const OPCODE: OpCode = OpCode::CODECOPY;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::CODECOPY)
+    }
 }
 
 /// Get price of gas in current environment.
 pub struct GasPrice;
 
 impl InstructionMeta for GasPrice {
-    const OPCODE: OpCode = OpCode::GASPRICE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::GASPRICE)
+    }
 }
 
 /// Get size of an account’s code.
 pub struct ExtCodeSize;
 
 impl InstructionMeta for ExtCodeSize {
-    const OPCODE: OpCode = OpCode::EXTCODESIZE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::EXTCODESIZE)
+    }
 }
 
 /// Copy an account’s code to memory.
 pub struct ExtCodeCopy;
 
 impl InstructionMeta for ExtCodeCopy {
-    const OPCODE: OpCode = OpCode::EXTCODECOPY;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::EXTCODECOPY)
+    }
 }
 
 /// Get size of output data from the previous call from the current environment.
 pub struct ReturnDataSize;
 
 impl InstructionMeta for ReturnDataSize {
-    const OPCODE: OpCode = OpCode::RETURNDATASIZE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::RETURNDATASIZE)
+    }
 }
 
 /// Copy output data from the previous call to memory.
 pub struct ReturnDataCopy;
 
 impl InstructionMeta for ReturnDataCopy {
-    const OPCODE: OpCode = OpCode::RETURNDATACOPY;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::RETURNDATACOPY)
+    }
 }
 
 /// Get hash of an account’s code.
 pub struct ExtCodeHash;
 
 impl InstructionMeta for ExtCodeHash {
-    const OPCODE: OpCode = OpCode::EXTCODEHASH;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::EXTCODEHASH)
+    }
 }

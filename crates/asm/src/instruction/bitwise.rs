@@ -1,101 +1,132 @@
 //! Comparison & Bitwise Logic Operations.
 
-use crate::{instruction::InstructionMeta, opcode::OpCode};
+use crate::{
+    instruction::InstructionMeta,
+    opcode::{Mnemonic, OpCode},
+};
 
 /// Less-than comparison.
 pub struct Lt;
 
 impl InstructionMeta for Lt {
-    const OPCODE: OpCode = OpCode::LT;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::LT)
+    }
 }
 
 /// Greater-than comparison.
 pub struct Gt;
 
 impl InstructionMeta for Gt {
-    const OPCODE: OpCode = OpCode::GT;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::GT)
+    }
 }
 
 /// Signed less-than comparison.
 pub struct SLt;
 
 impl InstructionMeta for SLt {
-    const OPCODE: OpCode = OpCode::SLT;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SLT)
+    }
 }
 
 /// Signed greater-than comparison.
 pub struct SGt;
 
 impl InstructionMeta for SGt {
-    const OPCODE: OpCode = OpCode::SGT;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SGT)
+    }
 }
 
 /// Equality comparison.
 pub struct Eq;
 
 impl InstructionMeta for Eq {
-    const OPCODE: OpCode = OpCode::EQ;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::EQ)
+    }
 }
 
 /// Is-zero comparison.
 pub struct IsZero;
 
 impl InstructionMeta for IsZero {
-    const OPCODE: OpCode = OpCode::ISZERO;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::ISZERO)
+    }
 }
 
 /// Bitwise AND operation.
 pub struct And;
 
 impl InstructionMeta for And {
-    const OPCODE: OpCode = OpCode::AND;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::AND)
+    }
 }
 
 /// Bitwise OR operation.
 pub struct Or;
 
 impl InstructionMeta for Or {
-    const OPCODE: OpCode = OpCode::OR;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::OR)
+    }
 }
 
 /// Bitwise XOR operation.
 pub struct Xor;
 
 impl InstructionMeta for Xor {
-    const OPCODE: OpCode = OpCode::XOR;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::XOR)
+    }
 }
 
 /// Bitwise NOT operation.
 pub struct Not;
 
 impl InstructionMeta for Not {
-    const OPCODE: OpCode = OpCode::NOT;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::NOT)
+    }
 }
 
 /// Retrieve single byte from word.
 pub struct Byte;
 
 impl InstructionMeta for Byte {
-    const OPCODE: OpCode = OpCode::BYTE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::BYTE)
+    }
 }
 
 /// Left shift operation.
 pub struct Shl;
 
 impl InstructionMeta for Shl {
-    const OPCODE: OpCode = OpCode::SHL;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SHL)
+    }
 }
 
 /// Logical right shift operation.
 pub struct Shr;
 
 impl InstructionMeta for Shr {
-    const OPCODE: OpCode = OpCode::SHR;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SHR)
+    }
 }
 
 /// Arithmetic (signed) right shift operation.
 pub struct Sar;
 
 impl InstructionMeta for Sar {
-    const OPCODE: OpCode = OpCode::SAR;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SAR)
+    }
 }
