@@ -31,6 +31,7 @@ pub trait InstructionMeta {
 }
 
 /// EVM instruction.
+#[non_exhaustive]
 pub enum Instruction {
     /// Halts execution.
     Stop(Stop),

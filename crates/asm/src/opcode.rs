@@ -138,6 +138,7 @@ impl OpCode {
 
 /// EVM operation code mnemonic.
 #[repr(u8)]
+#[non_exhaustive]
 #[derive(
     Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug, Display, FromRepr, EnumIs, EnumCount,
 )]
