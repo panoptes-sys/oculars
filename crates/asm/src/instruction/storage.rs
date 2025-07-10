@@ -1,31 +1,42 @@
 //! Storage Operations.
 
-use crate::{instruction::InstructionMeta, opcode::OpCode};
+use crate::{
+    instruction::InstructionMeta,
+    opcode::{Mnemonic, OpCode},
+};
 
 /// Load word from storage.
 pub struct SLoad;
 
 impl InstructionMeta for SLoad {
-    const OPCODE: OpCode = OpCode::SLOAD;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SLOAD)
+    }
 }
 
 /// Save word to storage.
 pub struct SStore;
 
 impl InstructionMeta for SStore {
-    const OPCODE: OpCode = OpCode::SSTORE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SSTORE)
+    }
 }
 
 /// Load word from transient storage.
 pub struct TLoad;
 
 impl InstructionMeta for TLoad {
-    const OPCODE: OpCode = OpCode::TLOAD;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::TLOAD)
+    }
 }
 
 /// Save word to transient storage.
 pub struct TStore;
 
 impl InstructionMeta for TStore {
-    const OPCODE: OpCode = OpCode::TSTORE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::TSTORE)
+    }
 }

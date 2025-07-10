@@ -1,38 +1,51 @@
 //! Memory Operations.
 
-use crate::{instruction::InstructionMeta, opcode::OpCode};
+use crate::{
+    instruction::InstructionMeta,
+    opcode::{Mnemonic, OpCode},
+};
 
 /// Load word from memory.
 pub struct MLoad;
 
 impl InstructionMeta for MLoad {
-    const OPCODE: OpCode = OpCode::MLOAD;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::MLOAD)
+    }
 }
 
 /// Save word to memory.
 pub struct MStore;
 
 impl InstructionMeta for MStore {
-    const OPCODE: OpCode = OpCode::MSTORE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::MSTORE)
+    }
 }
 
 /// Save byte to memory.
 pub struct MStore8;
 
 impl InstructionMeta for MStore8 {
-    const OPCODE: OpCode = OpCode::MSTORE8;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::MSTORE8)
+    }
 }
 
 /// Get the size of active memory in bytes.
 pub struct MSize;
 
 impl InstructionMeta for MSize {
-    const OPCODE: OpCode = OpCode::MSIZE;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::MSIZE)
+    }
 }
 
 /// Copy memory areas.
 pub struct MCopy;
 
 impl InstructionMeta for MCopy {
-    const OPCODE: OpCode = OpCode::MCOPY;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::MCOPY)
+    }
 }

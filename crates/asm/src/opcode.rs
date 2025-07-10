@@ -1,11 +1,147 @@
-//! EVM operation codes.
+//! EVM operation codes and mnemonics.
 
-use strum::{Display, FromRepr};
+use derive_more::{Binary, LowerHex, Octal, UpperHex};
+use strum::{Display, EnumCount, EnumIs, FromRepr};
 
 /// EVM operation code.
-#[repr(u8)]
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug, Display, FromRepr)]
+#[derive(
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Debug,
+    derive_more::Display,
+    EnumIs,
+    LowerHex,
+    UpperHex,
+    Binary,
+    Octal,
+)]
 pub enum OpCode {
+    /// A known opcode represented as a mnemonic.
+    Known(Mnemonic),
+    /// An unknown opcode represented as a byte.
+    Unknown(u8),
+}
+
+impl PartialEq<Mnemonic> for OpCode {
+    #[inline]
+    fn eq(&self, other: &Mnemonic) -> bool {
+        u8::from(self) == *other as u8
+    }
+}
+
+impl PartialOrd<Mnemonic> for OpCode {
+    #[inline]
+    fn partial_cmp(&self, other: &Mnemonic) -> Option<std::cmp::Ordering> {
+        u8::from(self).partial_cmp(&(*other as u8))
+    }
+}
+
+impl PartialEq<u8> for OpCode {
+    #[inline]
+    fn eq(&self, other: &u8) -> bool {
+        u8::from(self).eq(other)
+    }
+}
+
+impl PartialOrd<u8> for OpCode {
+    fn partial_cmp(&self, other: &u8) -> Option<std::cmp::Ordering> {
+        u8::from(self).partial_cmp(other)
+    }
+}
+
+impl From<OpCode> for u8 {
+    #[inline]
+    fn from(opcode: OpCode) -> Self {
+        opcode.into_byte()
+    }
+}
+
+impl From<&OpCode> for u8 {
+    fn from(opcode: &OpCode) -> Self {
+        opcode.into_byte()
+    }
+}
+
+impl From<u8> for OpCode {
+    #[inline]
+    fn from(byte: u8) -> Self {
+        Self::from_byte(byte)
+    }
+}
+
+impl From<Mnemonic> for OpCode {
+    #[inline]
+    fn from(value: Mnemonic) -> Self {
+        Self::Known(value)
+    }
+}
+
+impl OpCode {
+    /// Convert a byte into an [`OpCode`], returning [`OpCode::Unknown`] if no known mnemonic
+    /// exists.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::from_byte(0x5A), OpCode::Known(Mnemonic::GAS));
+    /// assert_eq!(OpCode::from_byte(0xF), OpCode::Unknown(0xF));
+    /// ```
+    #[must_use]
+    #[inline]
+    pub const fn from_byte(byte: u8) -> Self {
+        match Mnemonic::from_repr(byte) {
+            Some(mnemonic) => Self::Known(mnemonic),
+            None => Self::Unknown(byte),
+        }
+    }
+
+    /// Try to convert a byte into a known mnemonic.
+    /// Returns `None` if the opcode is unknown.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::try_from_byte(0x5A), Some(OpCode::Known(Mnemonic::GAS)));
+    /// assert_eq!(OpCode::try_from_byte(0xF), None);
+    /// ```
+    #[must_use]
+    #[inline]
+    pub const fn try_from_byte(byte: u8) -> Option<Self> {
+        if let Some(mnemonic) = Mnemonic::from_repr(byte) {
+            Some(Self::Known(mnemonic))
+        } else {
+            None
+        }
+    }
+
+    /// Convert opcode into a byte.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::Known(Mnemonic::GAS).into_byte(), 0x5A);
+    /// assert_eq!(OpCode::Unknown(0xF).into_byte(), 0xF);
+    /// ```
+    #[must_use]
+    #[inline]
+    pub const fn into_byte(self) -> u8 {
+        match self {
+            OpCode::Known(mnemonic) => mnemonic as u8,
+            OpCode::Unknown(byte) => byte,
+        }
+    }
+}
+
+/// EVM operation code mnemonic.
+#[repr(u8)]
+#[derive(
+    Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug, Display, FromRepr, EnumIs, EnumCount,
+)]
+pub enum Mnemonic {
     /// Halts execution.
     STOP = 0x00,
     /// Addition operation.
@@ -306,10 +442,38 @@ pub enum OpCode {
     SELFDESTRUCT = 0xFF,
 }
 
-/// Implement formatting for opcodes.
-macro_rules! impl_format {
+impl PartialEq<OpCode> for Mnemonic {
+    #[inline]
+    fn eq(&self, other: &OpCode) -> bool {
+        *self as u8 == u8::from(other)
+    }
+}
+
+impl PartialOrd<OpCode> for Mnemonic {
+    #[inline]
+    fn partial_cmp(&self, other: &OpCode) -> Option<std::cmp::Ordering> {
+        (*self as u8).partial_cmp(&u8::from(other))
+    }
+}
+
+impl PartialEq<u8> for Mnemonic {
+    #[inline]
+    fn eq(&self, other: &u8) -> bool {
+        *self as u8 == *other
+    }
+}
+
+impl PartialOrd<u8> for Mnemonic {
+    #[inline]
+    fn partial_cmp(&self, other: &u8) -> Option<std::cmp::Ordering> {
+        (*self as u8).partial_cmp(other)
+    }
+}
+
+/// Implement formatting for mnemonics.
+macro_rules! impl_mnemonic_fmt {
     ($($fmt: ident),+) => {
-        $(impl std::fmt::$fmt for OpCode {
+        $(impl std::fmt::$fmt for Mnemonic {
             fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
                 std::fmt::$fmt::fmt(&(*self as u8), f)
             }
@@ -317,20 +481,75 @@ macro_rules! impl_format {
     };
 }
 
-impl_format!(LowerHex, UpperHex, Binary, Octal);
+impl_mnemonic_fmt!(LowerHex, UpperHex, Binary, Octal);
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn opcode_format_sanity() {
-        let gas = OpCode::GAS;
-
+    fn mnemonic_fmt() {
+        let gas = Mnemonic::GAS;
         assert_eq!(format!("{gas}"), "GAS");
         assert_eq!(format!("{gas:x}"), "5a");
         assert_eq!(format!("{gas:X}"), "5A");
         assert_eq!(format!("{gas:b}"), "1011010");
         assert_eq!(format!("{gas:o}"), "132");
+    }
+
+    #[test]
+    fn mnemonic_cmp() {
+        let gas = Mnemonic::GAS;
+        let add = Mnemonic::ADD;
+
+        assert_eq!(gas, gas);
+        assert_ne!(gas, add);
+        assert!(gas > add);
+        assert_eq!(gas, OpCode::Known(Mnemonic::GAS));
+        assert_ne!(gas, OpCode::Known(Mnemonic::ADD));
+        assert!(gas > OpCode::Known(Mnemonic::ADD));
+        assert_eq!(gas, 0x5A);
+        assert!(gas > 0x1);
+    }
+
+    #[test]
+    fn opcode_fmt() {
+        let gas = OpCode::Known(Mnemonic::GAS);
+        assert_eq!(format!("{gas}"), "GAS");
+        assert_eq!(format!("{gas:x}"), "5a");
+        assert_eq!(format!("{gas:X}"), "5A");
+        assert_eq!(format!("{gas:b}"), "1011010");
+        assert_eq!(format!("{gas:o}"), "132");
+
+        let unknown = OpCode::from(0xF);
+        assert_eq!(format!("{unknown}"), "15");
+        assert_eq!(format!("{unknown:x}"), "f");
+        assert_eq!(format!("{unknown:X}"), "F");
+        assert_eq!(format!("{unknown:b}"), "1111");
+        assert_eq!(format!("{unknown:o}"), "17");
+    }
+
+    #[test]
+    fn opcode_conversions() {
+        let gas = OpCode::Known(Mnemonic::GAS);
+
+        assert_eq!(u8::from(gas), 0x5A);
+        assert_eq!(u8::from(&gas), 0x5A);
+        assert_eq!(gas.into_byte(), 0x5A);
+        assert_eq!(gas, OpCode::from(Mnemonic::GAS));
+    }
+
+    #[test]
+    fn opcode_cmp() {
+        let gas = OpCode::Known(Mnemonic::GAS);
+        let add = OpCode::Known(Mnemonic::ADD);
+
+        assert_eq!(gas, gas);
+        assert!(gas > add);
+        assert_ne!(gas, add);
+        assert_eq!(gas, Mnemonic::GAS);
+        assert!(gas > Mnemonic::ADD);
+        assert_eq!(gas, 0x5A);
+        assert!(gas > 0x1);
     }
 }

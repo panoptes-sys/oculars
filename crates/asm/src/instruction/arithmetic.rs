@@ -1,87 +1,114 @@
 //! Stop and Arithmetic Operations.
 
-use crate::{instruction::InstructionMeta, opcode::OpCode};
+use crate::{
+    instruction::InstructionMeta,
+    opcode::{Mnemonic, OpCode},
+};
 
 /// Halts execution.
 pub struct Stop;
 
 impl InstructionMeta for Stop {
-    const OPCODE: OpCode = OpCode::STOP;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::STOP)
+    }
 }
 
 /// Addition operation.
 pub struct Add;
 
 impl InstructionMeta for Add {
-    const OPCODE: OpCode = OpCode::ADD;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::ADD)
+    }
 }
 
 /// Multiplication operation.
 pub struct Mul;
 
 impl InstructionMeta for Mul {
-    const OPCODE: OpCode = OpCode::MUL;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::MUL)
+    }
 }
 
 /// Subtraction operation.
 pub struct Sub;
 
 impl InstructionMeta for Sub {
-    const OPCODE: OpCode = OpCode::SUB;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SUB)
+    }
 }
 
 /// Integer division operation.
 pub struct Div;
 
 impl InstructionMeta for Div {
-    const OPCODE: OpCode = OpCode::DIV;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::DIV)
+    }
 }
 
 /// Signed integer division operation (truncated).
 pub struct SDiv;
 
 impl InstructionMeta for SDiv {
-    const OPCODE: OpCode = OpCode::SDIV;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SDIV)
+    }
 }
 
 /// Modulo remainder operation.
 pub struct Mod;
 
 impl InstructionMeta for Mod {
-    const OPCODE: OpCode = OpCode::MOD;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::MOD)
+    }
 }
 
 /// Signed modulo remainder operation.
 pub struct SMod;
 
 impl InstructionMeta for SMod {
-    const OPCODE: OpCode = OpCode::SMOD;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SMOD)
+    }
 }
 
 /// Modulo addition operation.
 pub struct AddMod;
 
 impl InstructionMeta for AddMod {
-    const OPCODE: OpCode = OpCode::ADDMOD;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::ADDMOD)
+    }
 }
 
 /// Modulo multiplication operation.
 pub struct MulMod;
 
 impl InstructionMeta for MulMod {
-    const OPCODE: OpCode = OpCode::MULMOD;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::MULMOD)
+    }
 }
 
 /// Exponential operation.
 pub struct Exp;
 
 impl InstructionMeta for Exp {
-    const OPCODE: OpCode = OpCode::EXP;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::EXP)
+    }
 }
 
 /// Extend length of two’s complement signed integer.
 pub struct SignExtend;
 
 impl InstructionMeta for SignExtend {
-    const OPCODE: OpCode = OpCode::SIGNEXTEND;
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Mnemonic::SIGNEXTEND)
+    }
 }
