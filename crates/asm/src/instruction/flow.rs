@@ -1,12 +1,15 @@
 //! Flow Operations.
 
+use derive_more::Display;
+
 use crate::{
     instruction::InstructionMeta,
     opcode::{Mnemonic, OpCode},
 };
 
 /// Alter the program counter.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Jump;
 
 impl InstructionMeta for Jump {
@@ -16,7 +19,8 @@ impl InstructionMeta for Jump {
 }
 
 /// Conditionally alter the program counter.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct JumpI;
 
 impl InstructionMeta for JumpI {
@@ -26,7 +30,8 @@ impl InstructionMeta for JumpI {
 }
 
 /// Get the value of the program counter prior to the increment corresponding to this instruction.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Pc;
 
 impl InstructionMeta for Pc {
@@ -36,7 +41,8 @@ impl InstructionMeta for Pc {
 }
 
 /// Get the amount of available gas, including the corresponding reduction for the cost of this instruction.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Gas;
 
 impl InstructionMeta for Gas {
@@ -46,7 +52,8 @@ impl InstructionMeta for Gas {
 }
 
 /// Mark a valid destination for jumps.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct JumpDest;
 
 impl InstructionMeta for JumpDest {

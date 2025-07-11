@@ -1,12 +1,15 @@
 //! Storage Operations.
 
+use derive_more::Display;
+
 use crate::{
     instruction::InstructionMeta,
     opcode::{Mnemonic, OpCode},
 };
 
 /// Load word from storage.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct SLoad;
 
 impl InstructionMeta for SLoad {
@@ -16,7 +19,8 @@ impl InstructionMeta for SLoad {
 }
 
 /// Save word to storage.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct SStore;
 
 impl InstructionMeta for SStore {
@@ -26,7 +30,8 @@ impl InstructionMeta for SStore {
 }
 
 /// Load word from transient storage.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct TLoad;
 
 impl InstructionMeta for TLoad {
@@ -36,7 +41,8 @@ impl InstructionMeta for TLoad {
 }
 
 /// Save word to transient storage.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct TStore;
 
 impl InstructionMeta for TStore {

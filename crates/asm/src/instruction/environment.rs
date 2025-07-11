@@ -1,12 +1,15 @@
 //! Environmental information.
 
+use derive_more::Display;
+
 use crate::{
     instruction::InstructionMeta,
     opcode::{Mnemonic, OpCode},
 };
 
 /// Get address of currently executing account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Address;
 
 impl InstructionMeta for Address {
@@ -16,7 +19,8 @@ impl InstructionMeta for Address {
 }
 
 /// Get balance of the given account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Balance;
 
 impl InstructionMeta for Balance {
@@ -26,7 +30,8 @@ impl InstructionMeta for Balance {
 }
 
 /// Get execution origination address.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Origin;
 
 impl InstructionMeta for Origin {
@@ -36,7 +41,8 @@ impl InstructionMeta for Origin {
 }
 
 /// Get caller address.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Caller;
 
 impl InstructionMeta for Caller {
@@ -46,7 +52,8 @@ impl InstructionMeta for Caller {
 }
 
 /// Get deposited value by the instruction/transaction responsible for this execution.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct CallValue;
 
 impl InstructionMeta for CallValue {
@@ -56,7 +63,8 @@ impl InstructionMeta for CallValue {
 }
 
 /// Get input data of current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct CallDataLoad;
 
 impl InstructionMeta for CallDataLoad {
@@ -66,7 +74,8 @@ impl InstructionMeta for CallDataLoad {
 }
 
 /// Get size of input data in current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct CallDataSize;
 
 impl InstructionMeta for CallDataSize {
@@ -76,7 +85,8 @@ impl InstructionMeta for CallDataSize {
 }
 
 /// Copy input data in current environment to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct CallDataCopy;
 
 impl InstructionMeta for CallDataCopy {
@@ -86,7 +96,8 @@ impl InstructionMeta for CallDataCopy {
 }
 
 /// Get size of code running in current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct CodeSize;
 
 impl InstructionMeta for CodeSize {
@@ -96,7 +107,8 @@ impl InstructionMeta for CodeSize {
 }
 
 /// Copy code running in current environment to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct CodeCopy;
 
 impl InstructionMeta for CodeCopy {
@@ -106,7 +118,8 @@ impl InstructionMeta for CodeCopy {
 }
 
 /// Get price of gas in current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct GasPrice;
 
 impl InstructionMeta for GasPrice {
@@ -116,7 +129,8 @@ impl InstructionMeta for GasPrice {
 }
 
 /// Get size of an account’s code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct ExtCodeSize;
 
 impl InstructionMeta for ExtCodeSize {
@@ -126,7 +140,8 @@ impl InstructionMeta for ExtCodeSize {
 }
 
 /// Copy an account’s code to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct ExtCodeCopy;
 
 impl InstructionMeta for ExtCodeCopy {
@@ -136,7 +151,8 @@ impl InstructionMeta for ExtCodeCopy {
 }
 
 /// Get size of output data from the previous call from the current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct ReturnDataSize;
 
 impl InstructionMeta for ReturnDataSize {
@@ -146,7 +162,8 @@ impl InstructionMeta for ReturnDataSize {
 }
 
 /// Copy output data from the previous call to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct ReturnDataCopy;
 
 impl InstructionMeta for ReturnDataCopy {
@@ -156,7 +173,8 @@ impl InstructionMeta for ReturnDataCopy {
 }
 
 /// Get hash of an account’s code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct ExtCodeHash;
 
 impl InstructionMeta for ExtCodeHash {
