@@ -4,6 +4,7 @@ use super::InstructionMeta;
 use crate::opcode::{Mnemonic, OpCode};
 
 /// Remove item from stack.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Pop;
 
 impl InstructionMeta for Pop {
@@ -14,6 +15,7 @@ impl InstructionMeta for Pop {
 
 /// Place item on stack.
 /// The `N` constant signifies the type of the `PUSH` opcode (e.g. `Push<32>` => `PUSH32`).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Push<const N: usize>([u8; N]);
 
 impl<const N: usize> Push<N> {
@@ -117,6 +119,7 @@ impl<const N: usize> InstructionMeta for Push<N> {
 
 /// Duplicate stack items.
 /// The `N` constant signifies the type of the `DUP` opcode (e.g. `Dup<16>` => `DUP16`).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Dup<const N: u8> {
     /// Private field to disallow struct creation outside of this module.
     _private: (),
@@ -179,6 +182,7 @@ impl<const N: u8> InstructionMeta for Dup<N> {
 
 /// Exchange stack items.
 /// The `N` constant signifies the type of the `SWAP` opcode (e.g. `Swap<16>` => `SWAP16`).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Swap<const N: u8> {
     /// Private field to disallow struct creation outside of this module.
     _private: (),

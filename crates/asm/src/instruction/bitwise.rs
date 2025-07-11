@@ -6,6 +6,7 @@ use crate::{
 };
 
 /// Less-than comparison.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Lt;
 
 impl InstructionMeta for Lt {
@@ -15,6 +16,7 @@ impl InstructionMeta for Lt {
 }
 
 /// Greater-than comparison.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Gt;
 
 impl InstructionMeta for Gt {
@@ -24,6 +26,7 @@ impl InstructionMeta for Gt {
 }
 
 /// Signed less-than comparison.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SLt;
 
 impl InstructionMeta for SLt {
@@ -33,6 +36,7 @@ impl InstructionMeta for SLt {
 }
 
 /// Signed greater-than comparison.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SGt;
 
 impl InstructionMeta for SGt {
@@ -42,6 +46,7 @@ impl InstructionMeta for SGt {
 }
 
 /// Equality comparison.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Eq;
 
 impl InstructionMeta for Eq {
@@ -51,6 +56,7 @@ impl InstructionMeta for Eq {
 }
 
 /// Is-zero comparison.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct IsZero;
 
 impl InstructionMeta for IsZero {
@@ -60,6 +66,7 @@ impl InstructionMeta for IsZero {
 }
 
 /// Bitwise AND operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct And;
 
 impl InstructionMeta for And {
@@ -69,6 +76,7 @@ impl InstructionMeta for And {
 }
 
 /// Bitwise OR operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Or;
 
 impl InstructionMeta for Or {
@@ -78,6 +86,7 @@ impl InstructionMeta for Or {
 }
 
 /// Bitwise XOR operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Xor;
 
 impl InstructionMeta for Xor {
@@ -87,6 +96,7 @@ impl InstructionMeta for Xor {
 }
 
 /// Bitwise NOT operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Not;
 
 impl InstructionMeta for Not {
@@ -96,6 +106,7 @@ impl InstructionMeta for Not {
 }
 
 /// Retrieve single byte from word.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Byte;
 
 impl InstructionMeta for Byte {
@@ -105,6 +116,7 @@ impl InstructionMeta for Byte {
 }
 
 /// Left shift operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Shl;
 
 impl InstructionMeta for Shl {
@@ -114,6 +126,7 @@ impl InstructionMeta for Shl {
 }
 
 /// Logical right shift operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Shr;
 
 impl InstructionMeta for Shr {
@@ -123,6 +136,7 @@ impl InstructionMeta for Shr {
 }
 
 /// Arithmetic (signed) right shift operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Sar;
 
 impl InstructionMeta for Sar {

@@ -18,6 +18,7 @@ use strum::{Display, EnumCount, EnumIs, FromRepr};
     UpperHex,
     Binary,
     Octal,
+    Hash,
 )]
 pub enum OpCode {
     /// A known opcode represented as a mnemonic.
@@ -210,7 +211,7 @@ impl From<Mnemonic> for OpCode {
 #[repr(u8)]
 #[non_exhaustive]
 #[derive(
-    Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug, Display, FromRepr, EnumIs, EnumCount,
+    Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug, Display, FromRepr, EnumIs, EnumCount, Hash,
 )]
 pub enum Mnemonic {
     /// Halts execution.

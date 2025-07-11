@@ -6,6 +6,7 @@ use crate::{
 };
 
 /// Load word from storage.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SLoad;
 
 impl InstructionMeta for SLoad {
@@ -15,6 +16,7 @@ impl InstructionMeta for SLoad {
 }
 
 /// Save word to storage.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SStore;
 
 impl InstructionMeta for SStore {
@@ -24,6 +26,7 @@ impl InstructionMeta for SStore {
 }
 
 /// Load word from transient storage.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct TLoad;
 
 impl InstructionMeta for TLoad {
@@ -33,6 +36,7 @@ impl InstructionMeta for TLoad {
 }
 
 /// Save word to transient storage.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct TStore;
 
 impl InstructionMeta for TStore {

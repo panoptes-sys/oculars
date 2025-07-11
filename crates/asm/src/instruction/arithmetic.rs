@@ -6,6 +6,7 @@ use crate::{
 };
 
 /// Halts execution.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Stop;
 
 impl InstructionMeta for Stop {
@@ -15,6 +16,7 @@ impl InstructionMeta for Stop {
 }
 
 /// Addition operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Add;
 
 impl InstructionMeta for Add {
@@ -24,6 +26,7 @@ impl InstructionMeta for Add {
 }
 
 /// Multiplication operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Mul;
 
 impl InstructionMeta for Mul {
@@ -33,6 +36,7 @@ impl InstructionMeta for Mul {
 }
 
 /// Subtraction operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Sub;
 
 impl InstructionMeta for Sub {
@@ -42,6 +46,7 @@ impl InstructionMeta for Sub {
 }
 
 /// Integer division operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Div;
 
 impl InstructionMeta for Div {
@@ -51,6 +56,7 @@ impl InstructionMeta for Div {
 }
 
 /// Signed integer division operation (truncated).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SDiv;
 
 impl InstructionMeta for SDiv {
@@ -60,6 +66,7 @@ impl InstructionMeta for SDiv {
 }
 
 /// Modulo remainder operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Mod;
 
 impl InstructionMeta for Mod {
@@ -69,6 +76,7 @@ impl InstructionMeta for Mod {
 }
 
 /// Signed modulo remainder operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SMod;
 
 impl InstructionMeta for SMod {
@@ -78,6 +86,7 @@ impl InstructionMeta for SMod {
 }
 
 /// Modulo addition operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct AddMod;
 
 impl InstructionMeta for AddMod {
@@ -87,6 +96,7 @@ impl InstructionMeta for AddMod {
 }
 
 /// Modulo multiplication operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct MulMod;
 
 impl InstructionMeta for MulMod {
@@ -96,6 +106,7 @@ impl InstructionMeta for MulMod {
 }
 
 /// Exponential operation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Exp;
 
 impl InstructionMeta for Exp {
@@ -105,6 +116,7 @@ impl InstructionMeta for Exp {
 }
 
 /// Extend length of two’s complement signed integer.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SignExtend;
 
 impl InstructionMeta for SignExtend {
