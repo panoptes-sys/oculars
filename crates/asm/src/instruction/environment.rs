@@ -3,7 +3,7 @@
 use derive_more::Display;
 
 use crate::{
-    instruction::InstructionMeta,
+    instruction::Instruction,
     opcode::{Mnemonic, OpCode},
 };
 
@@ -12,7 +12,7 @@ use crate::{
 #[display("{}", self.opcode())]
 pub struct Address;
 
-impl InstructionMeta for Address {
+impl Instruction for Address {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::ADDRESS)
     }
@@ -23,7 +23,7 @@ impl InstructionMeta for Address {
 #[display("{}", self.opcode())]
 pub struct Balance;
 
-impl InstructionMeta for Balance {
+impl Instruction for Balance {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::BALANCE)
     }
@@ -34,7 +34,7 @@ impl InstructionMeta for Balance {
 #[display("{}", self.opcode())]
 pub struct Origin;
 
-impl InstructionMeta for Origin {
+impl Instruction for Origin {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::ORIGIN)
     }
@@ -45,7 +45,7 @@ impl InstructionMeta for Origin {
 #[display("{}", self.opcode())]
 pub struct Caller;
 
-impl InstructionMeta for Caller {
+impl Instruction for Caller {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CALLER)
     }
@@ -56,7 +56,7 @@ impl InstructionMeta for Caller {
 #[display("{}", self.opcode())]
 pub struct CallValue;
 
-impl InstructionMeta for CallValue {
+impl Instruction for CallValue {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CALLVALUE)
     }
@@ -67,7 +67,7 @@ impl InstructionMeta for CallValue {
 #[display("{}", self.opcode())]
 pub struct CallDataLoad;
 
-impl InstructionMeta for CallDataLoad {
+impl Instruction for CallDataLoad {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CALLDATALOAD)
     }
@@ -78,7 +78,7 @@ impl InstructionMeta for CallDataLoad {
 #[display("{}", self.opcode())]
 pub struct CallDataSize;
 
-impl InstructionMeta for CallDataSize {
+impl Instruction for CallDataSize {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CALLDATASIZE)
     }
@@ -89,7 +89,7 @@ impl InstructionMeta for CallDataSize {
 #[display("{}", self.opcode())]
 pub struct CallDataCopy;
 
-impl InstructionMeta for CallDataCopy {
+impl Instruction for CallDataCopy {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CALLDATACOPY)
     }
@@ -100,7 +100,7 @@ impl InstructionMeta for CallDataCopy {
 #[display("{}", self.opcode())]
 pub struct CodeSize;
 
-impl InstructionMeta for CodeSize {
+impl Instruction for CodeSize {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CODESIZE)
     }
@@ -111,7 +111,7 @@ impl InstructionMeta for CodeSize {
 #[display("{}", self.opcode())]
 pub struct CodeCopy;
 
-impl InstructionMeta for CodeCopy {
+impl Instruction for CodeCopy {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CODECOPY)
     }
@@ -122,7 +122,7 @@ impl InstructionMeta for CodeCopy {
 #[display("{}", self.opcode())]
 pub struct GasPrice;
 
-impl InstructionMeta for GasPrice {
+impl Instruction for GasPrice {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::GASPRICE)
     }
@@ -133,7 +133,7 @@ impl InstructionMeta for GasPrice {
 #[display("{}", self.opcode())]
 pub struct ExtCodeSize;
 
-impl InstructionMeta for ExtCodeSize {
+impl Instruction for ExtCodeSize {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::EXTCODESIZE)
     }
@@ -144,7 +144,7 @@ impl InstructionMeta for ExtCodeSize {
 #[display("{}", self.opcode())]
 pub struct ExtCodeCopy;
 
-impl InstructionMeta for ExtCodeCopy {
+impl Instruction for ExtCodeCopy {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::EXTCODECOPY)
     }
@@ -155,7 +155,7 @@ impl InstructionMeta for ExtCodeCopy {
 #[display("{}", self.opcode())]
 pub struct ReturnDataSize;
 
-impl InstructionMeta for ReturnDataSize {
+impl Instruction for ReturnDataSize {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::RETURNDATASIZE)
     }
@@ -166,7 +166,7 @@ impl InstructionMeta for ReturnDataSize {
 #[display("{}", self.opcode())]
 pub struct ReturnDataCopy;
 
-impl InstructionMeta for ReturnDataCopy {
+impl Instruction for ReturnDataCopy {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::RETURNDATACOPY)
     }
@@ -177,7 +177,7 @@ impl InstructionMeta for ReturnDataCopy {
 #[display("{}", self.opcode())]
 pub struct ExtCodeHash;
 
-impl InstructionMeta for ExtCodeHash {
+impl Instruction for ExtCodeHash {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::EXTCODEHASH)
     }

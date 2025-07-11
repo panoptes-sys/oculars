@@ -3,7 +3,7 @@
 use derive_more::Display;
 
 use crate::{
-    instruction::InstructionMeta,
+    instruction::Instruction,
     opcode::{Mnemonic, OpCode},
 };
 
@@ -12,7 +12,7 @@ use crate::{
 #[display("{}", self.opcode())]
 pub struct MLoad;
 
-impl InstructionMeta for MLoad {
+impl Instruction for MLoad {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::MLOAD)
     }
@@ -23,7 +23,7 @@ impl InstructionMeta for MLoad {
 #[display("{}", self.opcode())]
 pub struct MStore;
 
-impl InstructionMeta for MStore {
+impl Instruction for MStore {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::MSTORE)
     }
@@ -34,7 +34,7 @@ impl InstructionMeta for MStore {
 #[display("{}", self.opcode())]
 pub struct MStore8;
 
-impl InstructionMeta for MStore8 {
+impl Instruction for MStore8 {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::MSTORE8)
     }
@@ -45,7 +45,7 @@ impl InstructionMeta for MStore8 {
 #[display("{}", self.opcode())]
 pub struct MSize;
 
-impl InstructionMeta for MSize {
+impl Instruction for MSize {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::MSIZE)
     }
@@ -56,7 +56,7 @@ impl InstructionMeta for MSize {
 #[display("{}", self.opcode())]
 pub struct MCopy;
 
-impl InstructionMeta for MCopy {
+impl Instruction for MCopy {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::MCOPY)
     }

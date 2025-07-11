@@ -3,7 +3,7 @@
 use derive_more::Display;
 
 use crate::{
-    instruction::InstructionMeta,
+    instruction::Instruction,
     opcode::{Mnemonic, OpCode},
 };
 
@@ -12,7 +12,7 @@ use crate::{
 #[display("{}", self.opcode())]
 pub struct Lt;
 
-impl InstructionMeta for Lt {
+impl Instruction for Lt {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::LT)
     }
@@ -23,7 +23,7 @@ impl InstructionMeta for Lt {
 #[display("{}", self.opcode())]
 pub struct Gt;
 
-impl InstructionMeta for Gt {
+impl Instruction for Gt {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::GT)
     }
@@ -34,7 +34,7 @@ impl InstructionMeta for Gt {
 #[display("{}", self.opcode())]
 pub struct SLt;
 
-impl InstructionMeta for SLt {
+impl Instruction for SLt {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SLT)
     }
@@ -45,7 +45,7 @@ impl InstructionMeta for SLt {
 #[display("{}", self.opcode())]
 pub struct SGt;
 
-impl InstructionMeta for SGt {
+impl Instruction for SGt {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SGT)
     }
@@ -56,7 +56,7 @@ impl InstructionMeta for SGt {
 #[display("{}", self.opcode())]
 pub struct Eq;
 
-impl InstructionMeta for Eq {
+impl Instruction for Eq {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::EQ)
     }
@@ -67,7 +67,7 @@ impl InstructionMeta for Eq {
 #[display("{}", self.opcode())]
 pub struct IsZero;
 
-impl InstructionMeta for IsZero {
+impl Instruction for IsZero {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::ISZERO)
     }
@@ -78,7 +78,7 @@ impl InstructionMeta for IsZero {
 #[display("{}", self.opcode())]
 pub struct And;
 
-impl InstructionMeta for And {
+impl Instruction for And {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::AND)
     }
@@ -89,7 +89,7 @@ impl InstructionMeta for And {
 #[display("{}", self.opcode())]
 pub struct Or;
 
-impl InstructionMeta for Or {
+impl Instruction for Or {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::OR)
     }
@@ -100,7 +100,7 @@ impl InstructionMeta for Or {
 #[display("{}", self.opcode())]
 pub struct Xor;
 
-impl InstructionMeta for Xor {
+impl Instruction for Xor {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::XOR)
     }
@@ -111,7 +111,7 @@ impl InstructionMeta for Xor {
 #[display("{}", self.opcode())]
 pub struct Not;
 
-impl InstructionMeta for Not {
+impl Instruction for Not {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::NOT)
     }
@@ -122,7 +122,7 @@ impl InstructionMeta for Not {
 #[display("{}", self.opcode())]
 pub struct Byte;
 
-impl InstructionMeta for Byte {
+impl Instruction for Byte {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::BYTE)
     }
@@ -133,7 +133,7 @@ impl InstructionMeta for Byte {
 #[display("{}", self.opcode())]
 pub struct Shl;
 
-impl InstructionMeta for Shl {
+impl Instruction for Shl {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SHL)
     }
@@ -144,7 +144,7 @@ impl InstructionMeta for Shl {
 #[display("{}", self.opcode())]
 pub struct Shr;
 
-impl InstructionMeta for Shr {
+impl Instruction for Shr {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SHR)
     }
@@ -155,7 +155,7 @@ impl InstructionMeta for Shr {
 #[display("{}", self.opcode())]
 pub struct Sar;
 
-impl InstructionMeta for Sar {
+impl Instruction for Sar {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SAR)
     }

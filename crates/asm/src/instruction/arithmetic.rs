@@ -3,7 +3,7 @@
 use derive_more::Display;
 
 use crate::{
-    instruction::InstructionMeta,
+    instruction::Instruction,
     opcode::{Mnemonic, OpCode},
 };
 
@@ -12,7 +12,7 @@ use crate::{
 #[display("{}", self.opcode())]
 pub struct Stop;
 
-impl InstructionMeta for Stop {
+impl Instruction for Stop {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::STOP)
     }
@@ -23,7 +23,7 @@ impl InstructionMeta for Stop {
 #[display("{}", self.opcode())]
 pub struct Add;
 
-impl InstructionMeta for Add {
+impl Instruction for Add {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::ADD)
     }
@@ -34,7 +34,7 @@ impl InstructionMeta for Add {
 #[display("{}", self.opcode())]
 pub struct Mul;
 
-impl InstructionMeta for Mul {
+impl Instruction for Mul {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::MUL)
     }
@@ -45,7 +45,7 @@ impl InstructionMeta for Mul {
 #[display("{}", self.opcode())]
 pub struct Sub;
 
-impl InstructionMeta for Sub {
+impl Instruction for Sub {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SUB)
     }
@@ -56,7 +56,7 @@ impl InstructionMeta for Sub {
 #[display("{}", self.opcode())]
 pub struct Div;
 
-impl InstructionMeta for Div {
+impl Instruction for Div {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::DIV)
     }
@@ -67,7 +67,7 @@ impl InstructionMeta for Div {
 #[display("{}", self.opcode())]
 pub struct SDiv;
 
-impl InstructionMeta for SDiv {
+impl Instruction for SDiv {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SDIV)
     }
@@ -78,7 +78,7 @@ impl InstructionMeta for SDiv {
 #[display("{}", self.opcode())]
 pub struct Mod;
 
-impl InstructionMeta for Mod {
+impl Instruction for Mod {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::MOD)
     }
@@ -89,7 +89,7 @@ impl InstructionMeta for Mod {
 #[display("{}", self.opcode())]
 pub struct SMod;
 
-impl InstructionMeta for SMod {
+impl Instruction for SMod {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SMOD)
     }
@@ -100,7 +100,7 @@ impl InstructionMeta for SMod {
 #[display("{}", self.opcode())]
 pub struct AddMod;
 
-impl InstructionMeta for AddMod {
+impl Instruction for AddMod {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::ADDMOD)
     }
@@ -111,7 +111,7 @@ impl InstructionMeta for AddMod {
 #[display("{}", self.opcode())]
 pub struct MulMod;
 
-impl InstructionMeta for MulMod {
+impl Instruction for MulMod {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::MULMOD)
     }
@@ -122,7 +122,7 @@ impl InstructionMeta for MulMod {
 #[display("{}", self.opcode())]
 pub struct Exp;
 
-impl InstructionMeta for Exp {
+impl Instruction for Exp {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::EXP)
     }
@@ -133,7 +133,7 @@ impl InstructionMeta for Exp {
 #[display("{}", self.opcode())]
 pub struct SignExtend;
 
-impl InstructionMeta for SignExtend {
+impl Instruction for SignExtend {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SIGNEXTEND)
     }

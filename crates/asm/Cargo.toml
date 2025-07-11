@@ -4,7 +4,7 @@ description = "EVM assembly instructions, opcodes and mnemonics"
 keywords = ["evm", "ethereum", "bytecode", "assembly"]
 categories = ["cryptography::cryptocurrencies", "data-structures"]
 
-version = "0.2.0"
+version = "0.3.0"
 
 edition.workspace = true
 license.workspace = true
