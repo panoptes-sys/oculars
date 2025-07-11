@@ -84,4 +84,19 @@ pub trait InstructionMeta {
     fn is_log(&self) -> bool {
         self.opcode().is_log()
     }
+
+    /// Returns [`true`] for instructions that terminate execution of the smart contract.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::instruction::{Return, Unknown, Gas, InstructionMeta};
+    /// assert_eq!(Return.is_terminator(), true);
+    /// assert_eq!(Unknown(0xF).is_terminator(), true);
+    /// assert_eq!(Gas.is_terminator(), false);
+    /// ```
+    #[must_use]
+    #[inline]
+    fn is_terminator(&self) -> bool {
+        self.opcode().is_terminator()
+    }
 }

@@ -149,6 +149,24 @@ impl OpCode {
             OpCode::Unknown(_) => false,
         }
     }
+
+    /// Returns [`true`] for opcodes that terminate execution of the smart contract.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::Known(Mnemonic::RETURN).is_terminator(), true);
+    /// assert_eq!(OpCode::Unknown(0xF).is_terminator(), true);
+    /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_terminator(), false);
+    /// ```
+    #[must_use]
+    #[inline]
+    pub const fn is_terminator(&self) -> bool {
+        match self {
+            OpCode::Known(mnemonic) => mnemonic.is_terminator(),
+            OpCode::Unknown(_) => true,
+        }
+    }
 }
 
 impl PartialEq<Mnemonic> for OpCode {
@@ -642,6 +660,22 @@ impl Mnemonic {
         matches!(
             self,
             Self::LOG0 | Self::LOG1 | Self::LOG2 | Self::LOG3 | Self::LOG4
+        )
+    }
+
+    /// Returns [`true`] for mnemonics that terminate execution of the smart contract.
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::Mnemonic;
+    /// assert_eq!(Mnemonic::STOP.is_terminator(), true);
+    /// assert_eq!(Mnemonic::REVERT.is_terminator(), true);
+    /// assert_eq!(Mnemonic::INVALID.is_terminator(), true);
+    /// assert_eq!(Mnemonic::GAS.is_terminator(), false);
+    /// ```
+    pub const fn is_terminator(&self) -> bool {
+        matches!(
+            self,
+            Self::STOP | Self::RETURN | Self::REVERT | Self::INVALID | Self::SELFDESTRUCT
         )
     }
 }
