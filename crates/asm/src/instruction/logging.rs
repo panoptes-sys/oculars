@@ -1,11 +1,14 @@
 //! Logging operations.
 
+use derive_more::Display;
+
 use super::InstructionMeta;
 use crate::opcode::{Mnemonic, OpCode};
 
 /// Append log record.
 /// The `N` constant signifies the type of the `LOG` opcode (e.g. `Log<3>` => `LOG3`).
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Log<const N: u8> {
     /// Private field to disallow struct creation outside of this module.
     _private: (),

@@ -1,12 +1,15 @@
 //! Stop and Arithmetic Operations.
 
+use derive_more::Display;
+
 use crate::{
     instruction::InstructionMeta,
     opcode::{Mnemonic, OpCode},
 };
 
 /// Halts execution.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Stop;
 
 impl InstructionMeta for Stop {
@@ -16,7 +19,8 @@ impl InstructionMeta for Stop {
 }
 
 /// Addition operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Add;
 
 impl InstructionMeta for Add {
@@ -26,7 +30,8 @@ impl InstructionMeta for Add {
 }
 
 /// Multiplication operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Mul;
 
 impl InstructionMeta for Mul {
@@ -36,7 +41,8 @@ impl InstructionMeta for Mul {
 }
 
 /// Subtraction operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Sub;
 
 impl InstructionMeta for Sub {
@@ -46,7 +52,8 @@ impl InstructionMeta for Sub {
 }
 
 /// Integer division operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Div;
 
 impl InstructionMeta for Div {
@@ -56,7 +63,8 @@ impl InstructionMeta for Div {
 }
 
 /// Signed integer division operation (truncated).
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct SDiv;
 
 impl InstructionMeta for SDiv {
@@ -66,7 +74,8 @@ impl InstructionMeta for SDiv {
 }
 
 /// Modulo remainder operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Mod;
 
 impl InstructionMeta for Mod {
@@ -76,7 +85,8 @@ impl InstructionMeta for Mod {
 }
 
 /// Signed modulo remainder operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct SMod;
 
 impl InstructionMeta for SMod {
@@ -86,7 +96,8 @@ impl InstructionMeta for SMod {
 }
 
 /// Modulo addition operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct AddMod;
 
 impl InstructionMeta for AddMod {
@@ -96,7 +107,8 @@ impl InstructionMeta for AddMod {
 }
 
 /// Modulo multiplication operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct MulMod;
 
 impl InstructionMeta for MulMod {
@@ -106,7 +118,8 @@ impl InstructionMeta for MulMod {
 }
 
 /// Exponential operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Exp;
 
 impl InstructionMeta for Exp {
@@ -116,11 +129,22 @@ impl InstructionMeta for Exp {
 }
 
 /// Extend length of two’s complement signed integer.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct SignExtend;
 
 impl InstructionMeta for SignExtend {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SIGNEXTEND)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn stop_fmt() {
+        assert_eq!(format!("{Stop}"), String::from("STOP"));
     }
 }

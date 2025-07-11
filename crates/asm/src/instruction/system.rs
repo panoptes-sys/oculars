@@ -1,12 +1,15 @@
 //! System and SHA3 operations.
 
+use derive_more::Display;
+
 use crate::{
     instruction::InstructionMeta,
     opcode::{Mnemonic, OpCode},
 };
 
 /// Compute Keccak-256 hash.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Keccak256;
 
 impl InstructionMeta for Keccak256 {
@@ -16,7 +19,8 @@ impl InstructionMeta for Keccak256 {
 }
 
 /// Create a new account with associated code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Create;
 
 impl InstructionMeta for Create {
@@ -26,7 +30,8 @@ impl InstructionMeta for Create {
 }
 
 /// Message-call into an account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Call;
 
 impl InstructionMeta for Call {
@@ -36,7 +41,8 @@ impl InstructionMeta for Call {
 }
 
 /// Message-call into this account with alternative account’s code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct CallCode;
 
 impl InstructionMeta for CallCode {
@@ -46,7 +52,8 @@ impl InstructionMeta for CallCode {
 }
 
 /// Halt execution returning output data.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Return;
 
 impl InstructionMeta for Return {
@@ -56,7 +63,8 @@ impl InstructionMeta for Return {
 }
 
 /// Message-call into this account with an alternative account’s code, but persisting the current values for sender and value.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct DelegateCall;
 
 impl InstructionMeta for DelegateCall {
@@ -66,7 +74,8 @@ impl InstructionMeta for DelegateCall {
 }
 
 /// Create a new account with associated code at a predictable address.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Create2;
 
 impl InstructionMeta for Create2 {
@@ -76,7 +85,8 @@ impl InstructionMeta for Create2 {
 }
 
 /// Static message-call into an account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct StaticCall;
 
 impl InstructionMeta for StaticCall {
@@ -86,7 +96,8 @@ impl InstructionMeta for StaticCall {
 }
 
 /// Halt execution reverting state changes but returning data and remaining gas.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Revert;
 
 impl InstructionMeta for Revert {
@@ -96,7 +107,8 @@ impl InstructionMeta for Revert {
 }
 
 /// Designated invalid instruction.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Invalid;
 
 impl InstructionMeta for Invalid {
@@ -106,7 +118,8 @@ impl InstructionMeta for Invalid {
 }
 
 /// Halt execution and register account for later deletion or send all Ether to address (post-Cancun).
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct SelfDestruct;
 
 impl InstructionMeta for SelfDestruct {
@@ -119,7 +132,8 @@ impl InstructionMeta for SelfDestruct {
 /// The difference between this instruction and [`Invalid`] is that the [`Invalid`] instruction is explicitly
 /// defined in the specification and this instruction is a catch-all instruction for any operation
 /// code not defined in the specification. Otherwise they behave the exact same way.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Unknown(
     /// The unidentified operation code.
     pub u8,

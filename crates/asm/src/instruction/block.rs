@@ -1,12 +1,15 @@
 //! Block information.
 
+use derive_more::Display;
+
 use crate::{
     instruction::InstructionMeta,
     opcode::{Mnemonic, OpCode},
 };
 
 /// Get the hash of one of the 256 most recent complete blocks.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct BlockHash;
 
 impl InstructionMeta for BlockHash {
@@ -16,7 +19,8 @@ impl InstructionMeta for BlockHash {
 }
 
 /// Get the block’s beneficiary address.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct CoinBase;
 
 impl InstructionMeta for CoinBase {
@@ -26,7 +30,8 @@ impl InstructionMeta for CoinBase {
 }
 
 /// Get the block’s timestamp.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Timestamp;
 
 impl InstructionMeta for Timestamp {
@@ -36,7 +41,8 @@ impl InstructionMeta for Timestamp {
 }
 
 /// Get the block’s number.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct Number;
 
 impl InstructionMeta for Number {
@@ -46,7 +52,8 @@ impl InstructionMeta for Number {
 }
 
 /// Get the block’s difficulty.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct PrevRandao;
 
 impl InstructionMeta for PrevRandao {
@@ -56,7 +63,8 @@ impl InstructionMeta for PrevRandao {
 }
 
 /// Get the block’s gas limit.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct GasLimit;
 
 impl InstructionMeta for GasLimit {
@@ -66,7 +74,8 @@ impl InstructionMeta for GasLimit {
 }
 
 /// Get the chain ID.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct ChainId;
 
 impl InstructionMeta for ChainId {
@@ -76,7 +85,8 @@ impl InstructionMeta for ChainId {
 }
 
 /// Get balance of currently executing account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct SelfBalance;
 
 impl InstructionMeta for SelfBalance {
@@ -86,7 +96,8 @@ impl InstructionMeta for SelfBalance {
 }
 
 /// Get the base fee.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct BaseFee;
 
 impl InstructionMeta for BaseFee {
@@ -96,7 +107,8 @@ impl InstructionMeta for BaseFee {
 }
 
 /// Get versioned hashes.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct BlobHash;
 
 impl InstructionMeta for BlobHash {
@@ -106,7 +118,8 @@ impl InstructionMeta for BlobHash {
 }
 
 /// Returns the value of the blob base-fee of the current block.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[display("{}", self.opcode())]
 pub struct BlobBaseFee;
 
 impl InstructionMeta for BlobBaseFee {

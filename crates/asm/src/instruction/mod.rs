@@ -11,7 +11,11 @@ mod stack;
 mod storage;
 mod system;
 
-use std::{cmp::Eq as EqTrait, fmt::Debug, hash::Hash};
+use std::{
+    cmp::Eq as EqTrait,
+    fmt::{Debug, Display},
+    hash::Hash,
+};
 
 pub use arithmetic::*;
 pub use bitwise::*;
@@ -27,7 +31,7 @@ pub use system::*;
 use crate::opcode::OpCode;
 
 /// General instruction information.
-pub trait InstructionMeta: Debug + Clone + Copy + PartialEq + EqTrait + Hash {
+pub trait InstructionMeta: Display + Debug + Clone + Copy + PartialEq + EqTrait + Hash {
     /// Return the operation code associated with this instruction.
     fn opcode(&self) -> OpCode;
 
