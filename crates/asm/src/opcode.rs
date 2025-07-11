@@ -672,6 +672,8 @@ impl Mnemonic {
     /// assert_eq!(Mnemonic::INVALID.is_terminator(), true);
     /// assert_eq!(Mnemonic::GAS.is_terminator(), false);
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn is_terminator(&self) -> bool {
         matches!(
             self,
