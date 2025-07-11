@@ -6,6 +6,7 @@ use crate::{
 };
 
 /// Load word from memory.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct MLoad;
 
 impl InstructionMeta for MLoad {
@@ -15,6 +16,7 @@ impl InstructionMeta for MLoad {
 }
 
 /// Save word to memory.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct MStore;
 
 impl InstructionMeta for MStore {
@@ -24,6 +26,7 @@ impl InstructionMeta for MStore {
 }
 
 /// Save byte to memory.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct MStore8;
 
 impl InstructionMeta for MStore8 {
@@ -33,6 +36,7 @@ impl InstructionMeta for MStore8 {
 }
 
 /// Get the size of active memory in bytes.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct MSize;
 
 impl InstructionMeta for MSize {
@@ -42,6 +46,7 @@ impl InstructionMeta for MSize {
 }
 
 /// Copy memory areas.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct MCopy;
 
 impl InstructionMeta for MCopy {
