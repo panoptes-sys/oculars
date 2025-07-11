@@ -39,7 +39,7 @@ pub trait Instruction: Display + Debug + Clone + Copy + PartialEq + EqTrait + Ha
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::{Push, Gas, InstructionMeta};
+    /// # use eva_asm::instruction::{Push, Gas, Instruction};
     /// assert_eq!(Push::new([0; 10]).is_push(), true);
     /// assert_eq!(Gas.is_push(), false);
     /// ```
@@ -53,7 +53,7 @@ pub trait Instruction: Display + Debug + Clone + Copy + PartialEq + EqTrait + Ha
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::{Dup, Gas, InstructionMeta};
+    /// # use eva_asm::instruction::{Dup, Gas, Instruction};
     /// assert_eq!(Dup::<10>::new().is_dup(), true);
     /// assert_eq!(Gas.is_dup(), false);
     /// ```
@@ -67,7 +67,7 @@ pub trait Instruction: Display + Debug + Clone + Copy + PartialEq + EqTrait + Ha
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::{Swap, Gas, InstructionMeta};
+    /// # use eva_asm::instruction::{Swap, Gas, Instruction};
     /// assert_eq!(Swap::<10>::new().is_swap(), true);
     /// assert_eq!(Gas.is_swap(), false);
     /// ```
@@ -81,7 +81,7 @@ pub trait Instruction: Display + Debug + Clone + Copy + PartialEq + EqTrait + Ha
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::{Log, Gas, InstructionMeta};
+    /// # use eva_asm::instruction::{Log, Gas, Instruction};
     /// assert_eq!(Log::<3>::new().is_log(), true);
     /// assert_eq!(Gas.is_log(), false);
     /// ```
@@ -95,7 +95,7 @@ pub trait Instruction: Display + Debug + Clone + Copy + PartialEq + EqTrait + Ha
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::{Return, Unknown, Gas, InstructionMeta};
+    /// # use eva_asm::instruction::{Return, Unknown, Gas, Instruction};
     /// assert_eq!(Return.is_terminator(), true);
     /// assert_eq!(Unknown(0xF).is_terminator(), true);
     /// assert_eq!(Gas.is_terminator(), false);
