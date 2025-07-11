@@ -3,7 +3,7 @@
 use derive_more::Display;
 
 use crate::{
-    instruction::InstructionMeta,
+    instruction::Instruction,
     opcode::{Mnemonic, OpCode},
 };
 
@@ -12,7 +12,7 @@ use crate::{
 #[display("{}", self.opcode())]
 pub struct Jump;
 
-impl InstructionMeta for Jump {
+impl Instruction for Jump {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::JUMP)
     }
@@ -23,7 +23,7 @@ impl InstructionMeta for Jump {
 #[display("{}", self.opcode())]
 pub struct JumpI;
 
-impl InstructionMeta for JumpI {
+impl Instruction for JumpI {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::JUMPI)
     }
@@ -34,7 +34,7 @@ impl InstructionMeta for JumpI {
 #[display("{}", self.opcode())]
 pub struct Pc;
 
-impl InstructionMeta for Pc {
+impl Instruction for Pc {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::PC)
     }
@@ -45,7 +45,7 @@ impl InstructionMeta for Pc {
 #[display("{}", self.opcode())]
 pub struct Gas;
 
-impl InstructionMeta for Gas {
+impl Instruction for Gas {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::GAS)
     }
@@ -56,7 +56,7 @@ impl InstructionMeta for Gas {
 #[display("{}", self.opcode())]
 pub struct JumpDest;
 
-impl InstructionMeta for JumpDest {
+impl Instruction for JumpDest {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::JUMPDEST)
     }

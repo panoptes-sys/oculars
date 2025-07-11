@@ -2,7 +2,7 @@
 
 use derive_more::Display;
 
-use super::InstructionMeta;
+use super::Instruction;
 use crate::opcode::{Mnemonic, OpCode};
 
 /// Remove item from stack.
@@ -10,7 +10,7 @@ use crate::opcode::{Mnemonic, OpCode};
 #[display("{}", self.opcode())]
 pub struct Pop;
 
-impl InstructionMeta for Pop {
+impl Instruction for Pop {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::POP)
     }
@@ -80,7 +80,7 @@ impl<const N: usize> Push<N> {
     }
 }
 
-impl<const N: usize> InstructionMeta for Push<N> {
+impl<const N: usize> Instruction for Push<N> {
     fn opcode(&self) -> OpCode {
         match N {
             0 => OpCode::Known(Mnemonic::PUSH0),
@@ -161,7 +161,7 @@ impl<const N: u8> Default for Dup<N> {
     }
 }
 
-impl<const N: u8> InstructionMeta for Dup<N> {
+impl<const N: u8> Instruction for Dup<N> {
     fn opcode(&self) -> OpCode {
         match N {
             1 => OpCode::Known(Mnemonic::DUP1),
@@ -225,7 +225,7 @@ impl<const N: u8> Default for Swap<N> {
     }
 }
 
-impl<const N: u8> InstructionMeta for Swap<N> {
+impl<const N: u8> Instruction for Swap<N> {
     fn opcode(&self) -> OpCode {
         match N {
             1 => OpCode::Known(Mnemonic::SWAP1),

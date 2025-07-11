@@ -3,7 +3,7 @@
 use derive_more::Display;
 
 use crate::{
-    instruction::InstructionMeta,
+    instruction::Instruction,
     opcode::{Mnemonic, OpCode},
 };
 
@@ -12,7 +12,7 @@ use crate::{
 #[display("{}", self.opcode())]
 pub struct BlockHash;
 
-impl InstructionMeta for BlockHash {
+impl Instruction for BlockHash {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::BLOCKHASH)
     }
@@ -23,7 +23,7 @@ impl InstructionMeta for BlockHash {
 #[display("{}", self.opcode())]
 pub struct CoinBase;
 
-impl InstructionMeta for CoinBase {
+impl Instruction for CoinBase {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::COINBASE)
     }
@@ -34,7 +34,7 @@ impl InstructionMeta for CoinBase {
 #[display("{}", self.opcode())]
 pub struct Timestamp;
 
-impl InstructionMeta for Timestamp {
+impl Instruction for Timestamp {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::TIMESTAMP)
     }
@@ -45,7 +45,7 @@ impl InstructionMeta for Timestamp {
 #[display("{}", self.opcode())]
 pub struct Number;
 
-impl InstructionMeta for Number {
+impl Instruction for Number {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::NUMBER)
     }
@@ -56,7 +56,7 @@ impl InstructionMeta for Number {
 #[display("{}", self.opcode())]
 pub struct PrevRandao;
 
-impl InstructionMeta for PrevRandao {
+impl Instruction for PrevRandao {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::PREVRANDAO)
     }
@@ -67,7 +67,7 @@ impl InstructionMeta for PrevRandao {
 #[display("{}", self.opcode())]
 pub struct GasLimit;
 
-impl InstructionMeta for GasLimit {
+impl Instruction for GasLimit {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::GASLIMIT)
     }
@@ -78,7 +78,7 @@ impl InstructionMeta for GasLimit {
 #[display("{}", self.opcode())]
 pub struct ChainId;
 
-impl InstructionMeta for ChainId {
+impl Instruction for ChainId {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CHAINID)
     }
@@ -89,7 +89,7 @@ impl InstructionMeta for ChainId {
 #[display("{}", self.opcode())]
 pub struct SelfBalance;
 
-impl InstructionMeta for SelfBalance {
+impl Instruction for SelfBalance {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SELFBALANCE)
     }
@@ -100,7 +100,7 @@ impl InstructionMeta for SelfBalance {
 #[display("{}", self.opcode())]
 pub struct BaseFee;
 
-impl InstructionMeta for BaseFee {
+impl Instruction for BaseFee {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::BASEFEE)
     }
@@ -111,7 +111,7 @@ impl InstructionMeta for BaseFee {
 #[display("{}", self.opcode())]
 pub struct BlobHash;
 
-impl InstructionMeta for BlobHash {
+impl Instruction for BlobHash {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::BLOBHASH)
     }
@@ -122,7 +122,7 @@ impl InstructionMeta for BlobHash {
 #[display("{}", self.opcode())]
 pub struct BlobBaseFee;
 
-impl InstructionMeta for BlobBaseFee {
+impl Instruction for BlobBaseFee {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::BLOBBASEFEE)
     }
