@@ -10,7 +10,7 @@ repository = "https://github.com/evanalyzer/eva"
 
 [workspace.dependencies]
 eva-dasm = { version = "0.1.0", path = "./crates/dasm/" }
-eva-asm = { version = "0.2.0", path = "./crates/asm/" }
+eva-asm = { version = "0.3.0", path = "./crates/asm/" }
 
 strum = { version = "0.27.1", features = ["derive"]}
 derive_more = "2.0.1"
