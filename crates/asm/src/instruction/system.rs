@@ -3,7 +3,7 @@
 use derive_more::Display;
 
 use crate::{
-    instruction::Instruction,
+    instruction::InstructionMeta,
     opcode::{Mnemonic, OpCode},
 };
 
@@ -12,7 +12,7 @@ use crate::{
 #[display("{}", self.opcode())]
 pub struct Keccak256;
 
-impl Instruction for Keccak256 {
+impl InstructionMeta for Keccak256 {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::KECCAK256)
     }
@@ -23,7 +23,7 @@ impl Instruction for Keccak256 {
 #[display("{}", self.opcode())]
 pub struct Create;
 
-impl Instruction for Create {
+impl InstructionMeta for Create {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CREATE)
     }
@@ -34,7 +34,7 @@ impl Instruction for Create {
 #[display("{}", self.opcode())]
 pub struct Call;
 
-impl Instruction for Call {
+impl InstructionMeta for Call {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CALL)
     }
@@ -45,7 +45,7 @@ impl Instruction for Call {
 #[display("{}", self.opcode())]
 pub struct CallCode;
 
-impl Instruction for CallCode {
+impl InstructionMeta for CallCode {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CALLCODE)
     }
@@ -56,7 +56,7 @@ impl Instruction for CallCode {
 #[display("{}", self.opcode())]
 pub struct Return;
 
-impl Instruction for Return {
+impl InstructionMeta for Return {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::RETURN)
     }
@@ -67,7 +67,7 @@ impl Instruction for Return {
 #[display("{}", self.opcode())]
 pub struct DelegateCall;
 
-impl Instruction for DelegateCall {
+impl InstructionMeta for DelegateCall {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::DELEGATECALL)
     }
@@ -78,7 +78,7 @@ impl Instruction for DelegateCall {
 #[display("{}", self.opcode())]
 pub struct Create2;
 
-impl Instruction for Create2 {
+impl InstructionMeta for Create2 {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::CREATE2)
     }
@@ -89,7 +89,7 @@ impl Instruction for Create2 {
 #[display("{}", self.opcode())]
 pub struct StaticCall;
 
-impl Instruction for StaticCall {
+impl InstructionMeta for StaticCall {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::STATICCALL)
     }
@@ -100,7 +100,7 @@ impl Instruction for StaticCall {
 #[display("{}", self.opcode())]
 pub struct Revert;
 
-impl Instruction for Revert {
+impl InstructionMeta for Revert {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::REVERT)
     }
@@ -111,7 +111,7 @@ impl Instruction for Revert {
 #[display("{}", self.opcode())]
 pub struct Invalid;
 
-impl Instruction for Invalid {
+impl InstructionMeta for Invalid {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::INVALID)
     }
@@ -122,7 +122,7 @@ impl Instruction for Invalid {
 #[display("{}", self.opcode())]
 pub struct SelfDestruct;
 
-impl Instruction for SelfDestruct {
+impl InstructionMeta for SelfDestruct {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SELFDESTRUCT)
     }
@@ -139,7 +139,7 @@ pub struct Unknown(
     pub u8,
 );
 
-impl Instruction for Unknown {
+impl InstructionMeta for Unknown {
     fn opcode(&self) -> OpCode {
         OpCode::Unknown(self.0)
     }
