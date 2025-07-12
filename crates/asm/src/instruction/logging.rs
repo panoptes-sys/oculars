@@ -2,7 +2,7 @@
 
 use derive_more::Display;
 
-use super::Instruction;
+use super::InstructionMeta;
 use crate::opcode::{Mnemonic, OpCode};
 
 /// Append log record.
@@ -45,7 +45,7 @@ impl<const N: u8> Default for Log<N> {
     }
 }
 
-impl<const N: u8> Instruction for Log<N> {
+impl<const N: u8> InstructionMeta for Log<N> {
     fn opcode(&self) -> OpCode {
         match N {
             0 => OpCode::Known(Mnemonic::LOG0),

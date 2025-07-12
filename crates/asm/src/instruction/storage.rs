@@ -3,7 +3,7 @@
 use derive_more::Display;
 
 use crate::{
-    instruction::Instruction,
+    instruction::InstructionMeta,
     opcode::{Mnemonic, OpCode},
 };
 
@@ -12,7 +12,7 @@ use crate::{
 #[display("{}", self.opcode())]
 pub struct SLoad;
 
-impl Instruction for SLoad {
+impl InstructionMeta for SLoad {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SLOAD)
     }
@@ -23,7 +23,7 @@ impl Instruction for SLoad {
 #[display("{}", self.opcode())]
 pub struct SStore;
 
-impl Instruction for SStore {
+impl InstructionMeta for SStore {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::SSTORE)
     }
@@ -34,7 +34,7 @@ impl Instruction for SStore {
 #[display("{}", self.opcode())]
 pub struct TLoad;
 
-impl Instruction for TLoad {
+impl InstructionMeta for TLoad {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::TLOAD)
     }
@@ -45,7 +45,7 @@ impl Instruction for TLoad {
 #[display("{}", self.opcode())]
 pub struct TStore;
 
-impl Instruction for TStore {
+impl InstructionMeta for TStore {
     fn opcode(&self) -> OpCode {
         OpCode::Known(Mnemonic::TSTORE)
     }
