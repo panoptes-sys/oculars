@@ -43,7 +43,7 @@ fn list_mnemonics() -> anyhow::Result<()> {
 
 /// Display information about a mnemonic by its name.
 fn display_mnemonic_info_by_name(name: &str) -> anyhow::Result<()> {
-    let mnemonic = get_mnemonic_by_name(&name)?;
+    let mnemonic = get_mnemonic_by_name(name)?;
     println!("{}", mnemonic.format_human());
 
     Ok(())
