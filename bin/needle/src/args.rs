@@ -3,6 +3,7 @@ use clap::{Parser, Subcommand};
 /// Utility for getting EVM instruction information.
 #[derive(Parser)]
 pub struct Cli {
+    /// CLI subcommand.
     #[command(subcommand)]
     pub command: Command,
 }
