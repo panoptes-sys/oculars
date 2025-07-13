@@ -7,6 +7,7 @@ A toolkit for analyzing EVM bytecode.
 
 ## Roadmap
 - [x] EVM assembly representation - [eva-asm](https://github.com/evanalyzer/eva/tree/main/crates/asm)
+- [x] EVM assembly CLI utilitiy - [needle](https://github.com/evanalyzer/eva/tree/main/bin/needle)
 - [ ] Bytecode disassembler
 
 ---
