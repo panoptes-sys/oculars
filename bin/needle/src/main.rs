@@ -21,7 +21,7 @@ fn main() -> anyhow::Result<()> {
 
     match cli.command {
         Command::Mnemonics => list_mnemonics()?,
-        Command::Mnemonic { name } => display_mnemonic_info_by_name(name)?,
+        Command::Mnemonic { name } => display_mnemonic_info_by_name(&name)?,
     }
 
     Ok(())
@@ -42,7 +42,7 @@ fn list_mnemonics() -> anyhow::Result<()> {
 }
 
 /// Display information about a mnemonic by its name.
-fn display_mnemonic_info_by_name(name: String) -> anyhow::Result<()> {
+fn display_mnemonic_info_by_name(name: &str) -> anyhow::Result<()> {
     let mnemonic = get_mnemonic_by_name(&name)?;
     println!("{}", mnemonic.format_human());
 

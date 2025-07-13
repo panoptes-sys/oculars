@@ -37,6 +37,7 @@ pub fn get_mnemonic_by_name(name: &str) -> anyhow::Result<Mnemonic> {
         .context(format!("failed to find mnemonic by the name \"{name}\""))
 }
 
+#[expect(clippy::too_many_lines, reason = "can't split this up")]
 impl MnemonicDescription for Mnemonic {
     fn description(&self) -> &'static str {
         match self {

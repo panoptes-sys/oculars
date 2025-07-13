@@ -596,6 +596,8 @@ impl Mnemonic {
     /// assert_eq!(Mnemonic::variants()[0], "STOP");
     /// assert_eq!(Mnemonic::variants()[1], "ADD");
     /// ```
+    #[must_use]
+    #[inline]
     pub const fn variants() -> &'static [&'static str] {
         Self::VARIANTS
     }
