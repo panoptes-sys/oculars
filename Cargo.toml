@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/*"]
+members = [ "bin/*", "crates/*"]
 
 [workspace.package]
 version = "0.1.0"
@@ -12,8 +12,15 @@ repository = "https://github.com/evanalyzer/eva"
 eva-dasm = { version = "0.1.0", path = "./crates/dasm/" }
 eva-asm = { version = "0.3.0", path = "./crates/asm/" }
 
-strum = { version = "0.27.1", features = ["derive"]}
+strum = { version = "0.27.1" }
 derive_more = "2.0.1"
+clap = { version = "4.5.41" }
+
+thiserror = "2.0.12"
+anyhow = "1.0.98"
+
+colored = "3.0.0" 
+minus = "5.6.1"
 
 [workspace.lints.clippy]
 pedantic = "warn"
