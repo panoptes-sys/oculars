@@ -1,0 +1,23 @@
+[package]
+name = "needle"
+description = "CLI utility for getting EVM instruction information"
+
+version = "0.1.0"
+
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+eva-asm.workspace = true
+
+clap = { workspace = true, features = ["derive"] }
+
+thiserror.workspace = true
+anyhow.workspace = true
+
+colored.workspace = true
+minus = { workspace = true, features = ["static_output"] }
+
+[lints]
+workspace = true
