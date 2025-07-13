@@ -13,7 +13,7 @@ use std::fmt::Write;
 
 use crate::{
     args::{Cli, Command},
-    mnemonics::{get_mnemonic_by_name, MnemonicDescription},
+    mnemonics::{MnemonicDescription, get_mnemonic_by_name},
 };
 
 fn main() -> anyhow::Result<()> {
