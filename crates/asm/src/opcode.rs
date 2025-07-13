@@ -1,7 +1,7 @@
 //! EVM operation codes and mnemonics.
 
 use derive_more::{Binary, LowerHex, Octal, UpperHex};
-use strum::{Display, EnumCount, EnumIs, FromRepr};
+use strum::{Display, EnumCount, EnumIs, EnumIter, FromRepr, IntoEnumIterator, VariantNames};
 
 /// EVM operation code.
 #[derive(
@@ -13,7 +13,6 @@ use strum::{Display, EnumCount, EnumIs, FromRepr};
     Ord,
     Debug,
     derive_more::Display,
-    EnumIs,
     LowerHex,
     UpperHex,
     Binary,
@@ -28,6 +27,34 @@ pub enum OpCode {
 }
 
 impl OpCode {
+    /// Returns [`true`] if the opcode is known.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_known(), true);
+    /// assert_eq!(OpCode::Unknown(0xF).is_known(), false);
+    /// ```
+    #[must_use]
+    #[inline]
+    pub const fn is_known(&self) -> bool {
+        matches!(self, Self::Known(_))
+    }
+
+    /// Returns [`true`] if the opcode is unknown.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::{OpCode, Mnemonic};
+    /// assert_eq!(OpCode::Unknown(0xF).is_unknown(), true);
+    /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_unknown(), false);
+    /// ```
+    #[must_use]
+    #[inline]
+    pub const fn is_unknown(&self) -> bool {
+        matches!(self, Self::Unknown(_))
+    }
+
     /// Convert a byte into an [`OpCode`], returning [`OpCode::Unknown`] if no known mnemonic
     /// exists.
     ///
@@ -229,7 +256,20 @@ impl From<Mnemonic> for OpCode {
 #[repr(u8)]
 #[non_exhaustive]
 #[derive(
-    Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug, Display, FromRepr, EnumIs, EnumCount, Hash,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Debug,
+    Display,
+    FromRepr,
+    EnumIs,
+    EnumCount,
+    Hash,
+    EnumIter,
+    VariantNames,
 )]
 pub enum Mnemonic {
     /// Halts execution.
@@ -533,6 +573,35 @@ pub enum Mnemonic {
 }
 
 impl Mnemonic {
+    /// Returns an iterator over all mnemonics.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::Mnemonic;
+    /// let mut mnemonics = Mnemonic::iter();
+    /// assert_eq!(mnemonics.next(), Some(Mnemonic::STOP));
+    /// assert_eq!(mnemonics.next(), Some(Mnemonic::ADD));
+    /// ```
+    #[must_use]
+    #[inline]
+    pub fn iter() -> MnemonicIter {
+        <Self as IntoEnumIterator>::iter()
+    }
+
+    /// Returns a static slice of mnemonic names.
+    ///
+    /// # Example
+    /// ```
+    /// # use eva_asm::opcode::Mnemonic;
+    /// assert_eq!(Mnemonic::variants()[0], "STOP");
+    /// assert_eq!(Mnemonic::variants()[1], "ADD");
+    /// ```
+    #[must_use]
+    #[inline]
+    pub const fn variants() -> &'static [&'static str] {
+        Self::VARIANTS
+    }
+
     /// Returns a value signifying whether this mnemonic is of the type `PUSHx`.
     ///
     /// # Example
