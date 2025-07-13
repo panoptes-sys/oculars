@@ -7,10 +7,14 @@ pub struct Cli {
     pub command: Command,
 }
 
+/// Subcommands.
 #[derive(Subcommand)]
 pub enum Command {
     /// List all EVM mnemonics.
     Mnemonics,
     /// Get information about a specific mnemonic.
-    Mnemonic { name: String },
+    Mnemonic {
+        /// Name of the mnemonic.
+        name: String,
+    },
 }
