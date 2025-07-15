@@ -1,5 +1,5 @@
 [package]
-name = "evanalyzer"
+name = "oculars"
 description = "EVM analysis toolkit"
 version.workspace = true
 edition.workspace = true
@@ -7,8 +7,8 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-eva-dasm = { workspace = true }
-eva-asm = { workspace = true }
+dasm = { workspace = true }
+asm = { workspace = true }
 
 [lints]
 workspace = true

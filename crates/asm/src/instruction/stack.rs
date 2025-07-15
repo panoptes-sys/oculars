@@ -30,14 +30,14 @@ impl<const N: usize> Push<N> {
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::Push;
+    /// # use asm::instruction::Push;
     /// let push: Push<32> = Push::new([0; 32]);
     /// ```
     ///
     /// This will fail to compile if the size of the immediate value is greater than 32.
     ///
     /// ```compile_fail
-    /// # use eva_asm::instruction::Push;
+    /// # use asm::instruction::Push;
     /// let push = Push::new([0; 33]); // compile fail!
     /// ```
     #[must_use]
@@ -51,7 +51,7 @@ impl<const N: usize> Push<N> {
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::Push;
+    /// # use asm::instruction::Push;
     /// let push = Push::new([1, 3, 3, 7]);
     /// assert_eq!(push.immediate(), &[1, 3, 3, 7]);
     /// ```
@@ -64,7 +64,7 @@ impl<const N: usize> Push<N> {
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::Push;
+    /// # use asm::instruction::Push;
     /// fn push_size<const N: usize>(push: &Push<N>) {
     ///     assert_eq!(push.size() as usize, N);
     /// }
@@ -138,14 +138,14 @@ impl<const N: u8> Dup<N> {
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::Dup;
+    /// # use asm::instruction::Dup;
     /// let dup: Dup<10> = Dup::new();
     /// ```
     ///
     /// This will fail to compile if the instruction is not correct.
     ///
     /// ```compile_fail
-    /// # use eva_asm::instruction::Dup;
+    /// # use asm::instruction::Dup;
     /// let dup: Dup<30> = Dup::new(); // compile fail!
     /// ```
     #[must_use]
@@ -202,14 +202,14 @@ impl<const N: u8> Swap<N> {
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::Swap;
+    /// # use asm::instruction::Swap;
     /// let swap: Swap<10> = Swap::new();
     /// ```
     ///
     /// This will fail to compile if the instruction is not correct.
     ///
     /// ```compile_fail
-    /// # use eva_asm::instruction::Swap;
+    /// # use asm::instruction::Swap;
     /// let swap: Swap<30> = Swap::new(); // compile fail!
     /// ```
     #[must_use]

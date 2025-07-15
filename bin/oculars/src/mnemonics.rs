@@ -1,8 +1,8 @@
 use std::fmt::{Binary, Debug, Display, LowerHex, Octal};
 
 use anyhow::Context as _;
+use asm::opcode::Mnemonic;
 use colored::Colorize as _;
-use eva_asm::opcode::Mnemonic;
 
 /// A human readable description for a mnemonic.
 pub trait MnemonicDescription {

@@ -1,5 +1,5 @@
 [package]
-name = "eva-dasm"
+name = "dasm"
 description = "EVM disassembler"
 
 version.workspace = true

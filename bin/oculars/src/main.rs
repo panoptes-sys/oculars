@@ -6,14 +6,14 @@ mod args;
 mod mnemonics;
 
 use anyhow::Context;
+use asm::opcode::Mnemonic;
 use clap::Parser as _;
-use eva_asm::opcode::Mnemonic;
 use minus::Pager;
 use std::fmt::Write;
 
 use crate::{
     args::{Cli, Command},
-    mnemonics::{MnemonicDescription, get_mnemonic_by_name},
+    mnemonics::{get_mnemonic_by_name, MnemonicDescription},
 };
 
 fn main() -> anyhow::Result<()> {
