@@ -22,14 +22,14 @@ impl<const N: u8> Log<N> {
     ///
     /// # Example
     /// ```
-    /// # use eva_asm::instruction::Log;
+    /// # use asm::instruction::Log;
     /// let log: Log<4> = Log::new();
     /// ```
     ///
     /// This will fail to compile if the instruction is not correct.
     ///
     /// ```compile_fail
-    /// # use eva_asm::instruction::Log;
+    /// # use asm::instruction::Log;
     /// let log: Log<10> = Log::new(); // compile fail!
     /// ```
     #[must_use]

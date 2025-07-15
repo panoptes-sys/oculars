@@ -9,7 +9,7 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-eva-asm.workspace = true
+asm.workspace = true
 
 clap = { workspace = true, features = ["derive"] }
 

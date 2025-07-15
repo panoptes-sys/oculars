@@ -1,5 +1,5 @@
 [package]
-name = "eva-asm"
+name = "asm"
 description = "EVM assembly instructions, opcodes and mnemonics"
 keywords = ["evm", "ethereum", "bytecode", "assembly"]
 categories = ["cryptography::cryptocurrencies", "data-structures"]
