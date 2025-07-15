@@ -29,5 +29,13 @@ missing_docs_in_private_items = "warn"
 missing_panics_doc = "warn"
 missing_errors_doc = "warn"
 
+allow_attributes_without_reason = "warn"
+doc_include_without_cfg = "warn"
+if_then_some_else_none = "warn"
+impl_trait_in_params = "warn"
+let_underscore_must_use = "warn"
+unnecessary_safety_comment = "warn"
+unnecessary_safety_doc = "warn"
+
 [workspace.lints.rust]
 missing_docs = "warn"
