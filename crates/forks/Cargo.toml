@@ -1,7 +1,5 @@
 [package]
-name = "oculars-dasm"
-description = "EVM disassembler"
-
+name = "oculars-forks"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
