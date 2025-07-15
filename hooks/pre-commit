@@ -1,0 +1,5 @@
+set -e
+
+cargo fmt --all
+cargo clippy -- -Dwarnings
+cargo test
