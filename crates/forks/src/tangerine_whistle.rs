@@ -1,7 +1,7 @@
 //! Tangerine Whistle network update.
 
 use chains::Mainnet;
-use eips::{eip150::Eip150, Eip, IncludesEip};
+use eips::{Eip, IncludesEip, eip150::Eip150};
 
 use crate::{execution::ExecutionUpgrade, homestead::Homestead, network::NetworkUpgrade};
 
