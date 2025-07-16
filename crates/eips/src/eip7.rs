@@ -66,5 +66,8 @@
 //!
 //! * You can replicate this functionality by just sticking the sender into the first twenty bytes of the call data. However, this would mean that code would need to be specially compiled for delegated contracts, and would not be usable in delegated and raw contexts at the same time.
 
+use crate::Eip;
+
 /// EIP-7: DELEGATECALL
-pub struct Eip7;
+pub struct Eip7 {}
+impl Eip for Eip7 {}

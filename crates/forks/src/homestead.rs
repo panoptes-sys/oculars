@@ -1,16 +1,61 @@
-//! Homestead hard fork.
+//! Homestead network update.
 
-use chains::{Mainnet, Morden};
+use chains::{Chain, Mainnet, Morden};
+use eips::{eip2::Eip2, eip7::Eip7, Eip, IncludesEip};
 
-use crate::HardForkMeta;
+use crate::{execution::ExecutionUpgrade, network::NetworkUpgrade};
 
-/// Homestead hard fork.
+/// Homestead network update.
 pub struct Homestead;
 
-impl HardForkMeta<Mainnet> for Homestead {
-    const BLOCK_NUMBER: u64 = 1_150_000;
+impl ExecutionUpgrade for Homestead {}
+
+impl IncludesEip<Eip7> for Homestead {
+    fn includes_eip() -> bool {
+        true
+    }
 }
 
-impl HardForkMeta<Morden> for Homestead {
-    const BLOCK_NUMBER: u64 = 494_000;
+impl IncludesEip<Eip2> for Homestead {
+    fn includes_eip() -> bool {
+        true
+    }
+}
+
+impl<E: Eip> IncludesEip<E> for Homestead {
+    default fn includes_eip() -> bool {
+        false
+    }
+}
+
+impl NetworkUpgrade<Mainnet> for Homestead {
+    fn activation_block() -> u64 {
+        1_150_000
+    }
+}
+
+impl NetworkUpgrade<Morden> for Homestead {
+    fn activation_block() -> u64 {
+        494_000
+    }
+}
+
+impl<C: Chain> NetworkUpgrade<C> for Homestead {
+    default fn activation_block() -> u64 {
+        0
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use eips::eip150::Eip150;
+
+    use super::*;
+
+    #[test]
+    fn eip_support() {
+        assert!(Homestead::includes::<Eip2>());
+        assert!(Homestead::includes::<Eip7>());
+        assert!(!Homestead::includes::<Eip150>());
+    }
 }
