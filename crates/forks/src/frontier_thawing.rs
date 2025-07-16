@@ -1,12 +1,23 @@
-//! Frontier Thawing hard fork.
+//! Frontier Thawing network update.
 
-use chains::ChainMeta;
+use chains::Chain;
+use eips::{Eip, IncludesEip};
 
-use crate::HardForkMeta;
+use crate::{execution::ExecutionUpgrade, network::NetworkUpgrade};
 
-/// Frontier Thawing hard fork.
+/// Frontier Thawing network update.
 pub struct FrontierThawing;
 
-impl<C: ChainMeta> HardForkMeta<C> for FrontierThawing {
-    const BLOCK_NUMBER: u64 = 200_000;
+impl ExecutionUpgrade for FrontierThawing {}
+
+impl<E: Eip> IncludesEip<E> for FrontierThawing {
+    fn includes_eip() -> bool {
+        false
+    }
+}
+
+impl<C: Chain> NetworkUpgrade<C> for FrontierThawing {
+    fn activation_block() -> u64 {
+        200_000
+    }
 }

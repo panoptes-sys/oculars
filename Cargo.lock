@@ -287,6 +287,9 @@ version = "0.1.0"
 [[package]]
 name = "oculars-dasm"
 version = "0.1.0"
+dependencies = [
+ "oculars-forks",
+]
 
 [[package]]
 name = "oculars-eips"
@@ -297,6 +300,7 @@ name = "oculars-forks"
 version = "0.1.0"
 dependencies = [
  "oculars-chains",
+ "oculars-eips",
 ]
 
 [[package]]

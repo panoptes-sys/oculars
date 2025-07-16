@@ -1,12 +1,23 @@
-//! Frontier hard fork.
+//! Frontier network update.
 
-use chains::ChainMeta;
+use chains::Chain;
+use eips::{Eip, IncludesEip};
 
-use crate::HardForkMeta;
+use crate::{execution::ExecutionUpgrade, network::NetworkUpgrade};
 
-/// Frontier hard fork.
+/// Frontier network update.
 pub struct Frontier;
 
-impl<C: ChainMeta> HardForkMeta<C> for Frontier {
-    const BLOCK_NUMBER: u64 = 0;
+impl ExecutionUpgrade for Frontier {}
+
+impl<E: Eip> IncludesEip<E> for Frontier {
+    fn includes_eip() -> bool {
+        false
+    }
+}
+
+impl<C: Chain> NetworkUpgrade<C> for Frontier {
+    fn activation_block() -> u64 {
+        0
+    }
 }
