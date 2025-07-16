@@ -281,12 +281,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "oculars-chains"
+version = "0.1.0"
+
+[[package]]
 name = "oculars-dasm"
+version = "0.1.0"
+
+[[package]]
+name = "oculars-eips"
 version = "0.1.0"
 
 [[package]]
 name = "oculars-forks"
 version = "0.1.0"
+dependencies = [
+ "oculars-chains",
+]
 
 [[package]]
 name = "once_cell"
