@@ -1,7 +1,7 @@
 //! Spurious Dragon network update.
 
 use chains::{Mainnet, Morden};
-use eips::{eip155::Eip155, eip160::Eip160, eip161::Eip161, eip170::Eip170, Eip, IncludesEip};
+use eips::{Eip, IncludesEip, eip155::Eip155, eip160::Eip160, eip161::Eip161, eip170::Eip170};
 
 use crate::{
     execution::ExecutionUpgrade, network::NetworkUpgrade, tangerine_whistle::TangerineWhistle,
