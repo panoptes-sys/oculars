@@ -1,4 +1,4 @@
-//! EIP-2: Homestead Hard-fork Changes
+//! EIP-2: Homestead Hard-fork Changes.
 //!
 //! # Specification
 //!

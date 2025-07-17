@@ -1,4 +1,5 @@
 //! EIP-170: Contract code size limit.
+//!
 //! ### Hard fork
 //!
 //! Spurious Dragon

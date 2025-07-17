@@ -2,6 +2,7 @@
 
 //! Ethereum forks.
 
+pub mod byzantium;
 pub mod execution;
 pub mod frontier;
 pub mod frontier_thawing;

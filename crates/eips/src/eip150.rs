@@ -1,4 +1,5 @@
 //! EIP-150: Gas cost changes for IO-heavy operations.
+//!
 //! ### Meta reference
 //!
 //! [Tangerine Whistle](./eip-608.md).
@@ -25,7 +26,7 @@
 //!
 //! That is, substitute:
 //!
-//! ```
+//! ```python
 //!         extra_gas = (not ext.account_exists(to)) * opcodes.GCALLNEWACCOUNT + \
 //!             (value > 0) * opcodes.GCALLVALUETRANSFER
 //!         if compustate.gas < gas + extra_gas:
@@ -35,7 +36,7 @@
 //!
 //! With:
 //!
-//! ```
+//! ```python
 //!         def max_call_gas(gas):
 //!           return gas - (gas // 64)
 //!
