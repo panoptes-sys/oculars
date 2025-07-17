@@ -1,4 +1,4 @@
-//! EIP-7: DELEGATECALL
+//! EIP-7: DELEGATECALL.
 //!
 //! ### Hard Fork
 //! Homestead
