@@ -8,7 +8,7 @@ pub trait Chain {
     const NETWORK_ID: u64;
 }
 
-/// Mainnet.
+/// Ethereum Mainnet.
 pub struct Mainnet;
 
 impl Chain for Mainnet {
@@ -22,4 +22,12 @@ pub struct Morden;
 impl Chain for Morden {
     const CHAIN_ID: u64 = 62;
     const NETWORK_ID: u64 = 2;
+}
+
+/// Ethereum Ropsten testnet.
+pub struct Ropsten;
+
+impl Chain for Ropsten {
+    const CHAIN_ID: u64 = 3;
+    const NETWORK_ID: u64 = 3;
 }
