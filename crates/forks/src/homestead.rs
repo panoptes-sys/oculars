@@ -1,7 +1,7 @@
 //! Homestead network update.
 
 use chains::{Chain, Mainnet, Morden};
-use eips::{Eip, IncludesEip, eip2::Eip2, eip7::Eip7};
+use eips::{eip2::Eip2, eip7::Eip7, Eip, IncludesEip};
 
 use crate::{execution::ExecutionUpgrade, network::NetworkUpgrade};
 

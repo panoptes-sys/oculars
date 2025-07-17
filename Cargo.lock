@@ -294,11 +294,15 @@ dependencies = [
 [[package]]
 name = "oculars-eips"
 version = "0.1.0"
+dependencies = [
+ "oculars-asm",
+]
 
 [[package]]
 name = "oculars-forks"
 version = "0.1.0"
 dependencies = [
+ "oculars-asm",
  "oculars-chains",
  "oculars-eips",
 ]
