@@ -3,12 +3,6 @@
 //! ### Hard Fork
 //! Homestead
 //!
-//! ### Parameters
-//! - Activation:
-//!   - Block >= 1,150,000 on Mainnet
-//!   - Block >= 494,000 on Morden
-//!   - Block >= 0 on future testnets
-//!
 //! ### Overview
 //!
 //! Add a new opcode, `DELEGATECALL` at `0xf4`, which is similar in idea to `CALLCODE`, except that it propagates the sender and value from the parent scope to the child scope, i.e. the call created has the same sender and value as the original call.
@@ -65,9 +59,14 @@
 //! ### Possible arguments against
 //!
 //! * You can replicate this functionality by just sticking the sender into the first twenty bytes of the call data. However, this would mean that code would need to be specially compiled for delegated contracts, and would not be usable in delegated and raw contexts at the same time.
+//!
+//! Vitalik Buterin (@vbuterin), "EIP-7: DELEGATECALL," Ethereum Improvement Proposals, no. 7, November 2015. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-7>.
 
 use crate::Eip;
 
-/// EIP-7: DELEGATECALL
-pub struct Eip7 {}
-impl Eip for Eip7 {}
+/// EIP-7: DELEGATECALL.
+pub struct Eip7;
+
+impl Eip for Eip7 {
+    const NUMBER: u32 = 7;
+}

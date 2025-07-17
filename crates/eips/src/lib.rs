@@ -8,8 +8,28 @@ pub mod eip170;
 pub mod eip2;
 pub mod eip7;
 
-/// Marker trait to mark an EIP.
-pub trait Eip {}
+/// An Ethereum Improvement Proposal.
+pub trait Eip {
+    /// EIP number.
+    ///
+    /// # Example
+    /// ```
+    /// # use crate::eip7::Eip7;
+    /// assert_eq!(Eip7::NUMBER, 7);
+    /// ```
+    const NUMBER: u32;
+
+    /// Return the EIP's number.
+    ///
+    /// # Example
+    /// ```
+    /// # use crate::eip7::Eip7;
+    /// assert_eq!(Eip7.number(), 7);
+    /// ```
+    fn number(&self) -> u32 {
+        Self::NUMBER
+    }
+}
 
 /// Trait that allows forks to specify which EIPs they support.
 pub trait IncludesEip<E: Eip> {
