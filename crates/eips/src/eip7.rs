@@ -62,6 +62,8 @@
 //!
 //! Vitalik Buterin (@vbuterin), "EIP-7: DELEGATECALL," Ethereum Improvement Proposals, no. 7, November 2015. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-7>.
 
+use asm::instruction::{DelegateCall, InstructionMeta};
+
 use crate::Eip;
 
 /// EIP-7: DELEGATECALL.
@@ -69,4 +71,14 @@ pub struct Eip7;
 
 impl Eip for Eip7 {
     const NUMBER: u32 = 7;
+}
+
+pub trait SupportsInstruction<I: InstructionMeta> {
+    fn supports_instruction() -> bool;
+}
+
+impl SupportsInstruction<DelegateCall> for Eip7 {
+    fn supports_instruction() -> bool {
+        true
+    }
 }

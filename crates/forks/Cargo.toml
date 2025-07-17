@@ -8,6 +8,7 @@ repository.workspace = true
 [dependencies]
 chains.workspace = true
 eips.workspace = true
+asm.workspace = true
 
 [lints]
 workspace = true
