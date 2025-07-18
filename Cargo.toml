@@ -12,8 +12,7 @@ repository = "https://github.com/panoptes-sys/oculars"
 asm = { package = "oculars-asm", version = "0.3.0", path = "./crates/asm/" }
 dasm = { package = "oculars-dasm", version = "0.1.0", path = "./crates/dasm/" }
 chains = { package = "oculars-chains", version = "0.1.0", path = "./crates/chains/" }
-eips = { package = "oculars-eips", version = "0.1.0", path = "./crates/eips/" }
-forks = { package = "oculars-forks", version = "0.1.0", path = "./crates/forks/" }
+upgrades = { package = "oculars-upgrades", version = "0.1.0", path = "./crates/upgrades/" }
 
 strum = { version = "0.27.1" }
 derive_more = "2.0.1"

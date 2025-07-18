@@ -2,7 +2,7 @@
 
 use std::marker::PhantomData;
 
-use forks::execution::ExecutionUpgrade;
+use upgrades::execution::ExecutionUpgrade;
 
 /// EVM disassembler.
 pub struct Disassembler<F: ExecutionUpgrade> {

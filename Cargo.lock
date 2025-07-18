@@ -288,23 +288,15 @@ version = "0.1.0"
 name = "oculars-dasm"
 version = "0.1.0"
 dependencies = [
- "oculars-forks",
+ "oculars-upgrades",
 ]
 
 [[package]]
-name = "oculars-eips"
-version = "0.1.0"
-dependencies = [
- "oculars-asm",
-]
-
-[[package]]
-name = "oculars-forks"
+name = "oculars-upgrades"
 version = "0.1.0"
 dependencies = [
  "oculars-asm",
  "oculars-chains",
- "oculars-eips",
 ]
 
 [[package]]
