@@ -51,7 +51,7 @@
 
 use asm::instruction::{ReturnDataCopy, ReturnDataSize};
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-211: New opcodes: RETURNDATASIZE and RETURNDATACOPY.
 pub struct Eip211;
