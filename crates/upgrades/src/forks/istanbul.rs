@@ -5,7 +5,7 @@ use chains::{Goerli, Kovan, Mainnet, Rinkeby, Ropsten};
 use crate::{
     eip::macros::eip_set,
     eips::{
-        eip1108::Eip1108, eip1344::Eip1344, eip152::Eip152, eip1884::Eip1884, eip2028::Eip2028,
+        eip152::Eip152, eip1108::Eip1108, eip1344::Eip1344, eip1884::Eip1884, eip2028::Eip2028,
         eip2200::Eip2200,
     },
     execution::ExecutionUpgrade,

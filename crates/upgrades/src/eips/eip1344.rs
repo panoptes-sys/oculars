@@ -35,7 +35,7 @@
 
 use asm::instruction::ChainId;
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-1344: ChainID opcode.
 pub struct Eip1344;
