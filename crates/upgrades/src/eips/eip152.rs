@@ -1,7 +1,7 @@
 //! EIP-152: Add BLAKE2 compression function `F` precompile.
 //! ## Simple Summary
 //!
-//! This EIP will enable the BLAKE2b hash function and other higher-round 64-bit BLAKE2 variants to run cheaply on the EVM, allowing easier interoperability between Ethereum and Zcash as well as other Equihash-based PoW coins.
+//! This EIP will enable the `BLAKE2b` hash function and other higher-round 64-bit BLAKE2 variants to run cheaply on the EVM, allowing easier interoperability between Ethereum and Zcash as well as other Equihash-based `PoW` coins.
 //!
 //! ## Abstract
 //!
@@ -9,9 +9,9 @@
 //!
 //! ## Motivation
 //!
-//! Besides being a useful cryptographic hash function and SHA3 finalist, BLAKE2 allows for efficient verification of the Equihash PoW used in Zcash, making a BTC Relay - style SPV client possible on Ethereum. A single verification of an Equihash PoW verification requires 512 iterations of the hash function, making verification of Zcash block headers prohibitively expensive if a Solidity implementation of BLAKE2 is used.
+//! Besides being a useful cryptographic hash function and SHA3 finalist, BLAKE2 allows for efficient verification of the Equihash `PoW` used in Zcash, making a BTC Relay - style SPV client possible on Ethereum. A single verification of an Equihash `PoW` verification requires 512 iterations of the hash function, making verification of Zcash block headers prohibitively expensive if a Solidity implementation of BLAKE2 is used.
 //!
-//! BLAKE2b, the common 64-bit BLAKE2 variant, is highly optimized and faster than MD5 on modern processors.
+//! `BLAKE2b`, the common 64-bit BLAKE2 variant, is highly optimized and faster than MD5 on modern processors.
 //!
 //! Interoperability with Zcash could enable contracts like trustless atomic swaps between the chains, which could provide a much needed aspect of privacy to the very public Ethereum blockchain.
 //!
@@ -92,7 +92,7 @@
 //!
 //! In contrast, the big-endian 32 byte semantics of the EVM are not conducive to efficient implementation of BLAKE2, and thus the gas cost associated with computing the hash on the EVM is disproportionate to the true cost of computing the function natively.
 //!
-//! An obvious implementation would be a direct BLAKE2b hash function precompile. At first glance, a BLAKE2b precompile satisfies most hashing and interoperability requirements on the EVM. Once we started digging in, however, it became clear that any BLAKE2b implementation would need specific features and internal modifications based on different projects' requirements and libraries.
+//! An obvious implementation would be a direct `BLAKE2b` hash function precompile. At first glance, a `BLAKE2b` precompile satisfies most hashing and interoperability requirements on the EVM. Once we started digging in, however, it became clear that any `BLAKE2b` implementation would need specific features and internal modifications based on different projects' requirements and libraries.
 //!
 //! A [thread with the Zcash team](https://github.com/ethereum/EIPs/issues/152#issuecomment-499240310) makes the issue clear.
 //!
@@ -106,7 +106,7 @@
 //!
 //! > BLAKE2s — whether the Compression Function F or the full hash — is only a nice-to-have for the purposes of a ZEC-ETH relay.
 //!
-//! From this and other conversations with teams in the space, we believe we should focus first on the `F` precompile as a strictly necessary piece for interoperability projects. A BLAKE2b precompile is a nice-to-have, and we support any efforts to add one-- but it's unclear whether complete requirements and a flexible API can be found in time for Istanbul.
+//! From this and other conversations with teams in the space, we believe we should focus first on the `F` precompile as a strictly necessary piece for interoperability projects. A `BLAKE2b` precompile is a nice-to-have, and we support any efforts to add one-- but it's unclear whether complete requirements and a flexible API can be found in time for Istanbul.
 //!
 //! Implementation of only the core F compression function also allows substantial flexibility and extensibility while keeping changes at the protocol level to a minimum. This will allow functions like tree hashing, incremental hashing, and keyed, salted, and personalized hashing as well as variable length digests, none of which are currently available on the EVM.
 //!
@@ -207,7 +207,7 @@
 //!
 //! Columns
 //!
-//! * `MGas/S` - Shows what MGas per second was measured on that machine at that time
+//! * `MGas/S` - Shows what `MGas` per second was measured on that machine at that time
 //! * `Gasprice for 10MGas/S` shows what the gasprice should have been, in order to reach 10 MGas/second
 //! * `Gasprice for ECDSA eq` shows what the gasprice should have been, in order to have the same cost/cycle as ecRecover
 //!
@@ -251,7 +251,7 @@
 //! PrecompiledBlake2F/testVectors2bX_580              1     131               7.63359                    1.31                  2.49454
 //! ```
 //!
-//! Tjaden Hess <tah83@cornell.edu>, Matt Luongo (@mhluongo), Piotr Dyraga (@pdyraga), James Hancock (@MadeOfTin), "EIP-152: Add BLAKE2 compression function `F` precompile," Ethereum Improvement Proposals, no. 152, October 2016. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-152>.
+//! Tjaden Hess <tah83@cornell.edu>, Matt Luongo (@mhluongo), Piotr Dyraga (@pdyraga), James Hancock (@`MadeOfTin`), "EIP-152: Add BLAKE2 compression function `F` precompile," Ethereum Improvement Proposals, no. 152, October 2016. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-152>.
 
 use crate::eip::Eip;
 

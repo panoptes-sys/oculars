@@ -1,4 +1,4 @@
-//! EIP-1108: Reduce alt_bn128 precompile gas costs.
+//! EIP-1108: Reduce `alt_bn128` precompile gas costs.
 //!
 //! ## Simple Summary  
 //!
@@ -93,7 +93,7 @@
 //!
 //! For zk-SNARK based protocols on Ethereum, EIP-1108 will not only reduce the gas costs of verifying zk-SNARKs substantially, but can also aid in [batching together multiple zk-SNARK proofs](https://github.com/matter-labs/Groth16BatchVerifier). This is also a technique that can be used to split up monolithic zk-SNARK circuits into a batch of zk-SNARKs with smaller individual circuit sizes, which makes zk-SNARKs both easier to construct and deploy.
 //!
-//! ZEther transactions currently cost ~`6,000,000` gas. This EIP would reduce this to ~`1,000,000` gas, which makes the protocol more practical.  
+//! `ZEther` transactions currently cost ~`6,000,000` gas. This EIP would reduce this to ~`1,000,000` gas, which makes the protocol more practical.  
 //!
 //! To summarise, there are several protocols that currently exist on main-net, that would benefit immensely from this EIP. Elliptic curve cryptography can provide valuable solutions for Ethereum, such as scaling and privacy, and the scope and scale of these solutions can be increased if the gas costs for the `bn128` precompiles accurately reflects their computational load on the network.
 //!
@@ -112,11 +112,11 @@
 //!
 //! As no underlying algorithms are being changed, there are no additional test cases to specify.
 //!
-//! Antonio Salazar Cardozo (@shadowfiend), Zachary Williamson (@zac-williamson), "EIP-1108: Reduce alt_bn128 precompile gas costs," Ethereum Improvement Proposals, no. 1108, May 2018. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1108>.
+//! Antonio Salazar Cardozo (@shadowfiend), Zachary Williamson (@zac-williamson), "EIP-1108: Reduce `alt_bn128` precompile gas costs," Ethereum Improvement Proposals, no. 1108, May 2018. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1108>.
 
 use crate::eip::Eip;
 
-/// EIP-1108: Reduce alt_bn128 precompile gas costs.
+/// EIP-1108: Reduce `alt_bn128` precompile gas costs.
 pub struct Eip1108;
 
 impl Eip for Eip1108 {
