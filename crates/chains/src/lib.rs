@@ -31,3 +31,19 @@ impl Chain for Ropsten {
     const CHAIN_ID: u64 = 3;
     const NETWORK_ID: u64 = 3;
 }
+
+/// Ethereum Kovan testnet.
+pub struct Kovan;
+
+impl Chain for Kovan {
+    const CHAIN_ID: u64 = 42;
+    const NETWORK_ID: u64 = 42;
+}
+
+/// Ethereum Rinkeby testnet.
+pub struct Rinkeby;
+
+impl Chain for Rinkeby {
+    const CHAIN_ID: u64 = 4;
+    const NETWORK_ID: u64 = 4;
+}
