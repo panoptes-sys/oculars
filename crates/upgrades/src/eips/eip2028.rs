@@ -20,8 +20,7 @@
 //! Yonatan Sompolinsky and Aviv Zohar suggested in [1] an elegant model to relate network delay to network security, and this model is also used in the work of Rafael Pass, Lior Seeman and Abhi Shelat [2]. We briefly explain this model below, because we shall study it theoretically and validate it by empirical measurements to reach the suggested lower gas cost for Calldata.
 //!
 //! The model uses the following natural parameters:
-//! * _lambda_  denotes the block creation rate [1/s]: We treat the process of finding a PoW
-//! solution as a poisson process with rate _lambda_.
+//! * _lambda_  denotes the block creation rate [1/s]: We treat the process of finding a PoW solution as a poisson process with rate _lambda_.
 //! * _beta_ - chain growth rate [1/s]: the rate at which new blocks are added to
 //! the heaviest chain.
 //! * _D_ - block delay [s]: The time that elapses between the mining of a new block and its acceptance by all the miners (all miners switched to mining on top of that block).

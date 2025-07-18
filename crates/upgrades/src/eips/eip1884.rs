@@ -95,9 +95,9 @@
 //! - Gascost verification of `SLOAD`, `EXTCODEHASH` and `SELFBALANCE`
 //! - Verify that `SELFBALANCE` is invalid before Istanbul
 //!
-//! Some testcases have been implemented as statetests at https://github.com/holiman/IstanbulTests/tree/master/GeneralStateTests
+//! Some testcases have been implemented as statetests at <https://github.com/holiman/IstanbulTests/tree/master/GeneralStateTests>
 //!
-//! Martin Holst Swende (@holiman), "EIP-1884: Repricing for trie-size-dependent opcodes," Ethereum Improvement Proposals, no. 1884, March 2019. [Online serial]. Available: https://eips.ethereum.org/EIPS/eip-1884.
+//! Martin Holst Swende (@holiman), "EIP-1884: Repricing for trie-size-dependent opcodes," Ethereum Improvement Proposals, no. 1884, March 2019. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1884>.
 
 use asm::instruction::SelfBalance;
 

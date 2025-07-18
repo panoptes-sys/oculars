@@ -1,4 +1,4 @@
-//! EIP-1344: ChainID opcode.
+//! EIP-1344: `ChainID` opcode.
 //! ## Abstract
 //! This EIP adds an opcode that returns the current chain's EIP-155 unique identifier.
 //!
@@ -31,13 +31,13 @@
 //! ## Test Cases
 //! Test Cases added to [ethereum/tests](https://github.com/ethereum/tests/pull/627)
 //!
-//! Richard Meissner (@rmeissner), Bryant Eisenbach (@fubuloubu), "EIP-1344: ChainID opcode," Ethereum Improvement Proposals, no. 1344, August 2018. [Online serial]. Available: https://eips.ethereum.org/EIPS/eip-1344.
+//! Richard Meissner (@rmeissner), Bryant Eisenbach (@fubuloubu), "EIP-1344: `ChainID` opcode," Ethereum Improvement Proposals, no. 1344, August 2018. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1344>.
 
 use asm::instruction::ChainId;
 
 use crate::eip::{Eip, macros::introduces_instructions};
 
-/// EIP-1344: ChainID opcode.
+/// EIP-1344: `ChainID` opcode.
 pub struct Eip1344;
 
 impl Eip for Eip1344 {
