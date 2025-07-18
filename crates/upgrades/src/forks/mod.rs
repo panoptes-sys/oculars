@@ -5,6 +5,7 @@ pub mod constantinople;
 pub mod frontier;
 pub mod frontier_thawing;
 pub mod homestead;
+pub mod istanbul;
 pub mod petersburg;
 pub mod spurious_dragon;
 pub mod tangerine_whistle;
