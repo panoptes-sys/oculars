@@ -1,7 +1,12 @@
 //! Ethereum Improvement Proposals.
 
 pub mod eip100;
+pub mod eip1014;
+pub mod eip1052;
+pub mod eip1234;
+pub mod eip1283;
 pub mod eip140;
+pub mod eip145;
 pub mod eip150;
 pub mod eip155;
 pub mod eip160;
