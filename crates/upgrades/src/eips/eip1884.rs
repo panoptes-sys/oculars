@@ -101,7 +101,7 @@
 
 use asm::instruction::SelfBalance;
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-1884: Repricing for trie-size-dependent opcodes.
 pub struct Eip1884;
