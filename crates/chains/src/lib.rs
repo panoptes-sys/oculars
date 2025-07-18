@@ -47,3 +47,11 @@ impl Chain for Rinkeby {
     const CHAIN_ID: u64 = 4;
     const NETWORK_ID: u64 = 4;
 }
+
+/// Ethereum Görli testnet.
+pub struct Goerli;
+
+impl Chain for Goerli {
+    const CHAIN_ID: u64 = 5;
+    const NETWORK_ID: u64 = 5;
+}
