@@ -36,7 +36,7 @@
 
 use asm::instruction::StaticCall;
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-214: New opcode STATICCALL.
 pub struct Eip214;

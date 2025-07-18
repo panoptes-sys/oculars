@@ -49,7 +49,7 @@
 
 use asm::instruction::Revert;
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-140: REVERT instruction.
 pub struct Eip140;
