@@ -28,7 +28,13 @@ pub trait ExecutionUpgrade {
     }
 
     /// Returns whether an EIP is included in this execution upgrade.
-    // TODO: Add Petersburg EIP removal example here.
+    ///
+    /// # Example
+    /// ```
+    /// # use oculars_upgrades::{execution::ExecutionUpgrade, forks::{constantinople::Constantinople, petersburg::Petersburg}, eips::eip1283::Eip1283};
+    /// assert!(Constantinople::includes::<Eip1283>());
+    /// assert!(!Petersburg::includes::<Eip1283>());
+    /// ```
     #[must_use]
     #[inline]
     fn includes<E: Eip + 'static>() -> bool {
