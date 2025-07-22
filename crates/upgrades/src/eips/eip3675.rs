@@ -2,7 +2,7 @@
 //!
 //! ## Abstract
 //!
-//! This EIP deprecates Proof-of-Work (PoW) and supersedes it with the new Proof-of-Stake consensus mechanism (PoS) driven by the beacon chain. Information on the bootstrapping of the new consensus mechanism is documented in [EIP-2982](./eip-2982.md). Full specification of the beacon chain can be found in the `ethereum/consensus-specs` repository.
+//! This EIP deprecates Proof-of-Work (`PoW`) and supersedes it with the new Proof-of-Stake consensus mechanism (`PoS`) driven by the beacon chain. Information on the bootstrapping of the new consensus mechanism is documented in [EIP-2982](./eip-2982.md). Full specification of the beacon chain can be found in the `ethereum/consensus-specs` repository.
 //!
 //! This document specifies the set of changes to the block structure, block processing, fork choice rule and network interface introduced by the consensus upgrade.
 //!
@@ -18,24 +18,24 @@
 //!
 //! ### Definitions
 //!
-//! * **PoW block**: Block that is built and verified by the existing proof-of-work mechanism. In other words, a block of the Ethereum network before the consensus upgrade.
-//! * **PoS block**: Block that is built and verified by the new proof-of-stake mechanism.
-//! * **Terminal PoW block**: A PoW block that satisfies the following conditions --
-//! `pow_block.total_difficulty >= TERMINAL_TOTAL_DIFFICULTY` *and* `pow_block.parent_block.total_difficulty < TERMINAL_TOTAL_DIFFICULTY`.
-//! There can be more than one terminal PoW block in the network, e.g. multiple children of the same pre-terminal block.
+//! * **`PoW` block**: Block that is built and verified by the existing proof-of-work mechanism. In other words, a block of the Ethereum network before the consensus upgrade.
+//! * **`PoS` block**: Block that is built and verified by the new proof-of-stake mechanism.
+//! * **Terminal `PoW` block**: A `PoW` block that satisfies the following conditions --
+//!   `pow_block.total_difficulty >= TERMINAL_TOTAL_DIFFICULTY` *and* `pow_block.parent_block.total_difficulty < TERMINAL_TOTAL_DIFFICULTY`.
+//!   There can be more than one terminal `PoW` block in the network, e.g. multiple children of the same pre-terminal block.
 //! * **`TERMINAL_TOTAL_DIFFICULTY`** The amount of total difficulty reached by the network that triggers the consensus upgrade. Ethereum Mainnet configuration **MUST** have this parameter set to the value `58750000000000000000000`.
-//! * **`TRANSITION_BLOCK`** The earliest PoS block of the canonical chain, i.e. the PoS block with the lowest block height.
+//! * **`TRANSITION_BLOCK`** The earliest `PoS` block of the canonical chain, i.e. the `PoS` block with the lowest block height.
 //! * **`POS_FORKCHOICE_UPDATED`** An event occurring when the state of the proof-of-stake fork choice is updated.
 //! * **`FORK_NEXT_VALUE`** A block number set to the `FORK_NEXT` parameter for the upcoming consensus upgrade.
-//! * **`TERMINAL_BLOCK_HASH`** Designates the hash of the terminal PoW block if set, i.e. if not stubbed with `0x0000000000000000000000000000000000000000000000000000000000000000`.
-//! * **`TERMINAL_BLOCK_NUMBER`** Designates the number of the terminal PoW block if `TERMINAL_BLOCK_HASH` is set.
+//! * **`TERMINAL_BLOCK_HASH`** Designates the hash of the terminal `PoW` block if set, i.e. if not stubbed with `0x0000000000000000000000000000000000000000000000000000000000000000`.
+//! * **`TERMINAL_BLOCK_NUMBER`** Designates the number of the terminal `PoW` block if `TERMINAL_BLOCK_HASH` is set.
 //!
-//! #### PoS events
+//! #### `PoS` events
 //!
-//! Events having the `POS_` prefix in the name (PoS events) are emitted by the new proof-of-stake consensus mechanism. They signify the corresponding assertion that has been made regarding a block specified by the event. The underlying logic of PoS events can be found in the beacon chain specification. On the occurrence of each PoS event the corresponding action that is specified by this EIP **MUST** be taken.
+//! Events having the `POS_` prefix in the name (`PoS` events) are emitted by the new proof-of-stake consensus mechanism. They signify the corresponding assertion that has been made regarding a block specified by the event. The underlying logic of `PoS` events can be found in the beacon chain specification. On the occurrence of each `PoS` event the corresponding action that is specified by this EIP **MUST** be taken.
 //!
-//! The details provided below must be taken into account when reading those parts of the specification that refer to the PoS events:
-//! * Reference to a block that is contained by PoS events is provided in a form of a block hash unless another is explicitly specified.
+//! The details provided below must be taken into account when reading those parts of the specification that refer to the `PoS` events:
+//! * Reference to a block that is contained by `PoS` events is provided in a form of a block hash unless another is explicitly specified.
 //! * A `POS_FORKCHOICE_UPDATED` event contains references to the head of the canonical chain and to the most recent finalized block. Before the first finalized block occurs in the system the finalized block hash provided by this event is stubbed with `0x0000000000000000000000000000000000000000000000000000000000000000`.
 //! * **`FIRST_FINALIZED_BLOCK`** The first finalized block that is designated by `POS_FORKCHOICE_UPDATED` event and has the hash that differs from the stub.
 //!
@@ -51,9 +51,9 @@
 //! *Note*: If `TERMINAL_BLOCK_HASH` is stubbed with `0x0000000000000000000000000000000000000000000000000000000000000000` then `TERMINAL_BLOCK_HASH` and `TERMINAL_BLOCK_NUMBER` parameters **MUST NOT** take an effect.
 //!
 //!
-//! ### PoW block processing
+//! ### `PoW` block processing
 //!
-//! PoW blocks that are descendants of any terminal PoW block **MUST NOT** be imported. This implies that a terminal PoW block will be the last PoW block in the canonical chain.
+//! `PoW` blocks that are descendants of any terminal `PoW` block **MUST NOT** be imported. This implies that a terminal `PoW` block will be the last `PoW` block in the canonical chain.
 //!
 //!
 //! ### Constants
@@ -95,7 +95,7 @@
 //!
 //! #### Transition block validity
 //!
-//! In addition to satisfying the above conditions, `TRANSITION_BLOCK` **MUST** be a child of a terminal PoW block. That is, a parent of `TRANSITION_BLOCK` **MUST** satisfy terminal PoW block conditions.
+//! In addition to satisfying the above conditions, `TRANSITION_BLOCK` **MUST** be a child of a terminal `PoW` block. That is, a parent of `TRANSITION_BLOCK` **MUST** satisfy terminal `PoW` block conditions.
 //!
 //!
 //! ### Block and ommer rewards
@@ -110,16 +110,16 @@
 //!
 //! ### Fork choice rule
 //!
-//! If set, `TERMINAL_BLOCK_HASH` parameter affects the PoW heaviest chain rule in the following way:
+//! If set, `TERMINAL_BLOCK_HASH` parameter affects the `PoW` heaviest chain rule in the following way:
 //! * Canonical blockchain **MUST** contain a block with the hash defined by `TERMINAL_BLOCK_HASH` parameter at the height defined by `TERMINAL_BLOCK_NUMBER` parameter.
 //!
 //! *Note*: This rule is akin to block hash whitelisting functionality already present in client software implementations.
 //!
 //! As of the first `POS_FORKCHOICE_UPDATED` event, the fork choice rule **MUST** be altered in the following way:
-//! * Remove the existing PoW heaviest chain rule.
-//! * Adhere to the new PoS LMD-GHOST rule.
+//! * Remove the existing `PoW` heaviest chain rule.
+//! * Adhere to the new `PoS` LMD-GHOST rule.
 //!
-//! The new PoS LMD-GHOST fork choice rule is specified as follows. On each occurrence of a `POS_FORKCHOICE_UPDATED` event including the first one, the following actions **MUST** be taken:
+//! The new `PoS` LMD-GHOST fork choice rule is specified as follows. On each occurrence of a `POS_FORKCHOICE_UPDATED` event including the first one, the following actions **MUST** be taken:
 //! * Consider the chain starting at genesis and ending with the head block nominated by the event as the canonical blockchain.
 //! * Set the head of the canonical blockchain to the corresponding block nominated by the event.
 //! * Beginning with the `FIRST_FINALIZED_BLOCK`, set the most recent finalized block to the corresponding block nominated by the event.
@@ -136,7 +136,7 @@
 //!
 //! #### devp2p
 //!
-//! The networking stack **SHOULD NOT** send the following messages if they advertise the descendant of any terminal PoW block:
+//! The networking stack **SHOULD NOT** send the following messages if they advertise the descendant of any terminal `PoW` block:
 //! * `NewBlockHashes (0x01)`
 //! * `NewBlock (0x07)`
 //!
@@ -167,7 +167,7 @@
 //!
 //! See [Security considerations](#terminal-pow-block-overriding).
 //!
-//! ### Halting the import of PoW blocks
+//! ### Halting the import of `PoW` blocks
 //!
 //! See [Security considerations](#halt-the-importing-of-pow-blocks).
 //!
@@ -185,25 +185,25 @@
 //!
 //! ### Changing block validity rules
 //!
-//! The rule set enforcing the PoW seal validity is replaced with the corresponding PoS rules along with the consensus upgrade as the rationale behind this change.
+//! The rule set enforcing the `PoW` seal validity is replaced with the corresponding `PoS` rules along with the consensus upgrade as the rationale behind this change.
 //!
 //! An additional rule validating a set of deprecated block fields is required by the block format changes introduced by this specification.
 //!
 //! ### Removing block rewards
 //!
-//! Existing rewards for producing and sealing blocks are deprecated along with the PoW mechanism. The new PoS consensus becomes both responsible for sealing blocks and for issuing block rewards once this specification enters into effect.
+//! Existing rewards for producing and sealing blocks are deprecated along with the `PoW` mechanism. The new `PoS` consensus becomes both responsible for sealing blocks and for issuing block rewards once this specification enters into effect.
 //!
 //! ### Supplanting fork choice rule
 //!
-//! The fork choice rule of the PoW mechanism becomes completely irrelevant after the upgrade and is replaced with the corresponding rule of the new PoS consensus mechanism.
+//! The fork choice rule of the `PoW` mechanism becomes completely irrelevant after the upgrade and is replaced with the corresponding rule of the new `PoS` consensus mechanism.
 //!
 //! ### Remove of `POS_CONSENSUS_VALIDATED`
 //!
 //! In prior draft versions of this EIP, an additional POS event -- `POS_CONSENSUS_VALIDATED` -- was required as a validation condition for blocks. This event gave the signal to either fully incorporate or prune the block from the block tree.
 //!
 //! This event was removed for two reasons:
-//! 1. This event was an unnecessary optimization to allow for pruning of "bad" blocks from the block tree. This optimization was unnecessary because the PoS consensus would never send `POS_FORKCHOICE_UPDATED` for any such bad blocks or their descendants, and eventually any such blocks would be able to be pruned after a PoS finality event of an alternative branch in the block tree.
-//! 2. This event was dangerous in some scenarios because a block could be referenced by two *different* and conflicting PoS branches. Thus for the same block in some scenarios, both a `POS_CONSENSUS_VALIDATED == TRUE` and `POS_CONSENSUS_VALIDATED == FALSE` event could sent, entirely negating the ability to safely perform the optimization in (1).
+//! 1. This event was an unnecessary optimization to allow for pruning of "bad" blocks from the block tree. This optimization was unnecessary because the `PoS` consensus would never send `POS_FORKCHOICE_UPDATED` for any such bad blocks or their descendants, and eventually any such blocks would be able to be pruned after a `PoS` finality event of an alternative branch in the block tree.
+//! 2. This event was dangerous in some scenarios because a block could be referenced by two *different* and conflicting `PoS` branches. Thus for the same block in some scenarios, both a `POS_CONSENSUS_VALIDATED == TRUE` and `POS_CONSENSUS_VALIDATED == FALSE` event could sent, entirely negating the ability to safely perform the optimization in (1).
 //!
 //! ### EIP-2124 fork identifier
 //!
@@ -215,17 +215,17 @@
 //!
 //! After the upgrade of the consensus mechanism only the beacon chain network will have enough information to validate a block. Thus, block gossip provided by the `eth` network protocol will become unsafe and is deprecated in favour of the block gossip existing in the beacon chain network.
 //!
-//! It is recommended for the client software to not propagate descendants of any terminal PoW block to reduce the load on processing the P2P component and stop operating in the environment with unknown security properties.
+//! It is recommended for the client software to not propagate descendants of any terminal `PoW` block to reduce the load on processing the P2P component and stop operating in the environment with unknown security properties.
 //!
 //! ### Restricting the length of `extraData`
 //!
-//! The `extraData` field is defined as a maximum of `32` bytes in the yellow paper. Thus mainnet and most PoW testnets cap the value at `32` bytes.  `extraData` fields of greater length are used by clique testnets and other networks to carry special signature/consensus schemes. This EIP restricts the length of `extraData` to `32` bytes because any network that is transitioning from another consensus mechanism to a beacon chain PoS consensus mechanism no longer needs extended or unbounded `extraData`.
+//! The `extraData` field is defined as a maximum of `32` bytes in the yellow paper. Thus mainnet and most `PoW` testnets cap the value at `32` bytes.  `extraData` fields of greater length are used by clique testnets and other networks to carry special signature/consensus schemes. This EIP restricts the length of `extraData` to `32` bytes because any network that is transitioning from another consensus mechanism to a beacon chain `PoS` consensus mechanism no longer needs extended or unbounded `extraData`.
 //!
 //! ## Backwards Compatibility
 //!
 //! This EIP introduces backward incompatibilities in block validity, block rewards and fork choice rule.
 //!
-//! The design of the consensus upgrade specified by this document does not introduce backward incompatibilities for existing applications and services built on top of Ethereum except for those that are described in the [EVM](#evm) section below or heavily depends on the PoW consensus in any other way.
+//! The design of the consensus upgrade specified by this document does not introduce backward incompatibilities for existing applications and services built on top of Ethereum except for those that are described in the [EVM](#evm) section below or heavily depends on the `PoW` consensus in any other way.
 //!
 //!
 //! ### EVM
@@ -240,26 +240,26 @@
 //!
 //! #### BLOCKHASH
 //!
-//! Pseudo-random numbers obtained as the output of `BLOCKHASH` operation become more insecure after this EIP takes effect and the PoW mechanism (which decreases the malleability of block hashes) gets supplanted by PoS.
+//! Pseudo-random numbers obtained as the output of `BLOCKHASH` operation become more insecure after this EIP takes effect and the `PoW` mechanism (which decreases the malleability of block hashes) gets supplanted by `PoS`.
 //!
 //!
 //! ## Test Cases
 //!
 //! * Block validity
-//! 	* Beginning with `TRANSITION_BLOCK`, block is invalidated if any of the following is true:
-//! 		* `ommersHash != Keccak256(RLP([]))`
-//! 		* `difficulty != 0`
-//! 		* `nonce != 0x0000000000000000`
-//! 		* `len(extraData) > MAX_EXTRA_DATA_BYTES`
+//!     * Beginning with `TRANSITION_BLOCK`, block is invalidated if any of the following is true:
+//!         * `ommersHash != Keccak256(RLP([]))`
+//!         * `difficulty != 0`
+//!         * `nonce != 0x0000000000000000`
+//!         * `len(extraData) > MAX_EXTRA_DATA_BYTES`
 //!   * Beginning with `TRANSITION_BLOCK`, block rewards aren't added to `beneficiary` account
-//! * Client software adheres to PoS LMD-GHOST rule
+//! * Client software adheres to `PoS` LMD-GHOST rule
 //!   * Head and finalized blocks are set according to the recent `POS_FORKCHOICE_UPDATED` event
 //!   * No fork choice state is updated unless `POS_FORKCHOICE_UPDATED` event is received
 //! * Transition process
-//!   * Client software doesn't process any PoW block beyond a terminal PoW block
+//!   * Client software doesn't process any `PoW` block beyond a terminal `PoW` block
 //!   * Beginning with `TRANSITION_BLOCK`, client software applies new block validity rules
-//!   * Beginning with the first `POS_FORKCHOICE_UPDATED`, client software switches its fork choice rule to PoS LMD-GHOST
-//!   * `TRANSITION_BLOCK` must be a child of a terminal PoW block
+//!   * Beginning with the first `POS_FORKCHOICE_UPDATED`, client software switches its fork choice rule to `PoS` LMD-GHOST
+//!   * `TRANSITION_BLOCK` must be a child of a terminal `PoW` block
 //!   * `NewBlockHashes (0x01)` and `NewBlock (0x07)` network messages are discarded after receiving the `FIRST_FINALIZED_BLOCK`
 //!
 //!
@@ -277,39 +277,39 @@
 //!
 //! #### Terminal total difficulty vs block number
 //!
-//! Using a pre-defined block number for the hardfork is unsafe in this context due to the PoS fork choice taking priority during the transition.
+//! Using a pre-defined block number for the hardfork is unsafe in this context due to the `PoS` fork choice taking priority during the transition.
 //!
-//! An attacker may use a minority of hash power to build a malicious chain fork that would satisfy the block height requirement. Then the first PoS block may be maliciously proposed on top of the PoW block from this adversarial fork, becoming the head and subverting the security of the transition.
+//! An attacker may use a minority of hash power to build a malicious chain fork that would satisfy the block height requirement. Then the first `PoS` block may be maliciously proposed on top of the `PoW` block from this adversarial fork, becoming the head and subverting the security of the transition.
 //!
 //! To protect the network from this attack scenario, difficulty accumulated by the chain (total difficulty) is used to trigger the upgrade.
 //!
-//! #### Ability to jump between terminal PoW blocks
+//! #### Ability to jump between terminal `PoW` blocks
 //!
-//! There could be the case when a terminal PoW block is not observed by the majority of network participants due to (temporal) network partitioning. In such a case, this minority would switch their fork choice to the new rule provided by the PoS rooted on the minority terminal PoW block that they observed.
+//! There could be the case when a terminal `PoW` block is not observed by the majority of network participants due to (temporal) network partitioning. In such a case, this minority would switch their fork choice to the new rule provided by the `PoS` rooted on the minority terminal `PoW` block that they observed.
 //!
-//! The transition process allows the network to re-org between forks with different terminal PoW blocks as long as (a) these blocks satisfy the terminal PoW block conditions and (b) the `FIRST_FINALIZED_BLOCK` has not yet been received. This provides resilience against adverse network conditions during the transition process and prevents irreparable forks/partitions.
+//! The transition process allows the network to re-org between forks with different terminal `PoW` blocks as long as (a) these blocks satisfy the terminal `PoW` block conditions and (b) the `FIRST_FINALIZED_BLOCK` has not yet been received. This provides resilience against adverse network conditions during the transition process and prevents irreparable forks/partitions.
 //!
-//! #### Halt the importing of PoW blocks
+//! #### Halt the importing of `PoW` blocks
 //!
-//! Suppose the part of the client software that is connected to the beacon chain network goes offline before the Ethereum network reaches the `TERMINAL_TOTAL_DIFFICULTY` and stays offline while the network meets this threshold. Such an event makes the client software unable to switch to PoS and allows it to keep following the PoW chain if this chain is being built beyond the terminal PoW block. Depending on how long the beacon chain part was offline, it could result in different adverse effects such as:
-//! * The client has no post-state for the terminal PoW block (the state has been pruned) which prevents it from doing the re-org to the PoS chain and leaving syncing from scratch as the only option to recover.
-//! * An application, a user or a service uses the data from the wrong fork (PoW chain that is kept being built) which can cause security issues on their side.
+//! Suppose the part of the client software that is connected to the beacon chain network goes offline before the Ethereum network reaches the `TERMINAL_TOTAL_DIFFICULTY` and stays offline while the network meets this threshold. Such an event makes the client software unable to switch to `PoS` and allows it to keep following the `PoW` chain if this chain is being built beyond the terminal `PoW` block. Depending on how long the beacon chain part was offline, it could result in different adverse effects such as:
+//! * The client has no post-state for the terminal `PoW` block (the state has been pruned) which prevents it from doing the re-org to the `PoS` chain and leaving syncing from scratch as the only option to recover.
+//! * An application, a user or a service uses the data from the wrong fork (`PoW` chain that is kept being built) which can cause security issues on their side.
 //!
-//! Not importing PoW blocks that are beyond the terminal PoW block prevents these adverse effects on safety/re-orgs in the event of software or configuration failures *in favor* of a liveness failure.
+//! Not importing `PoW` blocks that are beyond the terminal `PoW` block prevents these adverse effects on safety/re-orgs in the event of software or configuration failures *in favor* of a liveness failure.
 //!
-//! #### Terminal PoW block overriding
+//! #### Terminal `PoW` block overriding
 //!
 //! There is a mechanism allowing for accelerating the consensus upgrade in emergency cases.
 //! This EIP considers the following emergency case scenarios for the acceleration to come into effect:
 //! * A drop of the network hashing rate which delays the upgrade significantly.
-//! * Attacks on the PoW network before the upgrade.
+//! * Attacks on the `PoW` network before the upgrade.
 //!
 //! The first case can be safely accelerated by updating the following parameters:
 //! * `TERMINAL_TOTAL_DIFFICULTY` -- reset to a value that is closer in time than the original one.
 //! * `FORK_NEXT_VALUE` -- adjust accordingly.
 //!
 //! The second, more dire attack scenario requires a more invasive override:
-//! * `TERMINAL_BLOCK_HASH` -- set to the hash of a certain block to become the terminal PoW block.
+//! * `TERMINAL_BLOCK_HASH` -- set to the hash of a certain block to become the terminal `PoW` block.
 //! * `TERMINAL_BLOCK_NUMBER` -- set to the number of a block designated by `TERMINAL_BLOCK_HASH`.
 //! * `TERMINAL_TOTAL_DIFFICULTY` -- set to the total difficulty value of a block designated by `TERMINAL_BLOCK_HASH`.
 //! * `FORK_NEXT_VALUE` -- adjust accordingly.
@@ -318,9 +318,9 @@
 //!
 //! ### Ancient blocks are no longer a requisite for a network security
 //!
-//! Keeping historical blocks starting from genesis is essential in the PoW network. A header of every block that belongs to a particular chain is required to justify the validity of this chain with respect to the PoW seal.
+//! Keeping historical blocks starting from genesis is essential in the `PoW` network. A header of every block that belongs to a particular chain is required to justify the validity of this chain with respect to the `PoW` seal.
 //!
-//! Validating the entire history of the chain is not required by the new PoS mechanism. Instead, the sync process in the PoS network relies on weak subjectivity checkpoints, which are historical snapshots shared by peers on the network. This means historical blocks beyond weak subjectivity checkpoint are no longer a requisite for determining the canonical blockchain.
+//! Validating the entire history of the chain is not required by the new `PoS` mechanism. Instead, the sync process in the `PoS` network relies on weak subjectivity checkpoints, which are historical snapshots shared by peers on the network. This means historical blocks beyond weak subjectivity checkpoint are no longer a requisite for determining the canonical blockchain.
 //!
 //! Specification of weak subjectivity checkpoints can be found in the `ethereum/consensus-specs` repository.
 //!

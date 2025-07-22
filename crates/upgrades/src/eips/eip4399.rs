@@ -11,11 +11,11 @@
 //!
 //! Applications may benefit from using the randomness accumulated by the beacon chain. Thus, randomness outputs produced by the beacon chain should be accessible in the EVM.
 //!
-//! At the point of `TRANSITION_BLOCK` of the Proof-of-Stake (PoS) upgrade described in [EIP-3675](./eip-3675.md), the `difficulty` block field **MUST** be `0` thereafter because there is no longer any Proof-of-Work (PoW) seal on the block. This means that the `DIFFICULTY (0x44)` instruction no longer has it's previous semantic meaning, nor a clear "correct" value to return.
+//! At the point of `TRANSITION_BLOCK` of the Proof-of-Stake (`PoS`) upgrade described in [EIP-3675](./eip-3675.md), the `difficulty` block field **MUST** be `0` thereafter because there is no longer any Proof-of-Work (`PoW`) seal on the block. This means that the `DIFFICULTY (0x44)` instruction no longer has it's previous semantic meaning, nor a clear "correct" value to return.
 //!
-//! Given prior analysis on the usage of `DIFFICULTY`, the value returned by the instruction mixed with other values is a common pattern used by smart contracts to obtain randomness. The instruction with the same number as the `DIFFICULTY` opcode returning outputs of the beacon chain RANDAO implementation makes the upgrade to PoS backwards compatible for existing smart contracts obtaining randomness from the `DIFFICULTY` instruction.
+//! Given prior analysis on the usage of `DIFFICULTY`, the value returned by the instruction mixed with other values is a common pattern used by smart contracts to obtain randomness. The instruction with the same number as the `DIFFICULTY` opcode returning outputs of the beacon chain RANDAO implementation makes the upgrade to `PoS` backwards compatible for existing smart contracts obtaining randomness from the `DIFFICULTY` instruction.
 //!
-//! Additionally, changes proposed by this EIP allow for smart contracts to determine whether the upgrade to the PoS has already happened. This can be done by analyzing the return value of the `DIFFICULTY` instruction. A value greater than `2**64` indicates that the transaction is being executed in the PoS block. Decompilers and other similar tooling may also use this trick to discern the new semantics of the instruction if data of the block including the transaction in question is available.
+//! Additionally, changes proposed by this EIP allow for smart contracts to determine whether the upgrade to the `PoS` has already happened. This can be done by analyzing the return value of the `DIFFICULTY` instruction. A value greater than `2**64` indicates that the transaction is being executed in the `PoS` block. Decompilers and other similar tooling may also use this trick to discern the new semantics of the instruction if data of the block including the transaction in question is available.
 //!
 //!
 //! ## Specification
@@ -47,21 +47,21 @@
 //!
 //! Including a RANDAO output in the block header provides a straightforward method of accessing it from inside of the EVM as block header data is already available in the EVM context.
 //!
-//! Additionally, this ensures that the execution layer can be fully executed with the block alone rather than requiring extra inputs from the PoS consensus layer.
+//! Additionally, this ensures that the execution layer can be fully executed with the block alone rather than requiring extra inputs from the `PoS` consensus layer.
 //!
 //! Mixing the randomness into a block header may contribute to uniqueness of the block hash in the case when values of other fields of the block header match the corresponding values of the header of another block.
 //!
 //! ### Using `mixHash` field instead of `difficulty`
 //!
-//! The `mixHash` header field is used instead of `difficulty` to avoid a class of hidden forkchoice bugs after the PoS upgrade.
+//! The `mixHash` header field is used instead of `difficulty` to avoid a class of hidden forkchoice bugs after the `PoS` upgrade.
 //!
-//! Client software implementing pre-EIP-3675 logic heavily depends on the `difficulty` value as total difficulty computation is the basis of the PoW fork choice rule. Setting the `difficulty` field to `0` at the PoS upgrade aims to reduce the surface of bugs related to the total difficulty value growing after the upgrade.
+//! Client software implementing pre-EIP-3675 logic heavily depends on the `difficulty` value as total difficulty computation is the basis of the `PoW` fork choice rule. Setting the `difficulty` field to `0` at the `PoS` upgrade aims to reduce the surface of bugs related to the total difficulty value growing after the upgrade.
 //!
-//! Additionally, any latent total difficulty computation after the PoS upgrade would become overflow prone if the randomness output supplanted the value of the `difficulty` field.
+//! Additionally, any latent total difficulty computation after the `PoS` upgrade would become overflow prone if the randomness output supplanted the value of the `difficulty` field.
 //!
 //! ### Reusing existing field instead of appending a new one
 //!
-//! The `mixHash` field is deprecated at the PoS upgrade and set to zero bytes array thereafter. Reusing an existing field as a place for the randomness output saves 32 bytes per block and effectively removes the deprecation of one of the fields induced by the upgrade.
+//! The `mixHash` field is deprecated at the `PoS` upgrade and set to zero bytes array thereafter. Reusing an existing field as a place for the randomness output saves 32 bytes per block and effectively removes the deprecation of one of the fields induced by the upgrade.
 //!
 //! ### Reusing the `DIFFICULTY` opcode instead of introducing a new one
 //!
@@ -73,24 +73,24 @@
 //!
 //! ### Using `TRANSITION_BLOCK` rather than a block or slot number
 //!
-//! By utilizing `TRANSITION_BLOCK` to trigger the change in logic defined in this EIP rather than a block or slot number, this EIP is tightly coupled to the PoS upgrade defined by [EIP-3675](./eip-3675.md).
+//! By utilizing `TRANSITION_BLOCK` to trigger the change in logic defined in this EIP rather than a block or slot number, this EIP is tightly coupled to the `PoS` upgrade defined by [EIP-3675](./eip-3675.md).
 //!
-//! By tightly coupling to the PoS upgrade, we ensure that there is no discontinuity for the usecase of this opcode for randomness -- the primary [motivation](#motivation) for re-using `DIFFICULTY` rather than creating a new opcode.
+//! By tightly coupling to the `PoS` upgrade, we ensure that there is no discontinuity for the usecase of this opcode for randomness -- the primary [motivation](#motivation) for re-using `DIFFICULTY` rather than creating a new opcode.
 //!
-//! ### Using `2**64` threshold to determine PoS blocks
+//! ### Using `2**64` threshold to determine `PoS` blocks
 //!
-//! The probability of RANDAO value to fall into the range between `0` and `2**64` and, thus, to be mixed with PoW difficulty values, is drastically low. Though, proposed threshold might seem to have insufficient distance from difficulty values on Ethereum Mainnet (they are currently around `2**54`), it requires a thousand times increase of the hashrate to make this threshold insecure. Such an increase is considered impossible to occur before the upcoming consensus upgrade.
+//! The probability of RANDAO value to fall into the range between `0` and `2**64` and, thus, to be mixed with `PoW` difficulty values, is drastically low. Though, proposed threshold might seem to have insufficient distance from difficulty values on Ethereum Mainnet (they are currently around `2**54`), it requires a thousand times increase of the hashrate to make this threshold insecure. Such an increase is considered impossible to occur before the upcoming consensus upgrade.
 //!
 //!
 //! ## Backwards Compatibility
 //!
-//! This EIP introduces backward incompatible changes to the execution and validation of EVM state transitions. As written, this EIP utilizes `TRANSITION_BLOCK` and is thus tightly coupled with the PoS upgrade introduced in [EIP-3675](./eip-3675.md). If this EIP is to be adopted, it **MUST** be scheduled at the same time as EIP-3675.
+//! This EIP introduces backward incompatible changes to the execution and validation of EVM state transitions. As written, this EIP utilizes `TRANSITION_BLOCK` and is thus tightly coupled with the `PoS` upgrade introduced in [EIP-3675](./eip-3675.md). If this EIP is to be adopted, it **MUST** be scheduled at the same time as EIP-3675.
 //!
 //! Additionally, the changes proposed might be backward incompatible for the following categories of applications:
-//! * Applications that use the value returned by the `DIFFICULTY` opcode as the PoW `difficulty` parameter
+//! * Applications that use the value returned by the `DIFFICULTY` opcode as the `PoW` `difficulty` parameter
 //! * Applications with logic that depends on the `DIFFICULTY` opcode returning a relatively small number with respect to the full 256-bit size of the field.
 //!
-//! The first category is already affected by switching the consensus mechanism to PoS and no additional breaking changes are introduced by this specification.
+//! The first category is already affected by switching the consensus mechanism to `PoS` and no additional breaking changes are introduced by this specification.
 //!
 //! The second category is comprised of applications that use the return value of the `DIFFICULTY` opcode in operations that might cause either overflow or underflow errors. While it is theoretically possible to author an application where a change in the range of possible values this opcode may return could lead to a security vulnerability, the chances of that are negligible.
 //!
@@ -104,7 +104,7 @@
 //!
 //! ## Security Considerations
 //!
-//! The `PREVRANDAO (0x44)` opcode in PoS Ethereum (based on the beacon chain RANDAO implementation) is a source of randomness with different properties to the randomness supplied by `BLOCKHASH (0x40)` or `DIFFICULTY (0x44)` opcodes in the PoW network.
+//! The `PREVRANDAO (0x44)` opcode in `PoS` Ethereum (based on the beacon chain RANDAO implementation) is a source of randomness with different properties to the randomness supplied by `BLOCKHASH (0x40)` or `DIFFICULTY (0x44)` opcodes in the `PoW` network.
 //!
 //! ### Biasability
 //!
