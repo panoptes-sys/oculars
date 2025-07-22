@@ -6,6 +6,7 @@ pub mod byzantium;
 pub mod constantinople;
 pub mod frontier;
 pub mod frontier_thawing;
+pub mod gray_glacier;
 pub mod homestead;
 pub mod istanbul;
 pub mod london;

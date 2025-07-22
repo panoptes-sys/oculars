@@ -35,6 +35,7 @@ pub mod eip3529;
 pub mod eip3541;
 pub mod eip3554;
 pub mod eip4345;
+pub mod eip5133;
 pub mod eip649;
 pub mod eip658;
 pub mod eip7;
