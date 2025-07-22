@@ -173,7 +173,7 @@
 
 use asm::instruction::MCopy;
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-5656: MCOPY - Memory copying instruction.
 pub struct Eip5656;

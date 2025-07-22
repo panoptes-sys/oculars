@@ -61,7 +61,7 @@
 
 use asm::instruction::BlobBaseFee;
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-7516: BLOBBASEFEE instruction.
 pub struct Eip7516;
