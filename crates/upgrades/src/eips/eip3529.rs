@@ -8,7 +8,7 @@
 //!
 //! Gas refunds for `SSTORE` and `SELFDESTRUCT` were originally introduced to motivate application developers to write applications that practice "good state hygiene", clearing storage slots and contracts that are no longer needed. However, the benefits of this technique have proven to be far lower than anticipated, and gas refunds have had multiple unexpected harmful consequences:
 //!
-//! * Refunds give rise to GasToken. GasToken has benefits in moving gas space from low-fee periods to high-fee periods, but it also has downsides to the network, particularly in exacerbating state size (as state slots are effectively used as a "battery" to save up gas) and inefficiently clogging blockchain gas usage
+//! * Refunds give rise to `GasToken`. `GasToken` has benefits in moving gas space from low-fee periods to high-fee periods, but it also has downsides to the network, particularly in exacerbating state size (as state slots are effectively used as a "battery" to save up gas) and inefficiently clogging blockchain gas usage
 //! * Refunds increase block size variance. The theoretical maximum amount of actual gas consumed in a block is nearly twice the on-paper gas limit (as refunds add gas space for subsequent transactions in a block, though refunds are capped at 50% of a transaction's gas used). This is not fatal, but is still undesirable, especially given that refunds can be used to maintain 2x usage spikes for far longer than EIP-1559 can.
 //!
 //!
@@ -53,7 +53,7 @@
 //!
 //! Refunds are currently only applied _after_ transaction execution, so they cannot affect how much gas is available to any particular call frame during execution. Hence, removing them will not break the ability of any code to execute, though it will render some applications economically nonviable.
 //!
-//! Gas tokens will become valueless. DeFi arbitrage bots, which today frequently use either established gas token schemes or a custom alternative to reduce on-chain costs, would benefit from rewriting their code to remove calls to these no-longer-functional gas storage mechanisms.
+//! Gas tokens will become valueless. `DeFi` arbitrage bots, which today frequently use either established gas token schemes or a custom alternative to reduce on-chain costs, would benefit from rewriting their code to remove calls to these no-longer-functional gas storage mechanisms.
 //!
 //! However, fully preserving refunds in the `new = original = 0 != current` case, and keeping _some_ refund in the other `nonzero -> zero` cases, ensures that a few key use cases that receive (and deserve) favorable gas cost treatment continue to do so. For example, `zero -> nonzero -> zero` storage set patterns continue to cost only ~100 gas. Two important examples of such patterns include:
 //!

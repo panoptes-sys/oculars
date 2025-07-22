@@ -16,9 +16,11 @@
 //! ## Specification
 //! Add a `BASEFEE` opcode at `(0x48)`, with gas cost `G_base`.
 //!
-//! |  Op  	| Input 	| Output 	| Cost 	|
-//! |:----:	|:-----:	|:------:	|:----:	|
-//! | 0x48 	|   0   	|    1   	|   2  	|
+//! ```python
+//! |  Op      | Input     | Output     | Cost     |
+//! |:----:    |:-----:    |:------:    |:----:    |
+//! | 0x48     |   0       |    1       |   2      |
+//! ```
 //!
 //! ## Rationale
 //!
@@ -36,12 +38,12 @@
 //! This should push the value `7` (left padded byte32) to the stack.
 //!
 //! Bytecode: `0x4800` (`BASEFEE, STOP`)
-//!
-//! |  Pc   |      Op     | Cost |   Stack   |   RStack  |
+//! ```python
+//! |  Pc   |      Op     | Cost |   Stack   |   `RStack`  |
 //! |-------|-------------|------|-----------|-----------|
 //! |    0  |    BASEFEE  |    2 |        [] |        [] |
 //! |    1  |    STOP     |    0 |       [7] |        [] |
-//!
+//! ```
 //! Output: 0x
 //! Consumed gas: `2`
 //!
@@ -52,7 +54,7 @@
 
 use asm::instruction::BaseFee;
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-3198: BASEFEE opcode.
 pub struct Eip3198;

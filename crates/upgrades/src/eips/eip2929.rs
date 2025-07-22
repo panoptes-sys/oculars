@@ -10,7 +10,7 @@
 //!
 //! ## Motivation
 //!
-//! Generally, the main function of gas costs of opcodes is to be an estimate of the time needed to process that opcode, the goal being for the gas limit to correspond to a limit on the time needed to process a block. However, storage-accessing opcodes (`SLOAD`, as well as the `*CALL`, `BALANCE` and `EXT*` opcodes) have historically been underpriced. In the 2016 Shanghai DoS attacks, once the most serious client bugs were fixed, one of the more durably successful strategies used by the attacker was to simply send transactions that access or call a large number of accounts.
+//! Generally, the main function of gas costs of opcodes is to be an estimate of the time needed to process that opcode, the goal being for the gas limit to correspond to a limit on the time needed to process a block. However, storage-accessing opcodes (`SLOAD`, as well as the `*CALL`, `BALANCE` and `EXT*` opcodes) have historically been underpriced. In the 2016 Shanghai `DoS` attacks, once the most serious client bugs were fixed, one of the more durably successful strategies used by the attacker was to simply send transactions that access or call a large number of accounts.
 //!
 //! Gas costs were increased to mitigate this, but recent numbers suggest they were not increased enough. Quoting [https://arxiv.org/pdf/1909.07220.pdf](https://arxiv.org/pdf/1909.07220.pdf):
 //!
@@ -86,15 +86,15 @@
 //!
 //! ### Opcode costs vs charging per byte of witness data
 //!
-//! The natural alternative path to changing gas costs to reflect witness sizes is to charge per byte of witness data. However, that would take a longer time to implement, hampering the goal of providing short-term security relief. Furthermore, following that path faithfully would lead to extremely high gas costs to transactions that touch contract code, as one would need to charge for all 24576 contract code bytes; this would be an unacceptably high burden on developers. It is better to wait for [code merklization](https://medium.com/ewasm/evm-bytecode-merklization-2a8366ab0c90) to start trying to properly account for gas costs of accessing individual chunks of code; from a short-term DoS prevention standpoint, accessing 24 kB from disk is not much more expensive than accessing 32 bytes from disk, so worrying about code size is not necessary.
+//! The natural alternative path to changing gas costs to reflect witness sizes is to charge per byte of witness data. However, that would take a longer time to implement, hampering the goal of providing short-term security relief. Furthermore, following that path faithfully would lead to extremely high gas costs to transactions that touch contract code, as one would need to charge for all 24576 contract code bytes; this would be an unacceptably high burden on developers. It is better to wait for [code merklization](https://medium.com/ewasm/evm-bytecode-merklization-2a8366ab0c90) to start trying to properly account for gas costs of accessing individual chunks of code; from a short-term `DoS` prevention standpoint, accessing 24 kB from disk is not much more expensive than accessing 32 bytes from disk, so worrying about code size is not necessary.
 //!
-//! ### Adding the accessed_addresses / accessed_storage_keys sets
+//! ### Adding the `accessed_addresses` / `accessed_storage_keys` sets
 //!
 //! The sets of already-accessed accounts and storage slots are added to avoid needlessly charging for things that can be cached (and in all performant implementations already are cached). Additionally, it removes the current undesirable status quo where it is needlessly unaffordable to do self-calls or call precompiles, and enables contract breakage mitigations that involve pre-fetching some storage key allowing a future execution to still take the expected amount of gas.
 //!
 //! ### SSTORE gas cost change
 //!
-//! The change to SSTORE is needed to avoid the possibility of a DoS attack that "pokes" a randomly chosen zero storage slot, changing it from 0 to 0 at a cost of 800 gas but requiring a de-facto storage load. The `SSTORE_RESET_GAS` reduction ensures that the total cost of SSTORE (which now requires paying the `COLD_SLOAD_COST`) remains unchanged. Additionally, note that applications that do `SLOAD` followed by `SSTORE` (eg. `storage_variable += x`) _would actually get cheaper_!
+//! The change to SSTORE is needed to avoid the possibility of a `DoS` attack that "pokes" a randomly chosen zero storage slot, changing it from 0 to 0 at a cost of 800 gas but requiring a de-facto storage load. The `SSTORE_RESET_GAS` reduction ensures that the total cost of SSTORE (which now requires paying the `COLD_SLOAD_COST`) remains unchanged. Additionally, note that applications that do `SLOAD` followed by `SSTORE` (eg. `storage_variable += x`) _would actually get cheaper_!
 //!
 //! ### Change SSTORE accounting only minimally
 //!
