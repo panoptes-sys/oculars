@@ -50,7 +50,7 @@
 //! | - | - | - |
 //! | `Blob` | `ByteVector[BYTES_PER_FIELD_ELEMENT * FIELD_ELEMENTS_PER_BLOB]` | |
 //! | `VersionedHash` | `Bytes32` | |
-//! | `KZGCommitment` | `Bytes48` | Perform IETF BLS signature "KeyValidate" check but do allow the identity point |
+//! | `KZGCommitment` | `Bytes48` | Perform IETF BLS signature "`KeyValidate`" check but do allow the identity point |
 //! | `KZGProof` | `Bytes48` | Same as for `KZGCommitment` |
 //!
 //! ### Cryptographic Helpers
@@ -398,7 +398,7 @@
 //!
 //! ### Mempool issues
 //!
-//! Blob transactions have a large data size at the mempool layer, which poses a mempool DoS risk,
+//! Blob transactions have a large data size at the mempool layer, which poses a mempool `DoS` risk,
 //! though not an unprecedented one as this also applies to transactions with large amounts of calldata.
 //!
 //! By only broadcasting announcements for blob transactions, receiving nodes will have control over which and how many transactions to receive,
