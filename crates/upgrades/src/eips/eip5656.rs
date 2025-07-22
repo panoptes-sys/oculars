@@ -165,9 +165,9 @@
 //!
 //! ## Security Considerations
 //!
-//! Clients should take care that their implementation does not use an intermediate buffer (see for instance that the C stdlib `memmove` function does not use an intermediate buffer), as this is a potential Denial of Service (DoS) vector. Most language builtins / standard library functions for moving bytes have the correct performance characteristics here.
+//! Clients should take care that their implementation does not use an intermediate buffer (see for instance that the C stdlib `memmove` function does not use an intermediate buffer), as this is a potential Denial of Service (`DoS`) vector. Most language builtins / standard library functions for moving bytes have the correct performance characteristics here.
 //!
-//! This aside, the analysis for Denial of Service (DoS) and memory exhaustion attacks is identical to other opcodes which touch memory, as the memory expansion follows the same pricing rules.
+//! This aside, the analysis for Denial of Service (`DoS`) and memory exhaustion attacks is identical to other opcodes which touch memory, as the memory expansion follows the same pricing rules.
 //!
 //! Alex Beregszaszi (@axic), Paul Dworzanski (@poemm), Jared Wasinger (@jwasinger), Casey Detrio (@cdetrio), Pawel Bylica (@chfast), Charles Cooper (@charles-cooper), "EIP-5656: MCOPY - Memory copying instruction," Ethereum Improvement Proposals, no. 5656, February 2021. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-5656>.
 

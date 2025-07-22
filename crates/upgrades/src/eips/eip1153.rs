@@ -242,7 +242,7 @@
 //!
 //! Smart contract developers may also be tempted to use transient storage as an alternative to in-memory mappings. They should be aware that transient storage is not discarded when a call returns or reverts, as is memory, and should prefer memory for these use cases so as not to create unexpected behavior on reentrancy in the same transaction. The necessarily high cost of transient storage over memory should already discourage this usage pattern. Most usages of in-memory mappings can be better implemented with key-sorted lists of entries, and in-memory mappings are rarely required in smart contracts (i.e. the author knows of no known use cases in production).
 //!
-//! Alexey Akhunov (@AlexeyAkhunov), Moody Salem (@moodysalem), "EIP-1153: Transient storage opcodes," Ethereum Improvement Proposals, no. 1153, June 2018. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1153>.
+//! Alexey Akhunov (@`AlexeyAkhunov`), Moody Salem (@moodysalem), "EIP-1153: Transient storage opcodes," Ethereum Improvement Proposals, no. 1153, June 2018. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1153>.
 
 use asm::instruction::{TLoad, TStore};
 

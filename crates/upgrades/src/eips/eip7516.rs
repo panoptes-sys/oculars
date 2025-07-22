@@ -41,7 +41,7 @@
 //!
 //! Bytecode: `0x4900` (`BLOBBASEFEE, STOP`)
 //!
-//! | Pc | Op          | Cost | Stack | RStack |
+//! | Pc | Op          | Cost | Stack | `RStack` |
 //! |----|-------------|------|-------|--------|
 //! | 0  | BLOBBASEFEE | 2    | []    | []     |
 //! | 1  | STOP        | 0    | [7]   | []     |
