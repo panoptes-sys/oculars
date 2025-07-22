@@ -24,6 +24,7 @@ pub mod eip2028;
 pub mod eip211;
 pub mod eip214;
 pub mod eip2200;
+pub mod eip2384;
 pub mod eip649;
 pub mod eip658;
 pub mod eip7;
