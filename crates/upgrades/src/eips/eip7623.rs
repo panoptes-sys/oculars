@@ -62,7 +62,7 @@
 //!
 //! This proposal aims to increase the cost of calldata to 10/40 gas for transactions that do not exceed a certain threshold of gas spent on EVM operations relative to gas spent on calldata. This change will significantly reduce the maximum block size by limiting the size of data-heavy transactions that can fit into a single block. By increasing calldata costs from 4/16 to 10/40 gas per byte, for data-heavy transactions this EIP aims to reduce the possible EL payload size to approximately 0.72 MB (`30_000_000/40`) without affecting the majority of users. Other adversarial block constructions can have a non-compressible EL payload size of approximately 1.26MiB.
 //!
-//! Notably, regular users (e.g. sending ETH/Tokens/NFTs, engaging in DeFi, social media, restaking, bridging, etc.), who do not use calldata predominantly for DA, may remain unaffected.
+//! Notably, regular users (e.g. sending ETH/Tokens/NFTs, engaging in `DeFi`, social media, restaking, bridging, etc.), who do not use calldata predominantly for DA, may remain unaffected.
 //! The calldata cost for transactions involving significant EVM computation remains at 4/16 gas per byte, so those transactions are unaffected.
 //!
 //! ## Backwards Compatibility

@@ -16,23 +16,23 @@
 //!
 //! | Name                | Value | Comment            |
 //! |---------------------|-------|--------------------|
-//! | BLS12_G1ADD         | 0x0b  | precompile address |
-//! | BLS12_G1MSM         | 0x0c  | precompile address |
-//! | BLS12_G2ADD         | 0x0d  | precompile address |
-//! | BLS12_G2MSM         | 0x0e  | precompile address |
-//! | BLS12_PAIRING_CHECK | 0x0f  | precompile address |
-//! | BLS12_MAP_FP_TO_G1  | 0x10  | precompile address |
-//! | BLS12_MAP_FP2_TO_G2 | 0x11  | precompile address |
+//! | `BLS12_G1ADD`         | 0x0b  | precompile address |
+//! | `BLS12_G1MSM`         | 0x0c  | precompile address |
+//! | `BLS12_G2ADD`         | 0x0d  | precompile address |
+//! | `BLS12_G2MSM`         | 0x0e  | precompile address |
+//! | `BLS12_PAIRING_CHECK` | 0x0f  | precompile address |
+//! | `BLS12_MAP_FP_TO_G1`  | 0x10  | precompile address |
+//! | `BLS12_MAP_FP2_TO_G2` | 0x11  | precompile address |
 //!
 //! We introduce *seven* separate precompiles to perform the following operations:
 //!
-//! - BLS12_G1ADD - to perform point addition in G1 (curve over base prime field) with a gas cost of `375` gas
-//! - BLS12_G1MSM - to perform multi-scalar-multiplication (MSM) in G1 (curve over base prime field) with a gas cost formula defined in the corresponding section
-//! - BLS12_G2ADD - to perform point addition in G2 (curve over quadratic extension of the base prime field) with a gas cost of `600` gas
-//! - BLS12_G2MSM - to perform multi-scalar-multiplication (MSM) in G2 (curve over quadratic extension of the base prime field) with a gas cost formula defined in the corresponding section
-//! - BLS12_PAIRING_CHECK - to perform a pairing operations between a set of *pairs* of (G1, G2) points a gas cost formula defined in the corresponding section
-//! - BLS12_MAP_FP_TO_G1 - maps base field element into the G1 point with a gas cost of `5500` gas
-//! - BLS12_MAP_FP2_TO_G2 - maps extension field element into the G2 point with a gas cost of `23800` gas
+//! - `BLS12_G1ADD` - to perform point addition in G1 (curve over base prime field) with a gas cost of `375` gas
+//! - `BLS12_G1MSM` - to perform multi-scalar-multiplication (MSM) in G1 (curve over base prime field) with a gas cost formula defined in the corresponding section
+//! - `BLS12_G2ADD` - to perform point addition in G2 (curve over quadratic extension of the base prime field) with a gas cost of `600` gas
+//! - `BLS12_G2MSM` - to perform multi-scalar-multiplication (MSM) in G2 (curve over quadratic extension of the base prime field) with a gas cost formula defined in the corresponding section
+//! - `BLS12_PAIRING_CHECK` - to perform a pairing operations between a set of *pairs* of (G1, G2) points a gas cost formula defined in the corresponding section
+//! - `BLS12_MAP_FP_TO_G1` - maps base field element into the G1 point with a gas cost of `5500` gas
+//! - `BLS12_MAP_FP2_TO_G2` - maps extension field element into the G2 point with a gas cost of `23800` gas
 //!
 //! A mapping functions specification is included as a separate [document](../assets/eip-2537/field_to_curve.md). This mapping function does NOT perform mapping of the byte string into a field element (as it can be implemented in many different ways and can be efficiently performed in EVM), but only does field arithmetic to map a field element into a curve point. Such functionality is required for signature schemes.
 //!
@@ -90,11 +90,11 @@
 //!
 //! In order to produce inputs to an operation, one encodes elements of the base field and the extension field.
 //!
-//! A base field element (Fp) is encoded as `64` bytes by performing the BigEndian encoding of the corresponding (unsigned) integer. Due to the size of `p`, the top `16` bytes are always zeroes. `64` bytes are chosen to have `32` byte aligned ABI (representable as e.g. `bytes32[2]` or `uint256[2]` with the latter assuming the BigEndian encoding). The corresponding integer **must** be less than field modulus.
+//! A base field element (Fp) is encoded as `64` bytes by performing the `BigEndian` encoding of the corresponding (unsigned) integer. Due to the size of `p`, the top `16` bytes are always zeroes. `64` bytes are chosen to have `32` byte aligned ABI (representable as e.g. `bytes32[2]` or `uint256[2]` with the latter assuming the `BigEndian` encoding). The corresponding integer **must** be less than field modulus.
 //!
 //! For elements of the quadratic extension field (Fp2), encoding is byte concatenation of individual encoding of the coefficients totaling in `128` bytes for a total encoding. For an Fp2 element in a form `el = c0 + c1 * v` where `v` is the formal square root of a quadratic non-residue and `c0` and `c1` are Fp elements the corresponding byte encoding will be `encode(c0) || encode(c1)` where `||` means byte concatenation (or one can use `bytes32[4]` or `uint256[4]` in terms of Solidity types).
 //!
-//! *Note on the top `16` bytes being zero*: it is required that an encoded element is "in a field", which means strictly `< modulus`. In BigEndian encoding it automatically means that for a modulus that is just `381` bit long the top `16` bytes in `64` bytes encoding are zeroes and this **must** be checked even if only a subslice of input data is used for actual decoding.
+//! *Note on the top `16` bytes being zero*: it is required that an encoded element is "in a field", which means strictly `< modulus`. In `BigEndian` encoding it automatically means that for a modulus that is just `381` bit long the top `16` bytes in `64` bytes encoding are zeroes and this **must** be checked even if only a subslice of input data is used for actual decoding.
 //!
 //! On inputs that can not be a valid encodings of field elements the precompile *must* return an error.
 //!
@@ -108,7 +108,7 @@
 //!
 //! #### Encoding of scalars for multiplication operation:
 //!
-//! A scalar for the multiplication operation is encoded as `32` bytes by performing BigEndian encoding of the corresponding (unsigned) integer. The corresponding integer is **not** required to be less than or equal to main subgroup order `q`.
+//! A scalar for the multiplication operation is encoded as `32` bytes by performing `BigEndian` encoding of the corresponding (unsigned) integer. The corresponding integer is **not** required to be less than or equal to main subgroup order `q`.
 //!
 //! #### Behavior on empty inputs:
 //!
@@ -206,7 +206,7 @@
 //!
 //! Following the current state of all other precompiles, if a call to one of the precompiles in this EIP results in an error then all the gas supplied along with a `CALL` or `STATICCALL` is burned.
 //!
-//! ### DDoS protection
+//! ### `DDoS` protection
 //!
 //! A sane implementation of this EIP *should not* contain potential infinite loops (it is possible and not even hard to implement all the functionality without `while` loops) and the gas schedule accurately reflects the time spent on computations of the corresponding function (precompiles pricing reflects an amount of gas consumed in the worst case where such a case exists).
 //!
