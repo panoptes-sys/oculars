@@ -39,4 +39,5 @@ pub mod eip5133;
 pub mod eip649;
 pub mod eip658;
 pub mod eip7;
+pub mod eip8;
 pub mod genesis;
