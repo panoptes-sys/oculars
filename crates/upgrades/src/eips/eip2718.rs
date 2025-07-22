@@ -37,17 +37,17 @@
 //! The `TransactionType` of the receipt **MUST** match the `TransactionType` of the transaction with a matching `Index`.
 //!
 //! ## Rationale
-//! ### TransactionType only goes up to 0x7f
+//! ### `TransactionType` only goes up to 0x7f
 //! For the forseable future, 0x7f is plenty and it leaves open a number of options for extending the range such as using the high bit as a continuation bit.
 //! This also prevents us from colliding with legacy transaction types, which always start with a byte `>= 0xc0`.
-//! ### **SHOULD** instead of **MUST** for the TransactionType being first byte of signed data
+//! ### **SHOULD** instead of **MUST** for the `TransactionType` being first byte of signed data
 //! While it is strongly recommended that all future transactions sign the first byte to ensure that there is no problem with signature reuse, the authors acknowledge that this may not always make sense or be possible.
 //! One example where this isn't possible is wrapped legacy transactions that are signature compatible with the legacy signing scheme.
 //! Another potential situation is one where transactions don't have a signature in the traditional sense and instead have some other mechanism for determining validity.
-//! ### TransactionType selection algorithm
+//! ### `TransactionType` selection algorithm
 //! There was discussion about defining the `TransactionType` identifier assignment/selection algorithm in this standard.
 //! While it would be nice to have a standardized mechanism for assignment, at the time of writing of this standard there is not a strong need for it so it was deemed out of scope.
-//! A future EIP may introduce a standard for TransactionType identifier assignment if it is deemed necessary.
+//! A future EIP may introduce a standard for `TransactionType` identifier assignment if it is deemed necessary.
 //! ### Opaque byte array rather than an RLP array
 //! By having the second byte on be opaque bytes, rather than an RLP (or other encoding) list, we can support different encoding formats for the transaction payload in the future such as SSZ, LEB128, or a fixed width format.
 //! ### ORIGIN and CALLER
@@ -57,7 +57,7 @@
 //! Going forward, we will assume that all transaction types will have an address that reasonably represents a `CALLER` of the first EVM frame and `ORIGIN` will be the same address in all cases.
 //! If a transaction type needs to supply additional information to contracts, they will need a new opcode.
 //!
-//! Micah Zoltu (@MicahZoltu), "EIP-2718: Typed Transaction Envelope," Ethereum Improvement Proposals, no. 2718, June 2020. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-2718>.
+//! Micah Zoltu (@`MicahZoltu`), "EIP-2718: Typed Transaction Envelope," Ethereum Improvement Proposals, no. 2718, June 2020. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-2718>.
 
 use crate::eip::Eip;
 

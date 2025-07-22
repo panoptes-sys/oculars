@@ -53,9 +53,9 @@
 //!
 //! ## Security Considerations
 //!
-//! The authors are not aware of any security or DoS risks posed by this change.
+//! The authors are not aware of any security or `DoS` risks posed by this change.
 //!
-//! Alex Beregszaszi (@axic), Paweł Bylica (@chfast), Andrei Maiboroda (@gumb0), Alexey Akhunov (@AlexeyAkhunov), Christian Reitwiessner (@chriseth), Martin Swende (@holiman), "EIP-3541: Reject new contract code starting with the 0xEF byte," Ethereum Improvement Proposals, no. 3541, March 2021. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-3541>.
+//! Alex Beregszaszi (@axic), Paweł Bylica (@chfast), Andrei Maiboroda (@gumb0), Alexey Akhunov (@`AlexeyAkhunov`), Christian Reitwiessner (@chriseth), Martin Swende (@holiman), "EIP-3541: Reject new contract code starting with the 0xEF byte," Ethereum Improvement Proposals, no. 3541, March 2021. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-3541>.
 
 use crate::eip::Eip;
 
