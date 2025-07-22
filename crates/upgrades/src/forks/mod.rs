@@ -1,5 +1,6 @@
 //! Ethereum forks.
 
+pub mod arrow_glacier;
 pub mod berlin;
 pub mod byzantium;
 pub mod constantinople;
