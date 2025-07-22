@@ -427,7 +427,7 @@
 
 use asm::instruction::BlobHash;
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-4844: Shard Blob Transactions.
 pub struct Eip4844;
