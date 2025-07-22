@@ -3,7 +3,7 @@
 //! ### Abstract
 //!
 //! This EIP introduces new forward-compatibility requirements for implementations of the
-//! devp2p Wire Protocol, the RLPx Discovery Protocol and the RLPx TCP Transport Protocol.
+//! devp2p Wire Protocol, the `RLPx` Discovery Protocol and the `RLPx` TCP Transport Protocol.
 //! Clients which implement EIP-8 behave according to Postel's Law:
 //!
 //! > Be conservative in what you do, be liberal in what you accept from others.
@@ -15,14 +15,14 @@
 //! devp2p version supported. Implementations should also ignore any additional list elements
 //! at the end of the hello packet.
 //!
-//! Similarly, implementations of **the RLPx Discovery Protocol** should not validate the
+//! Similarly, implementations of **the `RLPx` Discovery Protocol** should not validate the
 //! version number of the ping packet, ignore any additional list elements in any packet, and
 //! ignore any data after the first RLP value in any packet. Discovery packets with unknown
 //! packet type should be discarded silently. The maximum size of any discovery packet is
 //! still 1280 bytes.
 //!
-//! Finally, implementations of **the RLPx TCP Transport protocol** should accept a new
-//! encoding for the encrypted key establishment handshake packets. If an EIP-8 style RLPx
+//! Finally, implementations of **the `RLPx` TCP Transport protocol** should accept a new
+//! encoding for the encrypted key establishment handshake packets. If an EIP-8 style `RLPx`
 //! `auth-packet` is received, the corresponding `ack-packet` should be sent using the rules
 //! below.
 //!
@@ -65,7 +65,7 @@
 //!
 //! Changes to the devp2p protocols are hard to deploy because clients running an older
 //! version will refuse communication if the version number or structure of the hello
-//! (discovery ping, RLPx handshake) packet does not match local expectations.
+//! (discovery ping, `RLPx` handshake) packet does not match local expectations.
 //!
 //! Introducing forward-compatibility requirements as part of the Homestead consensus upgrade
 //! will ensure that all client software in use on the Ethereum network can cope with future
@@ -102,7 +102,7 @@
 //! * If the packet is received by a node with higher version, it can enable
 //!   backwards-compatibility logic or drop the connection.
 //!
-//! #### Changes to the RLPx Discovery Protocol
+//! #### Changes to the `RLPx` Discovery Protocol
 //!
 //! The relaxation of discovery packet decoding rules largely codifies current practice. Most
 //! existing implementations do not care about the number of list elements (an exception being
@@ -114,11 +114,11 @@
 //! clients will ignore the additional elements and can continue to operate even when the
 //! majority of the network has moved on to a newer protocol.
 //!
-//! #### Changes to the RLPx TCP Handshake
+//! #### Changes to the `RLPx` TCP Handshake
 //!
-//! Discussions of the RLPx v5 changes (chunked packets, change to key derivation) have
+//! Discussions of the `RLPx` v5 changes (chunked packets, change to key derivation) have
 //! faltered in part because the v4 handshake encoding provides only one in-band way to add a
-//! version number: shortening the random portion of the nonce. Even if the RLPx v5 handshake
+//! version number: shortening the random portion of the nonce. Even if the `RLPx` v5 handshake
 //! proposal were accepted, future upgrades are hard because the handshake packet is a fixed
 //! size ECIES ciphertext with known layout.
 //!
@@ -129,9 +129,9 @@
 //! * Adding a version number to both packets in place of the token flag (unused).
 //! * Removing the hash of the ephemeral public key (it is redundant).
 //!
-//! These changes make it possible to upgrade the RLPx TCP transport protocol in the same
+//! These changes make it possible to upgrade the `RLPx` TCP transport protocol in the same
 //! manner as described for the other protocols, i.e. by adding list elements and bumping the
-//! version. Since this is the first change to the RLPx handshake packet, we can seize the
+//! version. Since this is the first change to the `RLPx` handshake packet, we can seize the
 //! opportunity to remove all currently unused fields.
 //!
 //! Additional data is permitted (and in fact required) after the RLP list because the
@@ -154,7 +154,7 @@
 //! ```
 //!
 //! The plain text size prefix is perhaps the most controversial aspect of this document. It
-//! has been argued that the prefix aids adversaries that seek to filter and identify RLPx
+//! has been argued that the prefix aids adversaries that seek to filter and identify `RLPx`
 //! connections on the network level.
 //!
 //! This is largely a question of how much effort the adversary is willing to expense. If the
@@ -163,11 +163,11 @@
 //!
 //! * For typical firewall operators, blocking all connections whose first two bytes form an
 //!   integer in range [300,600] is probably too invasive. Port-based blocking would be
-//!   a more effective measure to filter most RLPx traffic.
+//!   a more effective measure to filter most `RLPx` traffic.
 //! * For an attacker who can afford to correlate many criteria, the size prefix would ease
 //!   recognition because it adds to the indicator set. However, such an attacker could also
-//!   be expected to read or participate in RLPx Discovery traffic, which would be sufficient
-//!   to enable blocking of RLPx TCP connections whatever their format is.
+//!   be expected to read or participate in `RLPx` Discovery traffic, which would be sufficient
+//!   to enable blocking of `RLPx` TCP connections whatever their format is.
 //!
 //! ### Backwards Compatibility
 //!
@@ -191,7 +191,7 @@
 //! bce4347107a310dfd5f88a010cd2ffd1005ca406f1842877c883666f6f836261720304
 //! ```
 //!
-//! #### RLPx Discovery Protocol
+//! #### `RLPx` Discovery Protocol
 //!
 //! Implementations should accept the following encoded discovery packets as valid.
 //! The packets are signed using the secp256k1 node key
@@ -261,7 +261,7 @@
 //! 8443b9a355010203b525a138aa34383fec3d2719a0
 //! ```
 //!
-//! #### RLPx Handshake
+//! #### `RLPx` Handshake
 //!
 //! In these test vectors, node A initiates a connection with node B.
 //! The values contained in all packets are given below:
@@ -275,7 +275,7 @@
 //! Nonce B:         559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd
 //! ```
 //!
-//! (Auth₁)  RLPx v4 format (sent from A to B):
+//! (Auth₁)  `RLPx` v4 format (sent from A to B):
 //! ```text
 //! 048ca79ad18e4b0659fab4853fe5bc58eb83992980f4c9cc147d2aa31532efd29a3d3dc6a3d89eaf
 //! 913150cfc777ce0ce4af2758bf4810235f6e6ceccfee1acc6b22c005e9e3a49d6448610a58e98744
@@ -318,7 +318,7 @@
 //! d490
 //! ```
 //!
-//! (Ack₁) RLPx v4 format (sent from B to A):
+//! (Ack₁) `RLPx` v4 format (sent from B to A):
 //! ```text
 //! 049f8abcfa9c0dc65b982e98af921bc0ba6e4243169348a236abe9df5f93aa69d99cadddaa387662
 //! b0ff2c08e9006d5a11a278b1b3331e5aaabf0a32f01281b6f4ede0e09a2d5f585b26513cb794d963
