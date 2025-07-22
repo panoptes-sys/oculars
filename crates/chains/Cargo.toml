@@ -1,14 +1,11 @@
 [package]
-name = "oculars-dasm"
-description = "EVM disassembler"
-
+name = "oculars-chains"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
 
 [dependencies]
-upgrades.workspace = true
 
 [lints]
 workspace = true
