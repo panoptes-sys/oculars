@@ -6,10 +6,10 @@ use asm::instruction::{
     Eq, Exp, ExtCodeCopy, ExtCodeSize, Gas, GasLimit, GasPrice, Gt, Invalid, IsZero, Jump,
     JumpDest, JumpI, Keccak256, Log, Lt, MLoad, MSize, MStore, MStore8, Mod, Mul, MulMod, Not,
     Number, Or, Origin, Pc, Pop, PrevRandao, Push, Return, SDiv, SGt, SLoad, SLt, SMod, SStore,
-    SelfDestruct, SignExtend, Stop, Sub, Swap, Timestamp, Xor,
+    SelfDestruct, SignExtend, Stop, Sub, Swap, Timestamp, Unknown, Xor,
 };
 
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{macros::introduces_instructions, Eip};
 
 /// Genesis state of Ethereum.
 pub struct Genesis;
@@ -149,5 +149,6 @@ introduces_instructions!(
     CallCode,
     Return,
     Invalid,
-    SelfDestruct
+    SelfDestruct,
+    Unknown
 );
