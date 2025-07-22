@@ -18,19 +18,9 @@
 //! UX improvements to permeate through the entire application stack. Three
 //! particular features this EIP is designed around are:
 //!
-//! * **Batching**: allowing multiple operations from the same user in one atomic
-//! transaction. One common example is an [ERC-20](./eip-20.md) approval followed by
-//! spending that approval. This is a common workflow in DEXes that requires two
-//! transactions today. Advanced use cases of batching occasionally involve
-//! dependencies: the output of the first operation is part of the input to the
-//! second operation.
-//! * **Sponsorship**: account X pays for a transaction on behalf of account Y.
-//! Account X could be paid in some other ERC-20 for this service, or it could be an
-//! application operator including the transactions of its users for free.
-//! * **Privilege de-escalation**: users can sign sub-keys and give them specific
-//! permissions that are much weaker than global access to the account. For example,
-//! a permission to spend ERC-20 tokens but not ETH, or to spend up to 1% of the
-//! total balance per day, or to interact only with a specific application.
+//! * **Batching**: allowing multiple operations from the same user in one atomic transaction. One common example is an [ERC-20](./eip-20.md) approval followed by spending that approval. This is a common workflow in DEXes that requires two transactions today. Advanced use cases of batching occasionally involve dependencies: the output of the first operation is part of the input to the second operation.
+//! * **Sponsorship**: account X pays for a transaction on behalf of account Y. Account X could be paid in some other ERC-20 for this service, or it could be an application operator including the transactions of its users for free.
+//! * **Privilege de-escalation**: users can sign sub-keys and give them specific permissions that are much weaker than global access to the account. For example, a permission to spend ERC-20 tokens but not ETH, or to spend up to 1% of the total balance per day, or to interact only with a specific application.
 //!
 //! ## Specification
 //!
@@ -97,8 +87,7 @@
 //! 2. Verify the `nonce` is less than `2**64 - 1`.
 //! 3. Let `authority = ecrecover(msg, y_parity, r, s)`.
 //!     * Where `msg = keccak(MAGIC || rlp([chain_id, address, nonce]))`.
-//!     * Verify `s` is less than or equal to `secp256k1n/2`, as specified in
-//!     [EIP-2](./eip-2.md).
+//!     * Verify `s` is less than or equal to `secp256k1n/2`, as specified in EIP-2.
 //! 4. Add `authority` to `accessed_addresses`, as defined in [EIP-2929](./eip-2929.md).
 //! 5. Verify the code of `authority` is empty or already delegated.
 //! 6. Verify the nonce of `authority` is equal to `nonce`.
@@ -106,10 +95,7 @@
 //!    counter if `authority` is not empty.
 //! 8. Set the code of `authority` to be `0xef0100 || address`. This is a delegation
 //!    indicator.
-//!     * If `address` is `0x0000000000000000000000000000000000000000`, do not write
-//!     the delegation indicator. Clear the account's code by resetting the account's
-//!     code hash to the empty code hash
-//!     `0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470`.
+//!     * If `address` is `0x0000000000000000000000000000000000000000`, do not write the delegation indicator. Clear the account's code by resetting the account's code hash to the empty code hash `0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470`.
 //! 9. Increase the nonce of `authority` by one.
 //!
 //! If any step above fails, immediately stop processing the tuple and continue to
@@ -134,8 +120,7 @@
 //! * `CALLCODE`
 //! * `DELEGATECALL`
 //! * `STATICCALL`
-//! * any transaction where `destination` points to an address with a delegation
-//! indicator present
+//! * any transaction where `destination` points to an address with a delegation indicator present
 //!
 //! For code reading, only `CODESIZE` and `CODECOPY` instructions are affected. They
 //! operate directly on the executing code instead of the delegation. For example,
@@ -316,25 +301,16 @@
 //! This distribution of occurrences—many (1), some (2), and no (3)—is exactly what
 //! the authors of this EIP expect because:
 //!
-//! * Determining if `msg.sender` is an EOA without `tx.origin` is difficult, if not
-//! impossible.
-//! * The only execution context which is safe from atomic sandwich attacks is the
-//! topmost context, and `tx.origin == msg.sender` is the only way to detect that
-//! context.
-//! * In contrast, there are many direct and flexible ways of preventing reentrancy
-//! (e.g., using a transient storage variable). Since `msg.sender == tx.origin` is
-//! only true in the topmost context, it would make an obscure tool for preventing
-//! reentrancy, rather than other more common approaches.
+//! * Determining if `msg.sender` is an EOA without `tx.origin` is difficult, if not impossible.
+//! * The only execution context which is safe from atomic sandwich attacks is the topmost context, and `tx.origin == msg.sender` is the only way to detect that context.
+//! * In contrast, there are many direct and flexible ways of preventing reentrancy (e.g., using a transient storage variable). Since `msg.sender == tx.origin` is only true in the topmost context, it would make an obscure tool for preventing reentrancy, rather than other more common approaches.
 //!
 //! There are other approaches to mitigate this restriction which do not break the
 //! invariant:
 //!
-//! * Set `tx.origin` to a constant `ENTRY_POINT` address when using the `CALL*`
-//! instruction in the context of an EOA.
-//! * Set `tx.origin` to a special address derived from the sender or signer
-//! addresses.
-//! * Disallow `tx.origin` from setting code. This would make the simple batching
-//! use cases impossible, but could be relaxed in the future.
+//! * Set `tx.origin` to a constant `ENTRY_POINT` address when using the `CALL*` instruction in the context of an EOA.
+//! * Set `tx.origin` to a special address derived from the sender or signer addresses.
+//! * Disallow `tx.origin` from setting code. This would make the simple batching use cases impossible, but could be relaxed in the future.
 //!
 //! ### Rationale for technical details
 //!
@@ -471,16 +447,12 @@
 //!
 //! This EIP breaks a few invariants:
 //!
-//! * An account balance can only decrease as a result of a transaction originating
-//! from that account.
-//!   * Once an account has been delegated, any call to the account may also cause
-//!   the balance to decrease.
+//! * An account balance can only decrease as a result of a transaction originating from that account.
+//!   * Once an account has been delegated, any call to the account may also cause the balance to decrease.
 //! * An EOA nonce may not increase after transaction execution has begun.
-//!   * Once an account has been delegated, the account may call a create operation
-//!     during execution, causing the nonce to increase.
+//!   * Once an account has been delegated, the account may call a create operation during execution, causing the nonce to increase.
 //! * `tx.origin == msg.sender` can only be true in the topmost frame of execution.
-//!   * Once an account has been delegated, it can invoke multiple calls per
-//!   transaction.
+//!   * Once an account has been delegated, it can invoke multiple calls per transaction.
 //!
 //! ## Security Considerations
 //!
@@ -489,15 +461,10 @@
 //! The following is a non-exhaustive list of pitfalls that delegate contracts
 //! *should* be wary of and require a signature over from the account's authority:
 //!
-//! * Replay protection (e.g., a nonce) should be implemented by the delegate and
-//! signed over. Without it, a malicious actor can reuse a signature, repeating its
-//! effects.
-//! * `value` -- without it, a malicious sponsor could cause unexpected effects in
-//! the callee.
-//! * `gas` -- without it, a malicious sponsor could cause the callee to run out of
-//! gas and fail, griefing the sponsee.
-//! * `target` / `calldata` -- without them, a malicious actor may call arbitrary
-//! functions in arbitrary contracts.
+//! * Replay protection (e.g., a nonce) should be implemented by the delegate and signed over. Without it, a malicious actor can reuse a signature, repeating its effects.
+//! * `value` -- without it, a malicious sponsor could cause unexpected effects in the callee.
+//! * `gas` -- without it, a malicious sponsor could cause the callee to run out of gas and fail, griefing the sponsee.
+//! * `target` / `calldata` -- without them, a malicious actor may call arbitrary functions in arbitrary contracts.
 //!
 //! A poorly implemented delegate can *allow a malicious actor to take near complete
 //! control over a signer's EOA*.
@@ -590,7 +557,7 @@
 //! (described above), it isn't a major concern. However, clients should be aware
 //! this behavior is possible and design their transaction propagation accordingly.
 //!
-//! Vitalik Buterin (@vbuterin), Sam Wilson (@SamWilsn), Ansgar Dietrichs (@adietrichs), lightclient (@lightclient), "EIP-7702: Set Code for EOAs," Ethereum Improvement Proposals, no. 7702, May 2024. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-7702>.
+//! Vitalik Buterin (@vbuterin), Sam Wilson (@`SamWilsn`), Ansgar Dietrichs (@adietrichs), lightclient (@lightclient), "EIP-7702: Set Code for EOAs," Ethereum Improvement Proposals, no. 7702, May 2024. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-7702>.
 
 use crate::eip::Eip;
 

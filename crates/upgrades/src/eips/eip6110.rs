@@ -167,7 +167,7 @@
 //!
 //! ### Not limiting the size of deposit operations list
 //!
-//! The list is unbounded because of negligible data complexity and absence of potential DoS vectors. See [Security Considerations](#security-considerations) for more details.
+//! The list is unbounded because of negligible data complexity and absence of potential `DoS` vectors. See [Security Considerations](#security-considerations) for more details.
 //!
 //! ### Filtering events by `DEPOSIT_CONTRACT_ADDRESS` and `DEPOSIT_EVENT_SIGNATURE_HASH`
 //!
@@ -187,13 +187,13 @@
 //!
 //! Considering the above, we conclude that data complexity introduced by this proposal is negligible.
 //!
-//! ### DoS vectors
+//! ### `DoS` vectors
 //!
 //! The code in the deposit contract costs 15,650 gas to run in the cheapest case (when all storage slots are hot and only a single leaf has to be modified). Some deposits in a batch deposit are more expensive, but those costs, when amortized over a large number of deposits, are small at around ~1,000 gas per deposit. Under current gas pricing rules an extra 6,900 gas is charged to make a `CALL` that transfers ETH, this is a case of inefficient gas pricing and may be reduced in the future. For future robustness the beacon chain needs to be able to withstand 1,916 deposits in a 30M gas block (15,650 gas per deposit). The limit under current rules is less than 1,271 deposits in a 30M gas block.
 //!
 //! #### Execution layer
 //!
-//! With 1 ETH as a minimum deposit amount, the lowest cost of a byte of deposit data is 1 ETH/192 ~ 5,208,333 Gwei. This is several orders of magnitude higher than the cost of a byte of transaction's calldata, thus adding deposit operations to a block does not increase DoS attack surface of the execution layer.
+//! With 1 ETH as a minimum deposit amount, the lowest cost of a byte of deposit data is 1 ETH/192 ~ 5,208,333 Gwei. This is several orders of magnitude higher than the cost of a byte of transaction's calldata, thus adding deposit operations to a block does not increase `DoS` attack surface of the execution layer.
 //!
 //! #### Consensus layer
 //!
