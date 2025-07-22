@@ -13,5 +13,6 @@ pub mod london;
 pub mod muir_glacier;
 pub mod paris;
 pub mod petersburg;
+pub mod shanghai;
 pub mod spurious_dragon;
 pub mod tangerine_whistle;
