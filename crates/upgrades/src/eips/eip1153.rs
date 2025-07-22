@@ -246,7 +246,7 @@
 
 use asm::instruction::{TLoad, TStore};
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// Transient storage opcodes.
 pub struct Eip1153;
