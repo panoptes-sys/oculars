@@ -9,7 +9,7 @@ use asm::instruction::{
     SelfDestruct, SignExtend, Stop, Sub, Swap, Timestamp, Unknown, Xor,
 };
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// Genesis state of Ethereum.
 pub struct Genesis;
