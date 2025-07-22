@@ -2,7 +2,7 @@
 
 use crate::{
     eip::macros::eip_set,
-    eips::{eip2::Eip2, eip7::Eip7},
+    eips::{eip2::Eip2, eip7::Eip7, eip8::Eip8},
     execution::ExecutionUpgrade,
     forks::frontier_thawing::FrontierThawing,
     network::{NetworkUpgrade, UpgradeActivation},
@@ -13,7 +13,7 @@ use chains::{Mainnet, Morden};
 pub struct Homestead;
 
 impl ExecutionUpgrade for Homestead {
-    type EipSet = eip_set!(FrontierThawing + Eip2, Eip7);
+    type EipSet = eip_set!(FrontierThawing + Eip2, Eip7, Eip8);
 }
 
 impl NetworkUpgrade for Homestead {}
@@ -48,6 +48,8 @@ mod tests {
     fn eip_support() {
         assert!(Homestead::includes::<Eip2>());
         assert!(Homestead::includes::<Eip7>());
+        assert!(Homestead::includes::<Eip8>());
+
         assert!(!Homestead::includes::<Eip150>());
     }
 
