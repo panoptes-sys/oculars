@@ -53,7 +53,7 @@
 
 use asm::instruction::Push;
 
-use crate::eip::{macros::introduces_instructions, Eip};
+use crate::eip::{Eip, macros::introduces_instructions};
 
 /// EIP-3855: PUSH0 instruction.
 pub struct Eip3855;
