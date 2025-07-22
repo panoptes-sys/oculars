@@ -3,6 +3,7 @@
 pub mod arrow_glacier;
 pub mod berlin;
 pub mod byzantium;
+pub mod cancun;
 pub mod constantinople;
 pub mod frontier;
 pub mod frontier_thawing;
