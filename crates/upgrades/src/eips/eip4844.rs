@@ -425,7 +425,9 @@
 //!
 //! Vitalik Buterin (@vbuterin), Dankrad Feist (@dankrad), Diederik Loerakker (@protolambda), George Kadianakis (@asn-d6), Matt Garnett (@lightclient), Mofi Taiwo (@Inphi), Ansgar Dietrichs (@adietrichs), "EIP-4844: Shard Blob Transactions," Ethereum Improvement Proposals, no. 4844, February 2022. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-4844>.
 
-use crate::eip::Eip;
+use asm::instruction::BlobHash;
+
+use crate::eip::{macros::introduces_instructions, Eip};
 
 /// EIP-4844: Shard Blob Transactions.
 pub struct Eip4844;
@@ -433,3 +435,5 @@ pub struct Eip4844;
 impl Eip for Eip4844 {
     const NUMBER: u32 = 4844;
 }
+
+introduces_instructions!(Eip4844, BlobHash);
