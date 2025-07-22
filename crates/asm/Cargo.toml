@@ -1,5 +1,5 @@
 [package]
-name = "asm"
+name = "oculars-asm"
 description = "EVM assembly instructions, opcodes and mnemonics"
 keywords = ["evm", "ethereum", "bytecode", "assembly"]
 categories = ["cryptography::cryptocurrencies", "data-structures"]

@@ -31,7 +31,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_known(), true);
     /// assert_eq!(OpCode::Unknown(0xF).is_known(), false);
     /// ```
@@ -45,7 +45,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::Unknown(0xF).is_unknown(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_unknown(), false);
     /// ```
@@ -60,7 +60,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::from_byte(0x5A), OpCode::Known(Mnemonic::GAS));
     /// assert_eq!(OpCode::from_byte(0xF), OpCode::Unknown(0xF));
     /// ```
@@ -78,7 +78,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::try_from_byte(0x5A), Some(OpCode::Known(Mnemonic::GAS)));
     /// assert_eq!(OpCode::try_from_byte(0xF), None);
     /// ```
@@ -96,7 +96,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).into_byte(), 0x5A);
     /// assert_eq!(OpCode::Unknown(0xF).into_byte(), 0xF);
     /// ```
@@ -113,7 +113,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::Known(Mnemonic::PUSH7).is_push(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_push(), false);
     /// ```
@@ -130,7 +130,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::Known(Mnemonic::DUP2).is_dup(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_dup(), false);
     /// ```
@@ -147,7 +147,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::Known(Mnemonic::SWAP2).is_swap(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_swap(), false);
     /// ```
@@ -164,7 +164,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::Known(Mnemonic::LOG2).is_log(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_log(), false);
     /// ```
@@ -181,7 +181,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::{OpCode, Mnemonic};
+    /// # use oculars_asm::opcode::{OpCode, Mnemonic};
     /// assert_eq!(OpCode::Known(Mnemonic::RETURN).is_terminator(), true);
     /// assert_eq!(OpCode::Unknown(0xF).is_terminator(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_terminator(), false);
@@ -577,7 +577,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::Mnemonic;
+    /// # use oculars_asm::opcode::Mnemonic;
     /// let mut mnemonics = Mnemonic::iter();
     /// assert_eq!(mnemonics.next(), Some(Mnemonic::STOP));
     /// assert_eq!(mnemonics.next(), Some(Mnemonic::ADD));
@@ -592,7 +592,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::Mnemonic;
+    /// # use oculars_asm::opcode::Mnemonic;
     /// assert_eq!(Mnemonic::variants()[0], "STOP");
     /// assert_eq!(Mnemonic::variants()[1], "ADD");
     /// ```
@@ -606,7 +606,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::Mnemonic;
+    /// # use oculars_asm::opcode::Mnemonic;
     /// assert_eq!(Mnemonic::PUSH7.is_push(), true);
     /// assert_eq!(Mnemonic::GAS.is_push(), false);
     /// ```
@@ -655,7 +655,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::Mnemonic;
+    /// # use oculars_asm::opcode::Mnemonic;
     /// assert_eq!(Mnemonic::DUP2.is_dup(), true);
     /// assert_eq!(Mnemonic::GAS.is_dup(), false);
     /// ```
@@ -687,7 +687,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::Mnemonic;
+    /// # use oculars_asm::opcode::Mnemonic;
     /// assert_eq!(Mnemonic::SWAP2.is_swap(), true);
     /// assert_eq!(Mnemonic::GAS.is_swap(), false);
     /// ```
@@ -719,7 +719,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use asm::opcode::Mnemonic;
+    /// # use oculars_asm::opcode::Mnemonic;
     /// assert_eq!(Mnemonic::LOG2.is_log(), true);
     /// assert_eq!(Mnemonic::GAS.is_log(), false);
     /// ```
@@ -735,7 +735,7 @@ impl Mnemonic {
     /// Returns [`true`] for mnemonics that terminate execution of the smart contract.
     /// # Example
     /// ```
-    /// # use asm::opcode::Mnemonic;
+    /// # use oculars_asm::opcode::Mnemonic;
     /// assert_eq!(Mnemonic::STOP.is_terminator(), true);
     /// assert_eq!(Mnemonic::REVERT.is_terminator(), true);
     /// assert_eq!(Mnemonic::INVALID.is_terminator(), true);
