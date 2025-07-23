@@ -1,19 +1,16 @@
 //! Stack Operations.
 
+use super::{InstructionMeta, KnownInstruction};
+use crate::opcode::Mnemonic;
 use derive_more::Display;
-
-use super::InstructionMeta;
-use crate::opcode::{Mnemonic, OpCode};
 
 /// Remove item from stack.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
 #[display("{}", self.opcode())]
 pub struct Pop;
 
-impl InstructionMeta for Pop {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::POP)
-    }
+impl KnownInstruction for Pop {
+    const MNEMONIC: Mnemonic = Mnemonic::POP;
 }
 
 /// Place item on stack.
@@ -80,47 +77,45 @@ impl<const N: usize> Push<N> {
     }
 }
 
-impl<const N: usize> InstructionMeta for Push<N> {
-    const SIZE: usize = 1 + N;
+impl<const N: usize> KnownInstruction for Push<N> {
+    const __SIZE: usize = 1 + N;
 
-    fn opcode(&self) -> OpCode {
-        match N {
-            0 => OpCode::Known(Mnemonic::PUSH0),
-            1 => OpCode::Known(Mnemonic::PUSH1),
-            2 => OpCode::Known(Mnemonic::PUSH2),
-            3 => OpCode::Known(Mnemonic::PUSH3),
-            4 => OpCode::Known(Mnemonic::PUSH4),
-            5 => OpCode::Known(Mnemonic::PUSH5),
-            6 => OpCode::Known(Mnemonic::PUSH6),
-            7 => OpCode::Known(Mnemonic::PUSH7),
-            8 => OpCode::Known(Mnemonic::PUSH8),
-            9 => OpCode::Known(Mnemonic::PUSH9),
-            10 => OpCode::Known(Mnemonic::PUSH10),
-            11 => OpCode::Known(Mnemonic::PUSH11),
-            12 => OpCode::Known(Mnemonic::PUSH12),
-            13 => OpCode::Known(Mnemonic::PUSH13),
-            14 => OpCode::Known(Mnemonic::PUSH14),
-            15 => OpCode::Known(Mnemonic::PUSH15),
-            16 => OpCode::Known(Mnemonic::PUSH16),
-            17 => OpCode::Known(Mnemonic::PUSH17),
-            18 => OpCode::Known(Mnemonic::PUSH18),
-            19 => OpCode::Known(Mnemonic::PUSH19),
-            20 => OpCode::Known(Mnemonic::PUSH20),
-            21 => OpCode::Known(Mnemonic::PUSH21),
-            22 => OpCode::Known(Mnemonic::PUSH22),
-            23 => OpCode::Known(Mnemonic::PUSH23),
-            24 => OpCode::Known(Mnemonic::PUSH24),
-            25 => OpCode::Known(Mnemonic::PUSH25),
-            26 => OpCode::Known(Mnemonic::PUSH26),
-            27 => OpCode::Known(Mnemonic::PUSH27),
-            28 => OpCode::Known(Mnemonic::PUSH28),
-            29 => OpCode::Known(Mnemonic::PUSH29),
-            30 => OpCode::Known(Mnemonic::PUSH30),
-            31 => OpCode::Known(Mnemonic::PUSH31),
-            32 => OpCode::Known(Mnemonic::PUSH32),
-            _ => unreachable!(),
-        }
-    }
+    const MNEMONIC: Mnemonic = match N {
+        0 => Mnemonic::PUSH0,
+        1 => Mnemonic::PUSH1,
+        2 => Mnemonic::PUSH2,
+        3 => Mnemonic::PUSH3,
+        4 => Mnemonic::PUSH4,
+        5 => Mnemonic::PUSH5,
+        6 => Mnemonic::PUSH6,
+        7 => Mnemonic::PUSH7,
+        8 => Mnemonic::PUSH8,
+        9 => Mnemonic::PUSH9,
+        10 => Mnemonic::PUSH10,
+        11 => Mnemonic::PUSH11,
+        12 => Mnemonic::PUSH12,
+        13 => Mnemonic::PUSH13,
+        14 => Mnemonic::PUSH14,
+        15 => Mnemonic::PUSH15,
+        16 => Mnemonic::PUSH16,
+        17 => Mnemonic::PUSH17,
+        18 => Mnemonic::PUSH18,
+        19 => Mnemonic::PUSH19,
+        20 => Mnemonic::PUSH20,
+        21 => Mnemonic::PUSH21,
+        22 => Mnemonic::PUSH22,
+        23 => Mnemonic::PUSH23,
+        24 => Mnemonic::PUSH24,
+        25 => Mnemonic::PUSH25,
+        26 => Mnemonic::PUSH26,
+        27 => Mnemonic::PUSH27,
+        28 => Mnemonic::PUSH28,
+        29 => Mnemonic::PUSH29,
+        30 => Mnemonic::PUSH30,
+        31 => Mnemonic::PUSH31,
+        32 => Mnemonic::PUSH32,
+        _ => unreachable!(),
+    };
 }
 
 /// Duplicate stack items.
@@ -163,28 +158,26 @@ impl<const N: u8> Default for Dup<N> {
     }
 }
 
-impl<const N: u8> InstructionMeta for Dup<N> {
-    fn opcode(&self) -> OpCode {
-        match N {
-            1 => OpCode::Known(Mnemonic::DUP1),
-            2 => OpCode::Known(Mnemonic::DUP2),
-            3 => OpCode::Known(Mnemonic::DUP3),
-            4 => OpCode::Known(Mnemonic::DUP4),
-            5 => OpCode::Known(Mnemonic::DUP5),
-            6 => OpCode::Known(Mnemonic::DUP6),
-            7 => OpCode::Known(Mnemonic::DUP7),
-            8 => OpCode::Known(Mnemonic::DUP8),
-            9 => OpCode::Known(Mnemonic::DUP9),
-            10 => OpCode::Known(Mnemonic::DUP10),
-            11 => OpCode::Known(Mnemonic::DUP11),
-            12 => OpCode::Known(Mnemonic::DUP12),
-            13 => OpCode::Known(Mnemonic::DUP13),
-            14 => OpCode::Known(Mnemonic::DUP14),
-            15 => OpCode::Known(Mnemonic::DUP15),
-            16 => OpCode::Known(Mnemonic::DUP16),
-            _ => unreachable!(),
-        }
-    }
+impl<const N: u8> KnownInstruction for Dup<N> {
+    const MNEMONIC: Mnemonic = match N {
+        1 => Mnemonic::DUP1,
+        2 => Mnemonic::DUP2,
+        3 => Mnemonic::DUP3,
+        4 => Mnemonic::DUP4,
+        5 => Mnemonic::DUP5,
+        6 => Mnemonic::DUP6,
+        7 => Mnemonic::DUP7,
+        8 => Mnemonic::DUP8,
+        9 => Mnemonic::DUP9,
+        10 => Mnemonic::DUP10,
+        11 => Mnemonic::DUP11,
+        12 => Mnemonic::DUP12,
+        13 => Mnemonic::DUP13,
+        14 => Mnemonic::DUP14,
+        15 => Mnemonic::DUP15,
+        16 => Mnemonic::DUP16,
+        _ => unreachable!(),
+    };
 }
 
 /// Exchange stack items.
@@ -227,28 +220,26 @@ impl<const N: u8> Default for Swap<N> {
     }
 }
 
-impl<const N: u8> InstructionMeta for Swap<N> {
-    fn opcode(&self) -> OpCode {
-        match N {
-            1 => OpCode::Known(Mnemonic::SWAP1),
-            2 => OpCode::Known(Mnemonic::SWAP2),
-            3 => OpCode::Known(Mnemonic::SWAP3),
-            4 => OpCode::Known(Mnemonic::SWAP4),
-            5 => OpCode::Known(Mnemonic::SWAP5),
-            6 => OpCode::Known(Mnemonic::SWAP6),
-            7 => OpCode::Known(Mnemonic::SWAP7),
-            8 => OpCode::Known(Mnemonic::SWAP8),
-            9 => OpCode::Known(Mnemonic::SWAP9),
-            10 => OpCode::Known(Mnemonic::SWAP10),
-            11 => OpCode::Known(Mnemonic::SWAP11),
-            12 => OpCode::Known(Mnemonic::SWAP12),
-            13 => OpCode::Known(Mnemonic::SWAP13),
-            14 => OpCode::Known(Mnemonic::SWAP14),
-            15 => OpCode::Known(Mnemonic::SWAP15),
-            16 => OpCode::Known(Mnemonic::SWAP16),
-            _ => panic!("invalid Swap type"),
-        }
-    }
+impl<const N: u8> KnownInstruction for Swap<N> {
+    const MNEMONIC: Mnemonic = match N {
+        1 => Mnemonic::SWAP1,
+        2 => Mnemonic::SWAP2,
+        3 => Mnemonic::SWAP3,
+        4 => Mnemonic::SWAP4,
+        5 => Mnemonic::SWAP5,
+        6 => Mnemonic::SWAP6,
+        7 => Mnemonic::SWAP7,
+        8 => Mnemonic::SWAP8,
+        9 => Mnemonic::SWAP9,
+        10 => Mnemonic::SWAP10,
+        11 => Mnemonic::SWAP11,
+        12 => Mnemonic::SWAP12,
+        13 => Mnemonic::SWAP13,
+        14 => Mnemonic::SWAP14,
+        15 => Mnemonic::SWAP15,
+        16 => Mnemonic::SWAP16,
+        _ => unreachable!(),
+    };
 }
 
 #[cfg(test)]

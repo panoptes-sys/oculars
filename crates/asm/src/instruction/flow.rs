@@ -1,21 +1,16 @@
 //! Flow Operations.
 
+use super::KnownInstruction;
+use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
-
-use crate::{
-    instruction::InstructionMeta,
-    opcode::{Mnemonic, OpCode},
-};
 
 /// Alter the program counter.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
 #[display("{}", self.opcode())]
 pub struct Jump;
 
-impl InstructionMeta for Jump {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::JUMP)
-    }
+impl KnownInstruction for Jump {
+    const MNEMONIC: Mnemonic = Mnemonic::JUMP;
 }
 
 /// Conditionally alter the program counter.
@@ -23,10 +18,8 @@ impl InstructionMeta for Jump {
 #[display("{}", self.opcode())]
 pub struct JumpI;
 
-impl InstructionMeta for JumpI {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::JUMPI)
-    }
+impl KnownInstruction for JumpI {
+    const MNEMONIC: Mnemonic = Mnemonic::JUMPI;
 }
 
 /// Get the value of the program counter prior to the increment corresponding to this instruction.
@@ -34,10 +27,8 @@ impl InstructionMeta for JumpI {
 #[display("{}", self.opcode())]
 pub struct Pc;
 
-impl InstructionMeta for Pc {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::PC)
-    }
+impl KnownInstruction for Pc {
+    const MNEMONIC: Mnemonic = Mnemonic::PC;
 }
 
 /// Get the amount of available gas, including the corresponding reduction for the cost of this instruction.
@@ -45,10 +36,8 @@ impl InstructionMeta for Pc {
 #[display("{}", self.opcode())]
 pub struct Gas;
 
-impl InstructionMeta for Gas {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::GAS)
-    }
+impl KnownInstruction for Gas {
+    const MNEMONIC: Mnemonic = Mnemonic::GAS;
 }
 
 /// Mark a valid destination for jumps.
@@ -56,8 +45,6 @@ impl InstructionMeta for Gas {
 #[display("{}", self.opcode())]
 pub struct JumpDest;
 
-impl InstructionMeta for JumpDest {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::JUMPDEST)
-    }
+impl KnownInstruction for JumpDest {
+    const MNEMONIC: Mnemonic = Mnemonic::JUMPDEST;
 }

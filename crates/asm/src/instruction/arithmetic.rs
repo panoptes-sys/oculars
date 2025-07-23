@@ -1,21 +1,16 @@
 //! Stop and Arithmetic Operations.
 
+use super::KnownInstruction;
+use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
-
-use crate::{
-    instruction::InstructionMeta,
-    opcode::{Mnemonic, OpCode},
-};
 
 /// Halts execution.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
 #[display("{}", self.opcode())]
 pub struct Stop;
 
-impl InstructionMeta for Stop {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::STOP)
-    }
+impl KnownInstruction for Stop {
+    const MNEMONIC: Mnemonic = Mnemonic::STOP;
 }
 
 /// Addition operation.
@@ -23,10 +18,8 @@ impl InstructionMeta for Stop {
 #[display("{}", self.opcode())]
 pub struct Add;
 
-impl InstructionMeta for Add {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::ADD)
-    }
+impl KnownInstruction for Add {
+    const MNEMONIC: Mnemonic = Mnemonic::ADD;
 }
 
 /// Multiplication operation.
@@ -34,10 +27,8 @@ impl InstructionMeta for Add {
 #[display("{}", self.opcode())]
 pub struct Mul;
 
-impl InstructionMeta for Mul {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::MUL)
-    }
+impl KnownInstruction for Mul {
+    const MNEMONIC: Mnemonic = Mnemonic::MUL;
 }
 
 /// Subtraction operation.
@@ -45,10 +36,8 @@ impl InstructionMeta for Mul {
 #[display("{}", self.opcode())]
 pub struct Sub;
 
-impl InstructionMeta for Sub {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::SUB)
-    }
+impl KnownInstruction for Sub {
+    const MNEMONIC: Mnemonic = Mnemonic::SUB;
 }
 
 /// Integer division operation.
@@ -56,10 +45,8 @@ impl InstructionMeta for Sub {
 #[display("{}", self.opcode())]
 pub struct Div;
 
-impl InstructionMeta for Div {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::DIV)
-    }
+impl KnownInstruction for Div {
+    const MNEMONIC: Mnemonic = Mnemonic::DIV;
 }
 
 /// Signed integer division operation (truncated).
@@ -67,10 +54,8 @@ impl InstructionMeta for Div {
 #[display("{}", self.opcode())]
 pub struct SDiv;
 
-impl InstructionMeta for SDiv {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::SDIV)
-    }
+impl KnownInstruction for SDiv {
+    const MNEMONIC: Mnemonic = Mnemonic::SDIV;
 }
 
 /// Modulo remainder operation.
@@ -78,10 +63,8 @@ impl InstructionMeta for SDiv {
 #[display("{}", self.opcode())]
 pub struct Mod;
 
-impl InstructionMeta for Mod {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::MOD)
-    }
+impl KnownInstruction for Mod {
+    const MNEMONIC: Mnemonic = Mnemonic::MOD;
 }
 
 /// Signed modulo remainder operation.
@@ -89,10 +72,8 @@ impl InstructionMeta for Mod {
 #[display("{}", self.opcode())]
 pub struct SMod;
 
-impl InstructionMeta for SMod {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::SMOD)
-    }
+impl KnownInstruction for SMod {
+    const MNEMONIC: Mnemonic = Mnemonic::SMOD;
 }
 
 /// Modulo addition operation.
@@ -100,10 +81,8 @@ impl InstructionMeta for SMod {
 #[display("{}", self.opcode())]
 pub struct AddMod;
 
-impl InstructionMeta for AddMod {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::ADDMOD)
-    }
+impl KnownInstruction for AddMod {
+    const MNEMONIC: Mnemonic = Mnemonic::ADDMOD;
 }
 
 /// Modulo multiplication operation.
@@ -111,10 +90,8 @@ impl InstructionMeta for AddMod {
 #[display("{}", self.opcode())]
 pub struct MulMod;
 
-impl InstructionMeta for MulMod {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::MULMOD)
-    }
+impl KnownInstruction for MulMod {
+    const MNEMONIC: Mnemonic = Mnemonic::MULMOD;
 }
 
 /// Exponential operation.
@@ -122,10 +99,8 @@ impl InstructionMeta for MulMod {
 #[display("{}", self.opcode())]
 pub struct Exp;
 
-impl InstructionMeta for Exp {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::EXP)
-    }
+impl KnownInstruction for Exp {
+    const MNEMONIC: Mnemonic = Mnemonic::EXP;
 }
 
 /// Extend length of two’s complement signed integer.
@@ -133,10 +108,8 @@ impl InstructionMeta for Exp {
 #[display("{}", self.opcode())]
 pub struct SignExtend;
 
-impl InstructionMeta for SignExtend {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::SIGNEXTEND)
-    }
+impl KnownInstruction for SignExtend {
+    const MNEMONIC: Mnemonic = Mnemonic::SIGNEXTEND;
 }
 
 #[cfg(test)]

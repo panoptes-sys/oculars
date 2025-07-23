@@ -1,21 +1,16 @@
 //! Memory Operations.
 
+use super::KnownInstruction;
+use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
-
-use crate::{
-    instruction::InstructionMeta,
-    opcode::{Mnemonic, OpCode},
-};
 
 /// Load word from memory.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
 #[display("{}", self.opcode())]
 pub struct MLoad;
 
-impl InstructionMeta for MLoad {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::MLOAD)
-    }
+impl KnownInstruction for MLoad {
+    const MNEMONIC: Mnemonic = Mnemonic::MLOAD;
 }
 
 /// Save word to memory.
@@ -23,10 +18,8 @@ impl InstructionMeta for MLoad {
 #[display("{}", self.opcode())]
 pub struct MStore;
 
-impl InstructionMeta for MStore {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::MSTORE)
-    }
+impl KnownInstruction for MStore {
+    const MNEMONIC: Mnemonic = Mnemonic::MSTORE;
 }
 
 /// Save byte to memory.
@@ -34,10 +27,8 @@ impl InstructionMeta for MStore {
 #[display("{}", self.opcode())]
 pub struct MStore8;
 
-impl InstructionMeta for MStore8 {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::MSTORE8)
-    }
+impl KnownInstruction for MStore8 {
+    const MNEMONIC: Mnemonic = Mnemonic::MSTORE8;
 }
 
 /// Get the size of active memory in bytes.
@@ -45,10 +36,8 @@ impl InstructionMeta for MStore8 {
 #[display("{}", self.opcode())]
 pub struct MSize;
 
-impl InstructionMeta for MSize {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::MSIZE)
-    }
+impl KnownInstruction for MSize {
+    const MNEMONIC: Mnemonic = Mnemonic::MSIZE;
 }
 
 /// Copy memory areas.
@@ -56,8 +45,6 @@ impl InstructionMeta for MSize {
 #[display("{}", self.opcode())]
 pub struct MCopy;
 
-impl InstructionMeta for MCopy {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::MCOPY)
-    }
+impl KnownInstruction for MCopy {
+    const MNEMONIC: Mnemonic = Mnemonic::MCOPY;
 }
