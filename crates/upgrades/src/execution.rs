@@ -2,7 +2,7 @@
 
 use asm::instruction::InstructionMeta;
 
-use crate::eip::{Eip, EipSet, IntroducesInstruction};
+use crate::eip::{Eip, EipSet};
 
 /// Ethereum execution layer upgrade.
 pub trait ExecutionUpgrade {
@@ -20,11 +20,8 @@ pub trait ExecutionUpgrade {
     /// ```
     #[must_use]
     #[inline]
-    fn supports_instruction<I: InstructionMeta>() -> bool
-    where
-        Self::EipSet: IntroducesInstruction<I>,
-    {
-        Self::EipSet::eip_introduces_instruction()
+    fn supports_instruction<I: InstructionMeta>() -> bool {
+        Self::EipSet::supports_instruction::<I>()
     }
 
     /// Returns whether an EIP is included in this execution upgrade.

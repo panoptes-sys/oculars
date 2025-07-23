@@ -65,11 +65,18 @@ impl<I: InstructionMeta, E: Eip> IntroducesInstruction<I> for E {
 pub trait EipSet {
     /// Returns whether this set contains a specific [`Eip`].
     fn includes_eip<E: Eip + 'static>() -> bool;
+
+    /// Returns whether this set supports an instruction.
+    fn supports_instruction<I: InstructionMeta>() -> bool;
 }
 
 // An empty tuple is considered an [`EipSet`].
 impl EipSet for () {
     fn includes_eip<E: Eip + 'static>() -> bool {
+        false
+    }
+
+    fn supports_instruction<I: InstructionMeta>() -> bool {
         false
     }
 }
@@ -78,6 +85,11 @@ impl EipSet for () {
 impl<A: Eip + 'static, B: EipSet> EipSet for (A, B) {
     fn includes_eip<E: Eip + 'static>() -> bool {
         TypeId::of::<A>() == TypeId::of::<E>() || B::includes_eip::<E>()
+    }
+
+    fn supports_instruction<I: InstructionMeta>() -> bool {
+        <A as IntroducesInstruction<I>>::eip_introduces_instruction()
+            || B::supports_instruction::<I>()
     }
 }
 
