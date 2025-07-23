@@ -33,6 +33,26 @@ use crate::opcode::OpCode;
 
 /// General instruction information.
 pub trait InstructionMeta: Display + Debug + Clone + Copy + PartialEq + EqTrait + Hash {
+    /// Size of this instruction in bytes.
+    /// ```
+    /// # use oculars_asm::instruction::{Gas, Push, InstructionMeta};
+    /// assert_eq!(Gas::SIZE, 1);
+    /// assert_eq!(Push::<10>::SIZE, 11);
+    /// ```
+    const SIZE: usize = 1;
+
+    /// Returns the size of this instruction in bytes.
+    ///
+    /// # Example
+    /// ```
+    /// # use oculars_asm::instruction::{Gas, Push, InstructionMeta};
+    /// assert_eq!(Gas.size(), 1);
+    /// assert_eq!(Push::new([0xF; 10]).size(), 11);
+    /// ```
+    fn size(&self) -> usize {
+        Self::SIZE
+    }
+
     /// Return the operation code associated with this instruction.
     ///
     /// # Example
