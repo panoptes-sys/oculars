@@ -66,7 +66,7 @@ impl<const N: usize> Push<N> {
     /// ```
     /// # use oculars_asm::instruction::Push;
     /// fn push_size<const N: usize>(push: &Push<N>) {
-    ///     assert_eq!(push.size() as usize, N);
+    ///     assert_eq!(push.immediate_size() as usize, N);
     /// }
     /// ```
     #[must_use]
@@ -74,13 +74,15 @@ impl<const N: usize> Push<N> {
         clippy::cast_possible_truncation,
         reason = "N cannot be greater than 32"
     )]
-    pub const fn size(&self) -> u8 {
+    pub const fn immediate_size(&self) -> u8 {
         // N being less than or equal to 32 is being gated by the `new` function.
         N as u8
     }
 }
 
 impl<const N: usize> InstructionMeta for Push<N> {
+    const SIZE: usize = 1 + N;
+
     fn opcode(&self) -> OpCode {
         match N {
             0 => OpCode::Known(Mnemonic::PUSH0),
@@ -256,7 +258,7 @@ mod tests {
     #[test]
     fn push_sanity() {
         let push = Push::new([1, 2, 3, 4]);
-        assert_eq!(push.size(), 4);
+        assert_eq!(push.immediate_size(), 4);
         assert_eq!(push.immediate(), &[1, 2, 3, 4]);
         assert_eq!(push.opcode(), Mnemonic::PUSH4);
     }
