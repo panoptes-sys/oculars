@@ -1,9 +1,8 @@
 //! Logging operations.
 
+use super::{InstructionMeta, KnownInstruction};
+use crate::opcode::Mnemonic;
 use derive_more::Display;
-
-use super::InstructionMeta;
-use crate::opcode::{Mnemonic, OpCode};
 
 /// Append log record.
 /// The `N` constant signifies the type of the `LOG` opcode (e.g. `Log<3>` => `LOG3`).
@@ -45,15 +44,13 @@ impl<const N: u8> Default for Log<N> {
     }
 }
 
-impl<const N: u8> InstructionMeta for Log<N> {
-    fn opcode(&self) -> OpCode {
-        match N {
-            0 => OpCode::Known(Mnemonic::LOG0),
-            1 => OpCode::Known(Mnemonic::LOG1),
-            2 => OpCode::Known(Mnemonic::LOG2),
-            3 => OpCode::Known(Mnemonic::LOG3),
-            4 => OpCode::Known(Mnemonic::LOG4),
-            _ => unreachable!(),
-        }
-    }
+impl<const N: u8> KnownInstruction for Log<N> {
+    const MNEMONIC: Mnemonic = match N {
+        0 => Mnemonic::LOG0,
+        1 => Mnemonic::LOG1,
+        2 => Mnemonic::LOG2,
+        3 => Mnemonic::LOG3,
+        4 => Mnemonic::LOG4,
+        _ => unreachable!(),
+    };
 }

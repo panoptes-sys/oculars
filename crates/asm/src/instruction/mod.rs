@@ -11,6 +11,7 @@ mod stack;
 mod storage;
 mod system;
 
+use derive_more::Display;
 use std::{
     cmp::Eq as EqTrait,
     fmt::{Debug, Display},
@@ -20,7 +21,6 @@ use std::{
 pub use arithmetic::*;
 pub use bitwise::*;
 pub use block::*;
-use derive_more::Display;
 pub use environment::*;
 pub use flow::*;
 pub use logging::*;
@@ -29,7 +29,36 @@ pub use stack::*;
 pub use storage::*;
 pub use system::*;
 
-use crate::opcode::OpCode;
+use crate::opcode::{Mnemonic, OpCode};
+
+/// An instruction with a known mnemonic.
+// The reason for this trait is that only a single instruction ([`Unknown`]) can't determine its opcode
+// at compile time. Thus this trait is introduced to provide that functionality for all
+// instructions except [`Unknown`].
+pub trait KnownInstruction: Display + Debug + Clone + Copy + PartialEq + EqTrait + Hash {
+    /// A hack to change the size of [`Push`] instructions while keeping the blanket implementation of
+    /// [`InstructionMeta`] for all [`KnownInstruction`]s.
+    #[doc(hidden)]
+    const __SIZE: usize = 1;
+
+    /// [`Mnemonic`] associated with this instruction.
+    const MNEMONIC: Mnemonic;
+
+    /// Returns the [`Mnemonic`] associated with this instruction.
+    #[must_use]
+    #[inline]
+    fn mnemonic(&self) -> Mnemonic {
+        Self::MNEMONIC
+    }
+}
+
+impl<T: KnownInstruction> InstructionMeta for T {
+    const SIZE: usize = <Self as KnownInstruction>::__SIZE;
+
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Self::MNEMONIC)
+    }
+}
 
 /// General instruction information.
 pub trait InstructionMeta: Display + Debug + Clone + Copy + PartialEq + EqTrait + Hash {

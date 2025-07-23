@@ -1,21 +1,16 @@
 //! Storage Operations.
 
+use super::KnownInstruction;
+use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
-
-use crate::{
-    instruction::InstructionMeta,
-    opcode::{Mnemonic, OpCode},
-};
 
 /// Load word from storage.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
 #[display("{}", self.opcode())]
 pub struct SLoad;
 
-impl InstructionMeta for SLoad {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::SLOAD)
-    }
+impl KnownInstruction for SLoad {
+    const MNEMONIC: Mnemonic = Mnemonic::SLOAD;
 }
 
 /// Save word to storage.
@@ -23,10 +18,8 @@ impl InstructionMeta for SLoad {
 #[display("{}", self.opcode())]
 pub struct SStore;
 
-impl InstructionMeta for SStore {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::SSTORE)
-    }
+impl KnownInstruction for SStore {
+    const MNEMONIC: Mnemonic = Mnemonic::SSTORE;
 }
 
 /// Load word from transient storage.
@@ -34,10 +27,8 @@ impl InstructionMeta for SStore {
 #[display("{}", self.opcode())]
 pub struct TLoad;
 
-impl InstructionMeta for TLoad {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::TLOAD)
-    }
+impl KnownInstruction for TLoad {
+    const MNEMONIC: Mnemonic = Mnemonic::TLOAD;
 }
 
 /// Save word to transient storage.
@@ -45,8 +36,6 @@ impl InstructionMeta for TLoad {
 #[display("{}", self.opcode())]
 pub struct TStore;
 
-impl InstructionMeta for TStore {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::TSTORE)
-    }
+impl KnownInstruction for TStore {
+    const MNEMONIC: Mnemonic = Mnemonic::TSTORE;
 }

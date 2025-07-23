@@ -1,21 +1,16 @@
 //! Block information.
 
+use super::KnownInstruction;
+use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
-
-use crate::{
-    instruction::InstructionMeta,
-    opcode::{Mnemonic, OpCode},
-};
 
 /// Get the hash of one of the 256 most recent complete blocks.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
 #[display("{}", self.opcode())]
 pub struct BlockHash;
 
-impl InstructionMeta for BlockHash {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::BLOCKHASH)
-    }
+impl KnownInstruction for BlockHash {
+    const MNEMONIC: Mnemonic = Mnemonic::BLOCKHASH;
 }
 
 /// Get the block’s beneficiary address.
@@ -23,10 +18,8 @@ impl InstructionMeta for BlockHash {
 #[display("{}", self.opcode())]
 pub struct CoinBase;
 
-impl InstructionMeta for CoinBase {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::COINBASE)
-    }
+impl KnownInstruction for CoinBase {
+    const MNEMONIC: Mnemonic = Mnemonic::COINBASE;
 }
 
 /// Get the block’s timestamp.
@@ -34,10 +27,8 @@ impl InstructionMeta for CoinBase {
 #[display("{}", self.opcode())]
 pub struct Timestamp;
 
-impl InstructionMeta for Timestamp {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::TIMESTAMP)
-    }
+impl KnownInstruction for Timestamp {
+    const MNEMONIC: Mnemonic = Mnemonic::TIMESTAMP;
 }
 
 /// Get the block’s number.
@@ -45,10 +36,8 @@ impl InstructionMeta for Timestamp {
 #[display("{}", self.opcode())]
 pub struct Number;
 
-impl InstructionMeta for Number {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::NUMBER)
-    }
+impl KnownInstruction for Number {
+    const MNEMONIC: Mnemonic = Mnemonic::NUMBER;
 }
 
 /// Get the block’s difficulty.
@@ -56,10 +45,8 @@ impl InstructionMeta for Number {
 #[display("{}", self.opcode())]
 pub struct PrevRandao;
 
-impl InstructionMeta for PrevRandao {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::PREVRANDAO)
-    }
+impl KnownInstruction for PrevRandao {
+    const MNEMONIC: Mnemonic = Mnemonic::PREVRANDAO;
 }
 
 /// Get the block’s gas limit.
@@ -67,10 +54,8 @@ impl InstructionMeta for PrevRandao {
 #[display("{}", self.opcode())]
 pub struct GasLimit;
 
-impl InstructionMeta for GasLimit {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::GASLIMIT)
-    }
+impl KnownInstruction for GasLimit {
+    const MNEMONIC: Mnemonic = Mnemonic::GASLIMIT;
 }
 
 /// Get the chain ID.
@@ -78,10 +63,8 @@ impl InstructionMeta for GasLimit {
 #[display("{}", self.opcode())]
 pub struct ChainId;
 
-impl InstructionMeta for ChainId {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CHAINID)
-    }
+impl KnownInstruction for ChainId {
+    const MNEMONIC: Mnemonic = Mnemonic::CHAINID;
 }
 
 /// Get balance of currently executing account.
@@ -89,10 +72,8 @@ impl InstructionMeta for ChainId {
 #[display("{}", self.opcode())]
 pub struct SelfBalance;
 
-impl InstructionMeta for SelfBalance {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::SELFBALANCE)
-    }
+impl KnownInstruction for SelfBalance {
+    const MNEMONIC: Mnemonic = Mnemonic::SELFBALANCE;
 }
 
 /// Get the base fee.
@@ -100,10 +81,8 @@ impl InstructionMeta for SelfBalance {
 #[display("{}", self.opcode())]
 pub struct BaseFee;
 
-impl InstructionMeta for BaseFee {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::BASEFEE)
-    }
+impl KnownInstruction for BaseFee {
+    const MNEMONIC: Mnemonic = Mnemonic::BASEFEE;
 }
 
 /// Get versioned hashes.
@@ -111,10 +90,8 @@ impl InstructionMeta for BaseFee {
 #[display("{}", self.opcode())]
 pub struct BlobHash;
 
-impl InstructionMeta for BlobHash {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::BLOBHASH)
-    }
+impl KnownInstruction for BlobHash {
+    const MNEMONIC: Mnemonic = Mnemonic::BLOBHASH;
 }
 
 /// Returns the value of the blob base-fee of the current block.
@@ -122,8 +99,6 @@ impl InstructionMeta for BlobHash {
 #[display("{}", self.opcode())]
 pub struct BlobBaseFee;
 
-impl InstructionMeta for BlobBaseFee {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::BLOBBASEFEE)
-    }
+impl KnownInstruction for BlobBaseFee {
+    const MNEMONIC: Mnemonic = Mnemonic::BLOBBASEFEE;
 }
