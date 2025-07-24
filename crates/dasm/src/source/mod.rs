@@ -1,3 +1,5 @@
+//! Sources from which bytecode can be extracted.
+
 pub mod bytes;
 pub mod file;
 pub mod hex;

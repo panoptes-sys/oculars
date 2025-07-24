@@ -1,4 +1,6 @@
-use asm::instruction::{InstructionMeta, KnownInstruction, Push, Unknown};
+//! Instruction assembly and disassembly.
+
+use asm::instruction::{InstructionMeta, KnownInstruction, Push};
 use thiserror::Error;
 
 /// Extension trait over [`InstructionMeta`] allowing for instruction assembly and disassembly.
