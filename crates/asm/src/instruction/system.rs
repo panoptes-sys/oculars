@@ -1,138 +1,116 @@
 //! System and SHA3 operations.
 
-use derive_more::Display;
-
+use super::KnownInstruction;
 use crate::{
     instruction::InstructionMeta,
     opcode::{Mnemonic, OpCode},
 };
+use derive_more::Display;
 
 /// Compute Keccak-256 hash.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Keccak256;
 
-impl InstructionMeta for Keccak256 {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::KECCAK256)
-    }
+impl KnownInstruction for Keccak256 {
+    const MNEMONIC: Mnemonic = Mnemonic::KECCAK256;
 }
 
 /// Create a new account with associated code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Create;
 
-impl InstructionMeta for Create {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CREATE)
-    }
+impl KnownInstruction for Create {
+    const MNEMONIC: Mnemonic = Mnemonic::CREATE;
 }
 
 /// Message-call into an account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Call;
 
-impl InstructionMeta for Call {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CALL)
-    }
+impl KnownInstruction for Call {
+    const MNEMONIC: Mnemonic = Mnemonic::CALL;
 }
 
 /// Message-call into this account with alternative account’s code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct CallCode;
 
-impl InstructionMeta for CallCode {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CALLCODE)
-    }
+impl KnownInstruction for CallCode {
+    const MNEMONIC: Mnemonic = Mnemonic::CALLCODE;
 }
 
 /// Halt execution returning output data.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Return;
 
-impl InstructionMeta for Return {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::RETURN)
-    }
+impl KnownInstruction for Return {
+    const MNEMONIC: Mnemonic = Mnemonic::RETURN;
 }
 
 /// Message-call into this account with an alternative account’s code, but persisting the current values for sender and value.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct DelegateCall;
 
-impl InstructionMeta for DelegateCall {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::DELEGATECALL)
-    }
+impl KnownInstruction for DelegateCall {
+    const MNEMONIC: Mnemonic = Mnemonic::DELEGATECALL;
 }
 
 /// Create a new account with associated code at a predictable address.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Create2;
 
-impl InstructionMeta for Create2 {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CREATE2)
-    }
+impl KnownInstruction for Create2 {
+    const MNEMONIC: Mnemonic = Mnemonic::CREATE2;
 }
 
 /// Static message-call into an account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct StaticCall;
 
-impl InstructionMeta for StaticCall {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::STATICCALL)
-    }
+impl KnownInstruction for StaticCall {
+    const MNEMONIC: Mnemonic = Mnemonic::STATICCALL;
 }
 
 /// Halt execution reverting state changes but returning data and remaining gas.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Revert;
 
-impl InstructionMeta for Revert {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::REVERT)
-    }
+impl KnownInstruction for Revert {
+    const MNEMONIC: Mnemonic = Mnemonic::REVERT;
 }
 
 /// Designated invalid instruction.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Invalid;
 
-impl InstructionMeta for Invalid {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::INVALID)
-    }
+impl KnownInstruction for Invalid {
+    const MNEMONIC: Mnemonic = Mnemonic::INVALID;
 }
 
 /// Halt execution and register account for later deletion or send all Ether to address (post-Cancun).
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct SelfDestruct;
 
-impl InstructionMeta for SelfDestruct {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::SELFDESTRUCT)
-    }
+impl KnownInstruction for SelfDestruct {
+    const MNEMONIC: Mnemonic = Mnemonic::SELFDESTRUCT;
 }
 
 /// An identified instruction.
-/// The difference between this instruction and [`Invalid`] is that the [`Invalid`] instruction is explicitly
+/// The difference between this instruction and [`Invalid`] is that the [`Invalid`] instruction is explicit, Defaultly
 /// defined in the specification and this instruction is a catch-all instruction for any operation
 /// code not defined in the specification. Otherwise they behave the exact same way.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Unknown(
     /// The unidentified operation code.
