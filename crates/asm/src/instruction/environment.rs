@@ -1,184 +1,149 @@
 //! Environmental information.
 
+use super::KnownInstruction;
+use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
 
-use crate::{
-    instruction::InstructionMeta,
-    opcode::{Mnemonic, OpCode},
-};
-
 /// Get address of currently executing account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Address;
 
-impl InstructionMeta for Address {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::ADDRESS)
-    }
+impl KnownInstruction for Address {
+    const MNEMONIC: Mnemonic = Mnemonic::ADDRESS;
 }
 
 /// Get balance of the given account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Balance;
 
-impl InstructionMeta for Balance {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::BALANCE)
-    }
+impl KnownInstruction for Balance {
+    const MNEMONIC: Mnemonic = Mnemonic::BALANCE;
 }
 
 /// Get execution origination address.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Origin;
 
-impl InstructionMeta for Origin {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::ORIGIN)
-    }
+impl KnownInstruction for Origin {
+    const MNEMONIC: Mnemonic = Mnemonic::ORIGIN;
 }
 
 /// Get caller address.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Caller;
 
-impl InstructionMeta for Caller {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CALLER)
-    }
+impl KnownInstruction for Caller {
+    const MNEMONIC: Mnemonic = Mnemonic::CALLER;
 }
 
 /// Get deposited value by the instruction/transaction responsible for this execution.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct CallValue;
 
-impl InstructionMeta for CallValue {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CALLVALUE)
-    }
+impl KnownInstruction for CallValue {
+    const MNEMONIC: Mnemonic = Mnemonic::CALLVALUE;
 }
 
 /// Get input data of current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct CallDataLoad;
 
-impl InstructionMeta for CallDataLoad {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CALLDATALOAD)
-    }
+impl KnownInstruction for CallDataLoad {
+    const MNEMONIC: Mnemonic = Mnemonic::CALLDATALOAD;
 }
 
 /// Get size of input data in current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct CallDataSize;
 
-impl InstructionMeta for CallDataSize {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CALLDATASIZE)
-    }
+impl KnownInstruction for CallDataSize {
+    const MNEMONIC: Mnemonic = Mnemonic::CALLDATASIZE;
 }
 
 /// Copy input data in current environment to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct CallDataCopy;
 
-impl InstructionMeta for CallDataCopy {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CALLDATACOPY)
-    }
+impl KnownInstruction for CallDataCopy {
+    const MNEMONIC: Mnemonic = Mnemonic::CALLDATACOPY;
 }
 
 /// Get size of code running in current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct CodeSize;
 
-impl InstructionMeta for CodeSize {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CODESIZE)
-    }
+impl KnownInstruction for CodeSize {
+    const MNEMONIC: Mnemonic = Mnemonic::CODESIZE;
 }
 
 /// Copy code running in current environment to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct CodeCopy;
 
-impl InstructionMeta for CodeCopy {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::CODECOPY)
-    }
+impl KnownInstruction for CodeCopy {
+    const MNEMONIC: Mnemonic = Mnemonic::CODECOPY;
 }
 
 /// Get price of gas in current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct GasPrice;
 
-impl InstructionMeta for GasPrice {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::GASPRICE)
-    }
+impl KnownInstruction for GasPrice {
+    const MNEMONIC: Mnemonic = Mnemonic::GASPRICE;
 }
 
 /// Get size of an account’s code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct ExtCodeSize;
 
-impl InstructionMeta for ExtCodeSize {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::EXTCODESIZE)
-    }
+impl KnownInstruction for ExtCodeSize {
+    const MNEMONIC: Mnemonic = Mnemonic::EXTCODESIZE;
 }
 
 /// Copy an account’s code to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct ExtCodeCopy;
 
-impl InstructionMeta for ExtCodeCopy {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::EXTCODECOPY)
-    }
+impl KnownInstruction for ExtCodeCopy {
+    const MNEMONIC: Mnemonic = Mnemonic::EXTCODECOPY;
 }
 
 /// Get size of output data from the previous call from the current environment.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct ReturnDataSize;
 
-impl InstructionMeta for ReturnDataSize {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::RETURNDATASIZE)
-    }
+impl KnownInstruction for ReturnDataSize {
+    const MNEMONIC: Mnemonic = Mnemonic::RETURNDATASIZE;
 }
 
 /// Copy output data from the previous call to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct ReturnDataCopy;
 
-impl InstructionMeta for ReturnDataCopy {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::RETURNDATACOPY)
-    }
+impl KnownInstruction for ReturnDataCopy {
+    const MNEMONIC: Mnemonic = Mnemonic::RETURNDATACOPY;
 }
 
 /// Get hash of an account’s code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct ExtCodeHash;
 
-impl InstructionMeta for ExtCodeHash {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(Mnemonic::EXTCODEHASH)
-    }
+impl KnownInstruction for ExtCodeHash {
+    const MNEMONIC: Mnemonic = Mnemonic::EXTCODEHASH;
 }
