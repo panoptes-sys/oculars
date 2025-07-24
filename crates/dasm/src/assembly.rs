@@ -1,3 +1,5 @@
+//! EVM assembly.
+
 use asm::instruction::Instruction;
 
 /// An instruction with a specified position in the bytecode.
@@ -9,4 +11,5 @@ pub struct PositionedInstruction {
     pub instruction: Instruction,
 }
 
-pub struct Assembly(Vec<PositionedInstruction>);
+/// Disassembled EVM bytecode.
+pub struct Assembly(/* Vec<PositionedInstruction> */);

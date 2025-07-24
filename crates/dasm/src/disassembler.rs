@@ -32,7 +32,11 @@ pub enum SourceDasmError<E> {
 }
 
 impl<E: ExecutionUpgrade> Disassembler<E> {
-    pub fn disassemble(&self, bytecode: Bytecode) -> Result<Assembly, DasmError> {
+    /// Disassemble EVM bytecode into an instruction list.
+    ///
+    /// # Errors
+    /// TODO
+    pub fn disassemble(&self, bytecode: &Bytecode) -> Result<Assembly, DasmError> {
         for byte in bytecode.as_ref() {
             match *byte {
                 byte if byte == Mnemonic::STOP as u8 && E::supports_instruction::<Stop>() => {
@@ -55,7 +59,7 @@ impl<E: ExecutionUpgrade> Disassembler<E> {
         source: T,
     ) -> Result<Assembly, SourceDasmError<T::Error>> {
         let bytecode = source.extract().map_err(SourceDasmError::Extraction)?;
-        Ok(self.disassemble(bytecode)?)
+        Ok(self.disassemble(&bytecode)?)
     }
 
     /// Disassembles a hex string into EVM assembly.
