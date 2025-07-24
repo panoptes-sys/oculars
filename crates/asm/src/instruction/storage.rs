@@ -5,7 +5,7 @@ use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
 
 /// Load word from storage.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct SLoad;
 
@@ -14,7 +14,7 @@ impl KnownInstruction for SLoad {
 }
 
 /// Save word to storage.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct SStore;
 
@@ -23,7 +23,7 @@ impl KnownInstruction for SStore {
 }
 
 /// Load word from transient storage.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct TLoad;
 
@@ -32,7 +32,7 @@ impl KnownInstruction for TLoad {
 }
 
 /// Save word to transient storage.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct TStore;
 

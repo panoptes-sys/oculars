@@ -5,7 +5,7 @@ use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
 
 /// Get the hash of one of the 256 most recent complete blocks.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct BlockHash;
 
@@ -14,7 +14,7 @@ impl KnownInstruction for BlockHash {
 }
 
 /// Get the block’s beneficiary address.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct CoinBase;
 
@@ -23,7 +23,7 @@ impl KnownInstruction for CoinBase {
 }
 
 /// Get the block’s timestamp.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Timestamp;
 
@@ -32,7 +32,7 @@ impl KnownInstruction for Timestamp {
 }
 
 /// Get the block’s number.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Number;
 
@@ -41,7 +41,7 @@ impl KnownInstruction for Number {
 }
 
 /// Get the block’s difficulty.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct PrevRandao;
 
@@ -50,7 +50,7 @@ impl KnownInstruction for PrevRandao {
 }
 
 /// Get the block’s gas limit.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct GasLimit;
 
@@ -59,7 +59,7 @@ impl KnownInstruction for GasLimit {
 }
 
 /// Get the chain ID.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct ChainId;
 
@@ -68,7 +68,7 @@ impl KnownInstruction for ChainId {
 }
 
 /// Get balance of currently executing account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct SelfBalance;
 
@@ -77,7 +77,7 @@ impl KnownInstruction for SelfBalance {
 }
 
 /// Get the base fee.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct BaseFee;
 
@@ -86,7 +86,7 @@ impl KnownInstruction for BaseFee {
 }
 
 /// Get versioned hashes.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct BlobHash;
 
@@ -95,7 +95,7 @@ impl KnownInstruction for BlobHash {
 }
 
 /// Returns the value of the blob base-fee of the current block.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct BlobBaseFee;
 

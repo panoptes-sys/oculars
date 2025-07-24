@@ -5,7 +5,7 @@ use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
 
 /// Less-than comparison.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Lt;
 
@@ -14,7 +14,7 @@ impl KnownInstruction for Lt {
 }
 
 /// Greater-than comparison.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Gt;
 
@@ -23,7 +23,7 @@ impl KnownInstruction for Gt {
 }
 
 /// Signed less-than comparison.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct SLt;
 
@@ -32,7 +32,7 @@ impl KnownInstruction for SLt {
 }
 
 /// Signed greater-than comparison.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct SGt;
 
@@ -41,7 +41,7 @@ impl KnownInstruction for SGt {
 }
 
 /// Equality comparison.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Eq;
 
@@ -50,7 +50,7 @@ impl KnownInstruction for Eq {
 }
 
 /// Is-zero comparison.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct IsZero;
 
@@ -59,7 +59,7 @@ impl KnownInstruction for IsZero {
 }
 
 /// Bitwise AND operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct And;
 
@@ -68,7 +68,7 @@ impl KnownInstruction for And {
 }
 
 /// Bitwise OR operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Or;
 
@@ -77,7 +77,7 @@ impl KnownInstruction for Or {
 }
 
 /// Bitwise XOR operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Xor;
 
@@ -86,7 +86,7 @@ impl KnownInstruction for Xor {
 }
 
 /// Bitwise NOT operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Not;
 
@@ -95,7 +95,7 @@ impl KnownInstruction for Not {
 }
 
 /// Retrieve single byte from word.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Byte;
 
@@ -104,7 +104,7 @@ impl KnownInstruction for Byte {
 }
 
 /// Left shift operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Shl;
 
@@ -113,7 +113,7 @@ impl KnownInstruction for Shl {
 }
 
 /// Logical right shift operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Shr;
 
@@ -122,7 +122,7 @@ impl KnownInstruction for Shr {
 }
 
 /// Arithmetic (signed) right shift operation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Sar;
 

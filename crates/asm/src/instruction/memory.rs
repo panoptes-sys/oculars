@@ -5,7 +5,7 @@ use crate::{instruction::InstructionMeta, opcode::Mnemonic};
 use derive_more::Display;
 
 /// Load word from memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct MLoad;
 
@@ -14,7 +14,7 @@ impl KnownInstruction for MLoad {
 }
 
 /// Save word to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct MStore;
 
@@ -23,7 +23,7 @@ impl KnownInstruction for MStore {
 }
 
 /// Save byte to memory.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct MStore8;
 
@@ -32,7 +32,7 @@ impl KnownInstruction for MStore8 {
 }
 
 /// Get the size of active memory in bytes.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct MSize;
 
@@ -41,7 +41,7 @@ impl KnownInstruction for MSize {
 }
 
 /// Copy memory areas.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct MCopy;
 
