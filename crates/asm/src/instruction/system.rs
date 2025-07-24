@@ -8,7 +8,7 @@ use crate::{
 use derive_more::Display;
 
 /// Compute Keccak-256 hash.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Keccak256;
 
@@ -17,7 +17,7 @@ impl KnownInstruction for Keccak256 {
 }
 
 /// Create a new account with associated code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Create;
 
@@ -26,7 +26,7 @@ impl KnownInstruction for Create {
 }
 
 /// Message-call into an account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Call;
 
@@ -35,7 +35,7 @@ impl KnownInstruction for Call {
 }
 
 /// Message-call into this account with alternative account’s code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct CallCode;
 
@@ -44,7 +44,7 @@ impl KnownInstruction for CallCode {
 }
 
 /// Halt execution returning output data.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Return;
 
@@ -53,7 +53,7 @@ impl KnownInstruction for Return {
 }
 
 /// Message-call into this account with an alternative account’s code, but persisting the current values for sender and value.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct DelegateCall;
 
@@ -62,7 +62,7 @@ impl KnownInstruction for DelegateCall {
 }
 
 /// Create a new account with associated code at a predictable address.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Create2;
 
@@ -71,7 +71,7 @@ impl KnownInstruction for Create2 {
 }
 
 /// Static message-call into an account.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct StaticCall;
 
@@ -80,7 +80,7 @@ impl KnownInstruction for StaticCall {
 }
 
 /// Halt execution reverting state changes but returning data and remaining gas.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Revert;
 
@@ -89,7 +89,7 @@ impl KnownInstruction for Revert {
 }
 
 /// Designated invalid instruction.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Invalid;
 
@@ -98,7 +98,7 @@ impl KnownInstruction for Invalid {
 }
 
 /// Halt execution and register account for later deletion or send all Ether to address (post-Cancun).
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct SelfDestruct;
 
@@ -107,10 +107,10 @@ impl KnownInstruction for SelfDestruct {
 }
 
 /// An identified instruction.
-/// The difference between this instruction and [`Invalid`] is that the [`Invalid`] instruction is explicitly
+/// The difference between this instruction and [`Invalid`] is that the [`Invalid`] instruction is explicit, Defaultly
 /// defined in the specification and this instruction is a catch-all instruction for any operation
 /// code not defined in the specification. Otherwise they behave the exact same way.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Unknown(
     /// The unidentified operation code.

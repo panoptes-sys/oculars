@@ -5,7 +5,7 @@ use crate::opcode::Mnemonic;
 use derive_more::Display;
 
 /// Remove item from stack.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Display, Default)]
 #[display("{}", self.opcode())]
 pub struct Pop;
 
@@ -116,6 +116,12 @@ impl<const N: usize> KnownInstruction for Push<N> {
         32 => Mnemonic::PUSH32,
         _ => unreachable!(),
     };
+}
+
+impl<const N: usize> Default for Push<N> {
+    fn default() -> Self {
+        Self([0; N])
+    }
 }
 
 /// Duplicate stack items.
