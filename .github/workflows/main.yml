@@ -1,20 +1,45 @@
 name: Format, Lint, Test & Build
 on: [push, pull_request]
+permissions:
+  contents: read
 
 jobs:
-  run:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@nightly
-        with: 
-          components: clippy, rustfmt
-          
+        with:
+          components: rustfmt
+
       - name: Format
-        run: cargo fmt --verbose --check
+        run: cargo fmt --check
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: clippy
+
       - name: Lint
-        run: cargo clippy --verbose -- -Dwarnings
+        run: cargo clippy -- -Dwarnings
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+
       - name: Test
-        run: cargo test --verbose
+        run: cargo test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+
       - name: Build
-        run: cargo build --verbose
+        run: cargo build
