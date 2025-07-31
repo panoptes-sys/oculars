@@ -17,6 +17,7 @@ upgrades = { package = "oculars-upgrades", version = "0.1.0", path = "./crates/u
 strum = { version = "0.27.1" }
 derive_more = "2.0.1"
 clap = { version = "4.5.41" }
+paste = "1.0.15"
 
 hex = "0.4.3"
 
