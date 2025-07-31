@@ -29,7 +29,10 @@ pub use stack::*;
 pub use storage::*;
 pub use system::*;
 
-use crate::opcode::{Mnemonic, OpCode};
+use crate::{
+    instruction::macros::{define_instruction, define_instructions},
+    opcode::{Mnemonic, OpCode},
+};
 
 /// An instruction with a known mnemonic.
 // The reason for this trait is that only a single instruction ([`Unknown`]) can't determine its opcode
@@ -469,6 +472,60 @@ pub enum Instruction {
     /// Unidentified instruction.
     Unknown(Unknown),
 }
+
+pub mod macros {
+    macro_rules! define_instruction {
+        ($name: ident, $desc: literal) => {
+            paste::paste! {
+                #[doc = $desc]
+                #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, derive_more::Display, Default)]
+                #[display("{}", self.opcode())]
+                pub struct $name;
+
+                impl KnownInstruction for $name {
+                    const MNEMONIC: Mnemonic = Mnemonic::[<$name:upper>];
+                }
+            }
+        };
+    }
+
+    macro_rules! define_instructions {
+        (($d: tt) $($name: ident => $desc: literal),+) => {
+            $(
+                define_instruction!($name, $desc);
+            )+
+
+            macro_rules! for_each_instr {
+                ($instr: ident, $fn: path $d(,$arg: expr)*) => {{
+                    use $crate::instruction::Instruction;
+
+            match $instr {
+                $(
+                    Instruction::$name(i) => $fn(i,$d(arg),*),
+                )+
+            }
+                }}
+            }
+        };
+        ($($name: ident => $desc: literal),+) => {
+            define_instructions!(($) $($name => $desc),+);
+        }
+    }
+
+    pub(crate) use define_instruction;
+    pub(crate) use define_instructions;
+}
+
+define_instructions!(
+    Stop => "Hello asnotehanotseh aontehaoteh",
+    Add => "Add",
+    Mul => "Mul",
+    Sub => "Sub",
+    Div => "Div",
+    SDiv => "SDiv",
+    Mod => "Mod",
+    SMod => "SMod"
+);
 
 /// Match each instruction variant and call the specified function passing the instruction as the
 /// first argument and any other specified arguments after.
