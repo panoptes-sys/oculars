@@ -1,8 +1,7 @@
 //! EVM operation code.
 
+use crate::{defs::mnemonic::Mnemonic, fmt::forward_byte_fmt};
 use std::fmt::Display;
-
-use crate::{macros::impl_byte_fmt, Mnemonic};
 
 /// EVM operation code.
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug, Hash)]
@@ -18,7 +17,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_known(), true);
     /// assert_eq!(OpCode::Unknown(0xF).is_known(), false);
     /// ```
@@ -32,7 +31,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::Unknown(0xF).is_unknown(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_unknown(), false);
     /// ```
@@ -47,7 +46,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::from_byte(0x5A), OpCode::Known(Mnemonic::GAS));
     /// assert_eq!(OpCode::from_byte(0xF), OpCode::Unknown(0xF));
     /// ```
@@ -65,7 +64,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::try_from_byte(0x5A), Some(OpCode::Known(Mnemonic::GAS)));
     /// assert_eq!(OpCode::try_from_byte(0xF), None);
     /// ```
@@ -83,7 +82,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).into_byte(), 0x5A);
     /// assert_eq!(OpCode::Unknown(0xF).into_byte(), 0xF);
     /// ```
@@ -100,7 +99,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::Known(Mnemonic::PUSH7).is_push(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_push(), false);
     /// ```
@@ -117,7 +116,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::Known(Mnemonic::DUP2).is_dup(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_dup(), false);
     /// ```
@@ -134,7 +133,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::Known(Mnemonic::SWAP2).is_swap(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_swap(), false);
     /// ```
@@ -151,7 +150,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::Known(Mnemonic::LOG2).is_log(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_log(), false);
     /// ```
@@ -168,7 +167,7 @@ impl OpCode {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::Known(Mnemonic::RETURN).is_terminator(), true);
     /// assert_eq!(OpCode::Unknown(0xF).is_terminator(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_terminator(), false);
@@ -185,7 +184,7 @@ impl OpCode {
     /// Returns [`true`] if this mnemonic is a `JUMP`, `JUMPI` or a `JUMPDEST`.
     /// # Example
     /// ```
-    /// # use oculars_asm2::{Mnemonic, opcode::OpCode};
+    /// # use oculars_asm2::{Mnemonic, OpCode};
     /// assert_eq!(OpCode::Known(Mnemonic::JUMP).is_control_flow(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::JUMPDEST).is_control_flow(), true);
     /// assert_eq!(OpCode::Known(Mnemonic::GAS).is_control_flow(), false);
@@ -200,7 +199,7 @@ impl OpCode {
     }
 }
 
-impl_byte_fmt!(OpCode, LowerHex, UpperHex, Octal, Binary);
+forward_byte_fmt!(OpCode, LowerHex, UpperHex, Octal, Binary);
 
 impl Display for OpCode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
