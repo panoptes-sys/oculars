@@ -1,6 +1,6 @@
 //! The `PUSHx` instruction.
 
-use crate::{AssemblyInstruction, Mnemonic, OpCode};
+use crate::{AssemblyInstruction, Mnemonic, OpCode, assembly::DisassemblyError};
 
 /// Place `N`-byte item on stack.
 /// The `N` constant signifies the type of the `PUSH` opcode (e.g. `Push<32>` => `PUSH32`).
@@ -72,11 +72,25 @@ impl<const N: usize> Push<N> {
     pub const fn immediate_size(&self) -> u8 {
         N as u8
     }
-}
 
-impl<const N: usize> AssemblyInstruction for Push<N> {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(match N {
+    /// Returns the mnemonic associated with this instruction.
+    ///
+    /// # Example
+    /// ```
+    /// # use oculars_asm::{instruction::Push, Mnemonic};
+    /// assert_eq!(Push::<2>::mnemonic(), Mnemonic::PUSH2);
+    /// ```
+    ///
+    /// # Panics
+    /// Panics if `N` is greater than 32.
+    ///
+    /// ```should_panic
+    /// # use oculars_asm::{instruction::Push, Mnemonic};
+    /// let push = Push::<77>::mnemonic();
+    /// ```
+    #[must_use]
+    pub const fn mnemonic() -> Mnemonic {
+        match N {
             0 => Mnemonic::PUSH0,
             1 => Mnemonic::PUSH1,
             2 => Mnemonic::PUSH2,
@@ -111,7 +125,13 @@ impl<const N: usize> AssemblyInstruction for Push<N> {
             31 => Mnemonic::PUSH31,
             32 => Mnemonic::PUSH32,
             _ => panic!("only `Push<X>` instructions where `X` <= 32 are supported"),
-        })
+        }
+    }
+}
+
+impl<const N: usize> AssemblyInstruction for Push<N> {
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Self::mnemonic())
     }
 
     #[expect(
@@ -120,6 +140,38 @@ impl<const N: usize> AssemblyInstruction for Push<N> {
     )]
     fn immediate_size(&self) -> u8 {
         N as u8
+    }
+
+    fn assemble(self) -> Vec<u8> {
+        let mut bytes = Vec::with_capacity(N + 1);
+
+        bytes.push(self.opcode().into_byte());
+        bytes.extend(self.immediate());
+
+        bytes
+    }
+
+    fn disassemble(bytes: &[u8]) -> Result<Self, DisassemblyError> {
+        if bytes.len() < N + 1 {
+            return Err(DisassemblyError::UnexpectedLength {
+                got: bytes.len(),
+                expected: N + 1,
+            });
+        }
+
+        let opcode = bytes[0];
+
+        if opcode != Self::mnemonic() as u8 {
+            return Err(DisassemblyError::UnexpectedOpcode {
+                got: opcode,
+                expected: Self::mnemonic() as u8,
+            });
+        }
+
+        // this slice indexing should not panic because of the length check at the top.
+        Ok(Self::new(bytes[1..=N].try_into().expect(
+            "the subslice length matches the expected immediate value length",
+        )))
     }
 }
 

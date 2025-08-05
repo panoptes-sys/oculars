@@ -67,6 +67,10 @@ mod tests {
             fn opcode(&self) -> OpCode {
                 OpCode::Known(Mnemonic::GAS)
             }
+
+            fn disassemble(_: &[u8]) -> Result<Self, crate::assembly::DisassemblyError> {
+                todo!()
+            }
         }
 
         forward_opcode_fmt!(Mock, Display, LowerHex, UpperHex, Binary, Octal);

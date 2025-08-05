@@ -1,6 +1,10 @@
 //! The `SWAPx` instruction.
 
-use crate::{AssemblyInstruction, Mnemonic, OpCode, fmt::forward_opcode_fmt};
+use crate::{
+    AssemblyInstruction, Mnemonic, OpCode,
+    assembly::{DisassemblyError, verify_opcode},
+    fmt::forward_opcode_fmt,
+};
 
 /// Exchange 1st and `N+1`th stack items.
 /// The `N` constant signifies the type of the `SWAP` opcode (e.g. `Swap<16>` => `SWAP16`).
@@ -38,18 +42,25 @@ impl<const N: u8> Swap<N> {
         () = Self::VALID;
         Self { _private: () }
     }
-}
 
-impl<const N: u8> Default for Swap<N> {
-    #[inline]
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl<const N: u8> AssemblyInstruction for Swap<N> {
-    fn opcode(&self) -> OpCode {
-        OpCode::Known(match N {
+    /// Returns the mnemonic associated with this instruction.
+    ///
+    /// # Example
+    /// ```
+    /// # use oculars_asm::{instruction::Swap, Mnemonic};
+    /// assert_eq!(Swap::<2>::mnemonic(), Mnemonic::SWAP2);
+    /// ```
+    ///
+    /// # Panics
+    /// Panics if `N` is less than one or greater than 16.
+    ///
+    /// ```should_panic
+    /// # use oculars_asm::{instruction::Swap, Mnemonic};
+    /// let swap = Swap::<21>::mnemonic();
+    /// ```
+    #[must_use]
+    pub const fn mnemonic() -> Mnemonic {
+        match N {
             1 => Mnemonic::SWAP1,
             2 => Mnemonic::SWAP2,
             3 => Mnemonic::SWAP3,
@@ -67,7 +78,25 @@ impl<const N: u8> AssemblyInstruction for Swap<N> {
             15 => Mnemonic::SWAP15,
             16 => Mnemonic::SWAP16,
             _ => panic!("only `Swap<X>` instructions where `X` >= 1 && `X` <= 16 are supported"),
-        })
+        }
+    }
+}
+
+impl<const N: u8> Default for Swap<N> {
+    #[inline]
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl<const N: u8> AssemblyInstruction for Swap<N> {
+    fn opcode(&self) -> OpCode {
+        OpCode::Known(Self::mnemonic())
+    }
+
+    fn disassemble(bytes: &[u8]) -> Result<Self, DisassemblyError> {
+        verify_opcode(bytes, Self::mnemonic() as u8)?;
+        Ok(Self::new())
     }
 }
 
