@@ -1,6 +1,6 @@
 //! Ethereum Execution layer upgrades.
 
-use asm::instruction::InstructionMeta;
+use asm::AssemblyInstruction;
 
 use crate::eip::{Eip, EipSet};
 
@@ -20,7 +20,7 @@ pub trait ExecutionUpgrade {
     /// ```
     #[must_use]
     #[inline]
-    fn supports_instruction<I: InstructionMeta>() -> bool {
+    fn supports_instruction<I: AssemblyInstruction>() -> bool {
         Self::EipSet::supports_instruction::<I>()
     }
 

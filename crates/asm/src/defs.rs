@@ -1,3 +1,5 @@
+//! Mnemonic and instruction definitions.
+
 use crate::instruction::{Dup, Log, Push, Swap, Unknown};
 
 /// Defines the `Mnemonic` enum and implements a `VARIANTS` constant, a byte conversion and [`std::fmt::Display`] for the created enum.
@@ -22,7 +24,7 @@ macro_rules! define_mnemonics {
             ///
             /// # Example
             /// ```
-            /// # use oculars_asm2::Mnemonic;
+            /// # use oculars_asm::Mnemonic;
             /// assert_eq!(Mnemonic::VARIANTS[0], Mnemonic::STOP);
             /// assert_eq!(Mnemonic::VARIANTS[2], Mnemonic::MUL);
             /// ```
@@ -33,7 +35,7 @@ macro_rules! define_mnemonics {
             ///
             /// # Example
             /// ```
-            /// # use oculars_asm2::Mnemonic;
+            /// # use oculars_asm::Mnemonic;
             /// assert_eq!(Mnemonic::from_byte(0x5A), Some(Mnemonic::GAS));
             /// assert_eq!(Mnemonic::from_byte(0xF), None);
             /// ```

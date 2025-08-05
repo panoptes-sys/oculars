@@ -9,7 +9,7 @@ impl Mnemonic {
     ///
     /// # Examples
     /// ```
-    /// # use oculars_asm2::Mnemonic;
+    /// # use oculars_asm::Mnemonic;
     /// assert_eq!(Mnemonic::GAS.into_byte(), 0x5A);
     /// ```
     #[must_use]
@@ -22,7 +22,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::Mnemonic;
+    /// # use oculars_asm::Mnemonic;
     /// assert_eq!(Mnemonic::PUSH7.is_push(), true);
     /// assert_eq!(Mnemonic::GAS.is_push(), false);
     /// ```
@@ -71,7 +71,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::Mnemonic;
+    /// # use oculars_asm::Mnemonic;
     /// assert_eq!(Mnemonic::DUP2.is_dup(), true);
     /// assert_eq!(Mnemonic::GAS.is_dup(), false);
     /// ```
@@ -103,7 +103,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::Mnemonic;
+    /// # use oculars_asm::Mnemonic;
     /// assert_eq!(Mnemonic::SWAP2.is_swap(), true);
     /// assert_eq!(Mnemonic::GAS.is_swap(), false);
     /// ```
@@ -135,7 +135,7 @@ impl Mnemonic {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::Mnemonic;
+    /// # use oculars_asm::Mnemonic;
     /// assert_eq!(Mnemonic::LOG2.is_log(), true);
     /// assert_eq!(Mnemonic::GAS.is_log(), false);
     /// ```
@@ -151,7 +151,7 @@ impl Mnemonic {
     /// Returns [`true`] if this mnemonic terminates execution of the smart contract.
     /// # Example
     /// ```
-    /// # use oculars_asm2::Mnemonic;
+    /// # use oculars_asm::Mnemonic;
     /// assert_eq!(Mnemonic::STOP.is_terminator(), true);
     /// assert_eq!(Mnemonic::REVERT.is_terminator(), true);
     /// assert_eq!(Mnemonic::INVALID.is_terminator(), true);
@@ -169,7 +169,7 @@ impl Mnemonic {
     /// Returns [`true`] if this mnemonic is a `JUMP`, `JUMPI` or a `JUMPDEST`.
     /// # Example
     /// ```
-    /// # use oculars_asm2::Mnemonic;
+    /// # use oculars_asm::Mnemonic;
     /// assert_eq!(Mnemonic::JUMP.is_control_flow(), true);
     /// assert_eq!(Mnemonic::JUMPDEST.is_control_flow(), true);
     /// assert_eq!(Mnemonic::GAS.is_control_flow(), false);

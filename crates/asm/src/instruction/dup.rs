@@ -1,6 +1,6 @@
 //! The `DUPx` instruction.
 
-use crate::{fmt::forward_opcode_fmt, AssemblyInstruction, Mnemonic, OpCode};
+use crate::{AssemblyInstruction, Mnemonic, OpCode, fmt::forward_opcode_fmt};
 
 /// Duplicate `N`th stack item.
 /// The `N` constant signifies the type of the `DUP` opcode (e.g. `Dup<16>` => `DUP16`).
@@ -45,7 +45,7 @@ impl<const N: u8> Dup<N> {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{instruction::Dup, AssemblyInstruction, OpCode, Mnemonic};
+    /// # use oculars_asm::{instruction::Dup, AssemblyInstruction, OpCode, Mnemonic};
     /// let dup: Dup<10> = Dup::new();
     /// assert_eq!(dup.opcode(), OpCode::Known(Mnemonic::DUP10));
     /// ```
@@ -53,7 +53,7 @@ impl<const N: u8> Dup<N> {
     /// This will fail to compile if the instruction is not correct.
     ///
     /// ```compile_fail
-    /// # use oculars_asm2::instruction::Dup;
+    /// # use oculars_asm::instruction::Dup;
     /// let dup: Dup<30> = Dup::new(); // compile fail!
     /// ```
     #[must_use]

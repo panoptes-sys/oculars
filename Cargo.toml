@@ -9,7 +9,7 @@ license = "MIT"
 repository = "https://github.com/panoptes-sys/oculars"
 
 [workspace.dependencies]
-asm = { package = "oculars-asm", version = "0.3.0", path = "./crates/asm/" }
+asm = { package = "oculars-asm", version = "0.4.0", path = "./crates/asm/" }
 dasm = { package = "oculars-dasm", version = "0.1.0", path = "./crates/dasm/" }
 chains = { package = "oculars-chains", version = "0.1.0", path = "./crates/chains/" }
 upgrades = { package = "oculars-upgrades", version = "0.1.0", path = "./crates/upgrades/" }
