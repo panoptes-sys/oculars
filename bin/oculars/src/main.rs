@@ -31,7 +31,7 @@ fn main() -> anyhow::Result<()> {
 fn list_mnemonics() -> anyhow::Result<()> {
     let mut pager = Pager::new();
 
-    for mnemonic in Mnemonic::VARIANTS.iter() {
+    for mnemonic in Mnemonic::VARIANTS {
         writeln!(pager, "{}\n", mnemonic.format_human())
             .context("failed to write mnemonic info")?;
     }
