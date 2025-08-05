@@ -1,6 +1,6 @@
 //! An unknown instruction.
 
-use crate::{assembly::DisassemblyError, fmt::forward_opcode_fmt, AssemblyInstruction, OpCode};
+use crate::{AssemblyInstruction, OpCode, assembly::DisassemblyError, fmt::forward_opcode_fmt};
 
 /// An unidentified instruction.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]

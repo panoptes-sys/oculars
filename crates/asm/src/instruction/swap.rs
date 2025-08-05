@@ -1,9 +1,9 @@
 //! The `SWAPx` instruction.
 
 use crate::{
-    assembly::{verify_opcode, DisassemblyError},
-    fmt::forward_opcode_fmt,
     AssemblyInstruction, Mnemonic, OpCode,
+    assembly::{DisassemblyError, verify_opcode},
+    fmt::forward_opcode_fmt,
 };
 
 /// Exchange 1st and `N+1`th stack items.

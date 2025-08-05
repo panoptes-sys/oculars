@@ -1,9 +1,9 @@
 //! The `DUPx` instruction.
 
 use crate::{
-    assembly::{verify_opcode, DisassemblyError},
-    fmt::forward_opcode_fmt,
     AssemblyInstruction, Mnemonic, OpCode,
+    assembly::{DisassemblyError, verify_opcode},
+    fmt::forward_opcode_fmt,
 };
 
 /// Duplicate `N`th stack item.

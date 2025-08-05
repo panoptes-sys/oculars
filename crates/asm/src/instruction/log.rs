@@ -1,7 +1,7 @@
 //! The `LOGx` instruction.
 
 use crate::{
-    assembly::verify_opcode, fmt::forward_opcode_fmt, AssemblyInstruction, Mnemonic, OpCode,
+    AssemblyInstruction, Mnemonic, OpCode, assembly::verify_opcode, fmt::forward_opcode_fmt,
 };
 
 /// Append log record with `N` topics.

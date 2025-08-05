@@ -1,6 +1,6 @@
 //! The `PUSHx` instruction.
 
-use crate::{assembly::DisassemblyError, AssemblyInstruction, Mnemonic, OpCode};
+use crate::{AssemblyInstruction, Mnemonic, OpCode, assembly::DisassemblyError};
 
 /// Place `N`-byte item on stack.
 /// The `N` constant signifies the type of the `PUSH` opcode (e.g. `Push<32>` => `PUSH32`).

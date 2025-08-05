@@ -7,9 +7,9 @@ mod swap;
 mod unknown;
 
 use crate::{
+    AssemblyInstruction, OpCode,
     assembly::DisassemblyError,
     defs::instruction::macros::{disassemble_instruction, match_instruction},
-    AssemblyInstruction, OpCode,
 };
 
 pub use crate::defs::instruction::*;
