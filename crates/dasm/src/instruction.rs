@@ -1,10 +1,10 @@
 //! Instruction assembly and disassembly.
 
-use asm::instruction::{InstructionMeta, KnownInstruction, Push};
+use asm::{instruction::Push, AssemblyInstruction};
 use thiserror::Error;
 
 /// Extension trait over [`InstructionMeta`] allowing for instruction assembly and disassembly.
-pub trait InstructionAssembly: Sized + InstructionMeta {
+pub trait InstructionAssembly: Sized + AssemblyInstruction {
     /// The amount of bytes that is required to represent this instruction in bytecode.
     const BYTE_COUNT: usize;
 
@@ -59,7 +59,7 @@ impl<const N: usize> InstructionAssembly for Push<N> {
 //     }
 // }
 
-impl<I: KnownInstruction + Default> InstructionAssembly for I {
+impl<I: AssemblyInstruction + Default> InstructionAssembly for I {
     default const BYTE_COUNT: usize = 1;
 
     default fn assemble(&self) -> [u8; Self::BYTE_COUNT] {

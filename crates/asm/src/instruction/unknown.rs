@@ -1,6 +1,6 @@
 //! An unknown instruction.
 
-use crate::{fmt::forward_opcode_fmt, AssemblyInstruction, OpCode};
+use crate::{AssemblyInstruction, OpCode, fmt::forward_opcode_fmt};
 
 /// An unidentified instruction.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
@@ -21,7 +21,7 @@ impl Unknown {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{instruction::Unknown, OpCode, AssemblyInstruction};
+    /// # use oculars_asm::{instruction::Unknown, OpCode, AssemblyInstruction};
     /// let unknown = Unknown::new(0xF);
     /// assert_eq!(unknown.opcode(), OpCode::Unknown(0xF));
     /// ```
@@ -35,7 +35,7 @@ impl Unknown {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::instruction::Unknown;
+    /// # use oculars_asm::instruction::Unknown;
     /// let unknown = Unknown::new(0xF);
     /// assert_eq!(unknown.byte(), 0xF);
     /// ```

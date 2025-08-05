@@ -1,7 +1,8 @@
 //! Ethereum Improvement Proposals.
 
-use asm::instruction::InstructionMeta;
 use std::any::TypeId;
+
+use asm::AssemblyInstruction;
 
 /// An Ethereum Improvement Proposal.
 pub trait Eip {
@@ -40,7 +41,7 @@ pub trait Eip {
     #[inline]
     fn introduces_instruction<I>() -> bool
     where
-        I: InstructionMeta,
+        I: AssemblyInstruction,
         Self: IntroducesInstruction<I>,
     {
         Self::eip_introduces_instruction()
@@ -48,14 +49,14 @@ pub trait Eip {
 }
 
 /// Trait that indicates whether EIP introduces an instruction.
-pub trait IntroducesInstruction<I: InstructionMeta> {
+pub trait IntroducesInstruction<I: AssemblyInstruction> {
     /// Returns whether this EIP introduced an instruction.
     #[must_use]
     fn eip_introduces_instruction() -> bool;
 }
 
 // Make every [`Eip`] introduce no instructions by default.
-impl<I: InstructionMeta, E: Eip> IntroducesInstruction<I> for E {
+impl<I: AssemblyInstruction, E: Eip> IntroducesInstruction<I> for E {
     default fn eip_introduces_instruction() -> bool {
         false
     }
@@ -67,7 +68,7 @@ pub trait EipSet {
     fn includes_eip<E: Eip + 'static>() -> bool;
 
     /// Returns whether this set supports an instruction.
-    fn supports_instruction<I: InstructionMeta>() -> bool;
+    fn supports_instruction<I: AssemblyInstruction>() -> bool;
 }
 
 // An empty tuple is considered an [`EipSet`].
@@ -76,7 +77,7 @@ impl EipSet for () {
         false
     }
 
-    fn supports_instruction<I: InstructionMeta>() -> bool {
+    fn supports_instruction<I: AssemblyInstruction>() -> bool {
         false
     }
 }
@@ -87,7 +88,7 @@ impl<A: Eip + 'static, B: EipSet> EipSet for (A, B) {
         TypeId::of::<A>() == TypeId::of::<E>() || B::includes_eip::<E>()
     }
 
-    fn supports_instruction<I: InstructionMeta>() -> bool {
+    fn supports_instruction<I: AssemblyInstruction>() -> bool {
         <A as IntroducesInstruction<I>>::eip_introduces_instruction()
             || B::supports_instruction::<I>()
     }
@@ -98,7 +99,7 @@ impl<A, B, I> IntroducesInstruction<I> for (A, B)
 where
     A: IntroducesInstruction<I>,
     B: IntroducesInstruction<I>,
-    I: InstructionMeta,
+    I: AssemblyInstruction,
 {
     fn eip_introduces_instruction() -> bool {
         A::eip_introduces_instruction() || B::eip_introduces_instruction()
@@ -108,7 +109,7 @@ where
 // An empty [`EipSet`] introduces no instructions.
 impl<I> IntroducesInstruction<I> for ()
 where
-    I: InstructionMeta,
+    I: AssemblyInstruction,
 {
     fn eip_introduces_instruction() -> bool {
         false

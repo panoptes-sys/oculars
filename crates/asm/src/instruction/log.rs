@@ -1,6 +1,6 @@
 //! The `LOGx` instruction.
 
-use crate::{fmt::forward_opcode_fmt, AssemblyInstruction, Mnemonic, OpCode};
+use crate::{AssemblyInstruction, Mnemonic, OpCode, fmt::forward_opcode_fmt};
 
 /// Append log record with `N` topics.
 /// The `N` constant signifies the type of the `LOG` opcode (e.g. `Log<3>` => `LOG3`).
@@ -21,7 +21,7 @@ impl<const N: u8> Log<N> {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{instruction::Log, OpCode, Mnemonic, AssemblyInstruction};
+    /// # use oculars_asm::{instruction::Log, OpCode, Mnemonic, AssemblyInstruction};
     /// let log: Log<4> = Log::new();
     /// assert_eq!(log.opcode(), OpCode::Known(Mnemonic::LOG4));
     /// ```
@@ -29,7 +29,7 @@ impl<const N: u8> Log<N> {
     /// This will fail to compile if the instruction is not correct.
     ///
     /// ```compile_fail
-    /// # use oculars_asm2::instruction::Log;
+    /// # use oculars_asm::instruction::Log;
     /// let log: Log<10> = Log::new(); // compile fail!
     /// ```
     #[must_use]

@@ -1,6 +1,6 @@
 //! The `SWAPx` instruction.
 
-use crate::{fmt::forward_opcode_fmt, AssemblyInstruction, Mnemonic, OpCode};
+use crate::{AssemblyInstruction, Mnemonic, OpCode, fmt::forward_opcode_fmt};
 
 /// Exchange 1st and `N+1`th stack items.
 /// The `N` constant signifies the type of the `SWAP` opcode (e.g. `Swap<16>` => `SWAP16`).
@@ -21,7 +21,7 @@ impl<const N: u8> Swap<N> {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{instruction::Swap, AssemblyInstruction, OpCode, Mnemonic};
+    /// # use oculars_asm::{instruction::Swap, AssemblyInstruction, OpCode, Mnemonic};
     /// let swap: Swap<10> = Swap::new();
     /// assert_eq!(swap.opcode(), OpCode::Known(Mnemonic::SWAP10));
     /// ```
@@ -29,7 +29,7 @@ impl<const N: u8> Swap<N> {
     /// This will fail to compile if the instruction is not correct.
     ///
     /// ```compile_fail
-    /// # use oculars_asm2::instruction::Swap;
+    /// # use oculars_asm::instruction::Swap;
     /// let swap: Swap<30> = Swap::new(); // compile fail!
     /// ```
     #[must_use]

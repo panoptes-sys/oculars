@@ -1,5 +1,5 @@
 [package]
-name = "needle"
+name = "oculars-bin"
 description = "CLI utility for getting EVM instruction information"
 
 version = "0.1.0"

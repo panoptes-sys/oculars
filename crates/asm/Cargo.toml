@@ -4,16 +4,11 @@ description = "EVM assembly instructions, opcodes and mnemonics"
 keywords = ["evm", "ethereum", "bytecode", "assembly"]
 categories = ["cryptography::cryptocurrencies", "data-structures"]
 
-version = "0.3.0"
+version = "0.4.0"
 
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-
-[dependencies]
-strum = { workspace = true, features = ["derive"] }
-derive_more = { workspace = true, features = ["display"] }
-paste.workspace = true
 
 [lints]
 workspace = true

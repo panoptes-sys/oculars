@@ -21,7 +21,7 @@ impl<const N: usize> Push<N> {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{instruction::Push, OpCode, Mnemonic, AssemblyInstruction};
+    /// # use oculars_asm::{instruction::Push, OpCode, Mnemonic, AssemblyInstruction};
     /// let push: Push<32> = Push::new([0; 32]);
     /// assert_eq!(push.opcode(), OpCode::Known(Mnemonic::PUSH32));
     /// ```
@@ -29,7 +29,7 @@ impl<const N: usize> Push<N> {
     /// This will fail to compile if the size of the immediate value is greater than 32.
     ///
     /// ```compile_fail
-    /// # use oculars_asm2::instruction::Push;
+    /// # use oculars_asm::instruction::Push;
     /// let push = Push::new([0; 33]); // compile fail!
     /// ```
     #[must_use]
@@ -44,7 +44,7 @@ impl<const N: usize> Push<N> {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::instruction::Push;
+    /// # use oculars_asm::instruction::Push;
     /// let push = Push::new([1, 3, 3, 7]);
     /// assert_eq!(push.immediate(), &[1, 3, 3, 7]);
     /// ```
@@ -58,7 +58,7 @@ impl<const N: usize> Push<N> {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::instruction::Push;
+    /// # use oculars_asm::instruction::Push;
     /// fn push_size<const N: usize>(push: &Push<N>) {
     ///     assert_eq!(push.immediate_size() as usize, N);
     /// }

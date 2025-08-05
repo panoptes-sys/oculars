@@ -2,7 +2,7 @@
 
 use std::marker::PhantomData;
 
-use asm::{instruction::Stop, opcode::Mnemonic};
+use asm::{Mnemonic, instruction::Stop};
 use thiserror::Error;
 use upgrades::execution::ExecutionUpgrade;
 

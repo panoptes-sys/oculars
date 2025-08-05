@@ -8,7 +8,7 @@ pub trait AssemblyInstruction {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{instruction::{Stop, Push}, AssemblyInstruction};
+    /// # use oculars_asm::{instruction::{Stop, Push}, AssemblyInstruction};
     /// assert_eq!(Stop.size(), 1);
     /// assert_eq!(Push::<4>::new([0; 4]).size(), 5);
     /// ```
@@ -22,7 +22,7 @@ pub trait AssemblyInstruction {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{instruction::{Stop, Push}, AssemblyInstruction};
+    /// # use oculars_asm::{instruction::{Stop, Push}, AssemblyInstruction};
     /// assert_eq!(Stop.immediate_size(), 0);
     /// assert_eq!(Push::<0>::new([]).immediate_size(), 0);
     /// assert_eq!(Push::<32>::new([0; 32]).immediate_size(), 32);
@@ -37,7 +37,7 @@ pub trait AssemblyInstruction {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{OpCode, Mnemonic, instruction::{Stop, Unknown}, AssemblyInstruction};
+    /// # use oculars_asm::{OpCode, Mnemonic, instruction::{Stop, Unknown}, AssemblyInstruction};
     /// assert_eq!(Stop.opcode(), OpCode::Known(Mnemonic::STOP));
     /// assert_eq!(Unknown::new(0xF).opcode(), OpCode::Unknown(0xF));
     /// ```
@@ -48,7 +48,7 @@ pub trait AssemblyInstruction {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{AssemblyInstruction, instruction::{Push, Gas}};
+    /// # use oculars_asm::{AssemblyInstruction, instruction::{Push, Gas}};
     /// assert_eq!(Push::new([0; 10]).is_push(), true);
     /// assert_eq!(Gas.is_push(), false);
     /// ```
@@ -62,7 +62,7 @@ pub trait AssemblyInstruction {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{AssemblyInstruction, instruction::{Dup, Gas}};
+    /// # use oculars_asm::{AssemblyInstruction, instruction::{Dup, Gas}};
     /// assert_eq!(Dup::<10>::new().is_dup(), true);
     /// assert_eq!(Gas.is_dup(), false);
     /// ```
@@ -76,7 +76,7 @@ pub trait AssemblyInstruction {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{AssemblyInstruction, instruction::{Swap, Gas}};
+    /// # use oculars_asm::{AssemblyInstruction, instruction::{Swap, Gas}};
     /// assert_eq!(Swap::<10>::new().is_swap(), true);
     /// assert_eq!(Gas.is_swap(), false);
     /// ```
@@ -90,7 +90,7 @@ pub trait AssemblyInstruction {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{AssemblyInstruction, instruction::{Log, Gas}};
+    /// # use oculars_asm::{AssemblyInstruction, instruction::{Log, Gas}};
     /// assert_eq!(Log::<3>::new().is_log(), true);
     /// assert_eq!(Gas.is_log(), false);
     /// ```
@@ -104,7 +104,7 @@ pub trait AssemblyInstruction {
     ///
     /// # Example
     /// ```
-    /// # use oculars_asm2::{AssemblyInstruction, instruction::{Return, Unknown, Gas}};
+    /// # use oculars_asm::{AssemblyInstruction, instruction::{Return, Unknown, Gas}};
     /// assert_eq!(Return.is_terminator(), true);
     /// assert_eq!(Unknown::new(0xF).is_terminator(), true);
     /// assert_eq!(Gas.is_terminator(), false);
@@ -118,7 +118,7 @@ pub trait AssemblyInstruction {
     /// Returns [`true`] if this instruction is a `JUMP`, `JUMPI` or a `JUMPDEST`.
     /// # Example
     /// ```
-    /// # use oculars_asm2::{AssemblyInstruction, instruction::{Jump, JumpDest, Gas}};
+    /// # use oculars_asm::{AssemblyInstruction, instruction::{Jump, JumpDest, Gas}};
     /// assert_eq!(Jump.is_control_flow(), true);
     /// assert_eq!(JumpDest.is_control_flow(), true);
     /// assert_eq!(Gas.is_control_flow(), false);

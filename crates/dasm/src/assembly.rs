@@ -1,6 +1,6 @@
 //! EVM assembly.
 
-use asm::instruction::Instruction;
+use asm::Instruction;
 
 /// An instruction with a specified position in the bytecode.
 pub struct PositionedInstruction {

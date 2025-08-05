@@ -1,7 +1,7 @@
 use std::fmt::{Binary, Debug, Display, LowerHex, Octal};
 
 use anyhow::Context as _;
-use asm::opcode::Mnemonic;
+use asm::Mnemonic;
 use colored::Colorize as _;
 
 /// A human readable description for a mnemonic.
@@ -26,14 +26,10 @@ pub trait MnemonicDescription {
 pub fn get_mnemonic_by_name(name: &str) -> anyhow::Result<Mnemonic> {
     let uppercase_name = name.to_uppercase();
 
-    Mnemonic::variants()
+    Mnemonic::VARIANTS
         .iter()
-        .position(|mnemonic_name| mnemonic_name == &uppercase_name)
-        .map(|index| {
-            Mnemonic::iter()
-                .nth(index)
-                .expect("Mnemonic::VARIANTS array length matches Mnemonic::iter length")
-        })
+        .find(|mnemonic| mnemonic.to_string() == uppercase_name)
+        .copied()
         .context(format!("failed to find mnemonic by the name \"{name}\""))
 }
 
