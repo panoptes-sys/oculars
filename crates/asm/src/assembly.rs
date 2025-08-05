@@ -1,9 +1,11 @@
 //! Instruction assembly information.
 
+use thiserror::Error;
+
 use crate::OpCode;
 
 /// An EVM assembly instruction.
-pub trait AssemblyInstruction {
+pub trait AssemblyInstruction: Sized {
     /// Returns the size of this instruction in bytes.
     ///
     /// # Example
@@ -116,6 +118,7 @@ pub trait AssemblyInstruction {
     }
 
     /// Returns [`true`] if this instruction is a `JUMP`, `JUMPI` or a `JUMPDEST`.
+    ///
     /// # Example
     /// ```
     /// # use oculars_asm::{AssemblyInstruction, instruction::{Jump, JumpDest, Gas}};
@@ -128,4 +131,74 @@ pub trait AssemblyInstruction {
     fn is_control_flow(&self) -> bool {
         self.opcode().is_control_flow()
     }
+
+    /// Assembles this instruction into its byte representation.
+    ///
+    /// # Example
+    /// ```
+    /// # use oculars_asm::{AssemblyInstruction, instruction::{Gas, Push}};
+    /// assert_eq!(Gas.assemble(), vec![0x5A]);
+    /// assert_eq!(Push::new([0xA, 0xB]).assemble(), vec![0x61, 0xA, 0xB]);
+    /// ```
+    #[must_use]
+    #[inline]
+    fn assemble(self) -> Vec<u8> {
+        vec![self.opcode().into_byte()]
+    }
+
+    /// Disassembles an instruction from a sequence of bytes.
+    ///
+    /// # Example
+    /// ```
+    /// # use oculars_asm::{AssemblyInstruction, instruction::{Gas, Push}};
+    /// assert_eq!(Gas::disassemble(&[0x5A]).unwrap(), Gas);
+    /// assert_eq!(Push::disassemble(&[0x61, 0xA, 0xB]).unwrap(), Push::<2>::new([0xA, 0xB]));
+    /// ```
+    ///
+    /// # Errors
+    /// Returns an error if an unexpected opcode was encountered of if length of the byte sequence
+    /// is invalid for the corresponding instruction.
+    fn disassemble(bytes: &[u8]) -> Result<Self, DisassemblyError>;
+}
+
+/// Errors that can happen during instruction disassembly.
+#[derive(Debug, Error)]
+pub enum DisassemblyError {
+    /// An unexpected opcode was encountered.
+    #[error("unexpected opcode: expected `{expected}`, got `{got}`")]
+    UnexpectedOpcode {
+        /// The received opcode.
+        got: u8,
+        /// The expected opcode.
+        expected: u8,
+    },
+
+    /// The length of the byte sequence was not as expected.
+    #[error("unexpected byte sequence length: expected `{expected}`, got `{got}`")]
+    UnexpectedLength {
+        /// Received byte sequence length.
+        got: usize,
+        /// Expected byte sequence length.
+        expected: usize,
+    },
+}
+
+/// Retrieves the first byte from the `bytes` slice and checks if it matches the expected byte.
+///
+/// # Errors
+/// Returns an error if the byte array contains no elements or if the first byte does not match.
+pub(crate) fn verify_opcode(bytes: &[u8], expected: u8) -> Result<(), DisassemblyError> {
+    let opcode = *bytes.first().ok_or(DisassemblyError::UnexpectedLength {
+        got: 0,
+        expected: 1,
+    })?;
+
+    if opcode != expected {
+        return Err(DisassemblyError::UnexpectedOpcode {
+            got: opcode,
+            expected,
+        });
+    }
+
+    Ok(())
 }

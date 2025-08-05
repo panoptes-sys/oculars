@@ -74,6 +74,11 @@ macro_rules! define_instruction {
             fn opcode(&self) -> $crate::opcode::OpCode {
                 $crate::opcode::OpCode::Known($crate::mnemonic::Mnemonic::$mnemonic)
             }
+
+            fn disassemble(bytes: &[u8]) -> Result<Self, $crate::assembly::DisassemblyError> {
+                $crate::assembly::verify_opcode(bytes, $crate::Mnemonic::$mnemonic as u8)?;
+                Ok($name)
+            }
         }
 
         $crate::fmt::forward_opcode_fmt!($name, Display, LowerHex, UpperHex, Binary, Octal);
@@ -102,28 +107,52 @@ macro_rules! define_instructions_enum {
 /// Creates a macro that matches an instruction and calls a function passing it as the argument.
 macro_rules! define_instruction_matcher {
     (($d: tt) $($name: ident),+) => {
-        pub(crate) mod macros {
-            /// Matches an instruction and calls the specified function, passing the instruction as the
-            /// first argument and any optional arguments.
-            #[macro_export]
-            macro_rules! match_instruction {
-                ($instr: ident, $fn: path $d(,$arg: expr)*) => {{
-                    use $crate::Instruction;
+        /// Matches an instruction and calls the specified function, passing the instruction as the
+        /// first argument and any optional arguments.
+        #[macro_export]
+        macro_rules! match_instruction {
+            ($instr: ident, $fn: path $d(,$arg: expr)*) => {{
+                use $crate::Instruction;
 
-                    match $instr {
-                        $(
-                            Instruction::$name(i) => $fn(i $d(,$arg)*),
-                        )+
-                        Instruction::Unknown(i) => $fn(i $d(,$arg)*)
-                    }
-                }}
-            }
-
-            pub use match_instruction;
+                match $instr {
+                    $(
+                        Instruction::$name(i) => $fn(i $d(,$arg)*),
+                    )+
+                    Instruction::Unknown(i) => $fn(i $d(,$arg)*)
+                }
+            }}
         }
     };
     ($($name: ident),+) => {
         define_instruction_matcher!(($) $($name),+);
+    };
+}
+
+/// Defines a macro that matches the opcode and disassembles the corresponding instruction.
+macro_rules! define_instruction_disassembly {
+    ($($name: ident, $value: path, $opcode: literal),+) => {
+        /// Matches the opcode and disassembles the instruction.
+        #[macro_export]
+        macro_rules! disassemble_instruction {
+            ($bytes: ident) => {{
+                use $crate::assembly::*;
+                use $crate::instruction::*;
+
+                let opcode = *$bytes
+                    .first()
+                    .ok_or_else(|| DisassemblyError::UnexpectedLength {
+                        got: $bytes.len(),
+                        expected: 1,
+                    })?;
+
+                match opcode {
+                    $(
+                        $opcode => Ok(Instruction::$name(<$value>::disassemble($bytes)?)),
+                    )+
+                    _ => Ok(Instruction::Unknown(Unknown::disassemble($bytes)?))
+                }
+            }}
+        }
     };
 }
 
@@ -142,7 +171,14 @@ macro_rules! define_instructions {
             )+
 
             define_instructions_enum!($($name, $struct =/ $doc),+);
-            define_instruction_matcher!($($name),+);
+
+            pub(crate) mod macros {
+                define_instruction_matcher!($($name),+);
+                define_instruction_disassembly!($($name, $struct, $opcode),+);
+
+                pub use match_instruction;
+                pub use disassemble_instruction;
+            }
         }
     };
 }

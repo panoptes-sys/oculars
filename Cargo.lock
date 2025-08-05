@@ -282,6 +282,9 @@ dependencies = [
 [[package]]
 name = "oculars-asm"
 version = "0.4.0"
+dependencies = [
+ "thiserror 2.0.12",
+]
 
 [[package]]
 name = "oculars-bin"

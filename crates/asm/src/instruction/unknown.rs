@@ -1,6 +1,6 @@
 //! An unknown instruction.
 
-use crate::{AssemblyInstruction, OpCode, fmt::forward_opcode_fmt};
+use crate::{assembly::DisassemblyError, fmt::forward_opcode_fmt, AssemblyInstruction, OpCode};
 
 /// An unidentified instruction.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
@@ -13,6 +13,15 @@ impl AssemblyInstruction for Unknown {
     #[inline]
     fn opcode(&self) -> OpCode {
         OpCode::Unknown(self.byte)
+    }
+
+    fn disassemble(bytes: &[u8]) -> Result<Self, DisassemblyError> {
+        let opcode = *bytes.first().ok_or(DisassemblyError::UnexpectedLength {
+            got: 0,
+            expected: 1,
+        })?;
+
+        Ok(Self { byte: opcode })
     }
 }
 
