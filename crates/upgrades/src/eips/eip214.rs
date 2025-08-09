@@ -34,15 +34,16 @@
 //!
 //! Vitalik Buterin <vitalik@ethereum.org>, Christian Reitwiessner <chris@ethereum.org>, "EIP-214: New opcode STATICCALL," Ethereum Improvement Proposals, no. 214, February 2017. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-214>.
 
-use asm::instruction::StaticCall;
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-214: New opcode STATICCALL.
 pub struct Eip214;
 
 impl Eip for Eip214 {
     const NUMBER: u32 = 214;
-}
 
-introduces_instructions!(Eip214, StaticCall);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, STATICCALL)
+    }
+}

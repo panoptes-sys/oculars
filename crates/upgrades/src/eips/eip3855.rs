@@ -51,15 +51,16 @@
 //!
 //! Alex Beregszaszi (@axic), Hugo De la cruz (@hugo-dc), Paweł Bylica (@chfast), "EIP-3855: PUSH0 instruction," Ethereum Improvement Proposals, no. 3855, February 2021. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-3855>.
 
-use asm::instruction::Push;
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-3855: PUSH0 instruction.
 pub struct Eip3855;
 
 impl Eip for Eip3855 {
     const NUMBER: u32 = 3855;
-}
 
-introduces_instructions!(Eip3855, Push<0>);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, PUSH0)
+    }
+}

@@ -130,6 +130,12 @@ impl<const N: usize> Push<N> {
 }
 
 impl<const N: usize> AssemblyInstruction for Push<N> {
+    #[inline]
+    fn mnemonic(&self) -> Option<Mnemonic> {
+        Some(Self::mnemonic())
+    }
+
+    #[inline]
     fn opcode(&self) -> OpCode {
         OpCode::Known(Self::mnemonic())
     }
@@ -138,6 +144,7 @@ impl<const N: usize> AssemblyInstruction for Push<N> {
         clippy::cast_possible_truncation,
         reason = "only `Push<X>` instructions where `X` <= 32 are supported"
     )]
+    #[inline]
     fn immediate_size(&self) -> u8 {
         N as u8
     }

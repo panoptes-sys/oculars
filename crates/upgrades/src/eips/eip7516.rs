@@ -59,15 +59,16 @@
 //!
 //! Carl Beekhuizen (@carlbeek), "EIP-7516: BLOBBASEFEE instruction," Ethereum Improvement Proposals, no. 7516, September 2023. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-7516>.
 
-use asm::instruction::BlobBaseFee;
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-7516: BLOBBASEFEE instruction.
 pub struct Eip7516;
 
 impl Eip for Eip7516 {
     const NUMBER: u32 = 7516;
-}
 
-introduces_instructions!(Eip7516, BlobBaseFee);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, BLOBBASEFEE)
+    }
+}

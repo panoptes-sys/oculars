@@ -1,8 +1,6 @@
 //! Ethereum Improvement Proposals.
 
-use std::any::TypeId;
-
-use asm::AssemblyInstruction;
+use asm::{AssemblyInstruction, Mnemonic};
 
 /// An Ethereum Improvement Proposal.
 pub trait Eip {
@@ -15,137 +13,95 @@ pub trait Eip {
     /// ```
     const NUMBER: u32;
 
-    /// Return the EIP's number.
-    ///
-    /// # Example
+    /// Returns [`true`] if this EIP introduced a new [`Mnemonic`].
     /// ```
     /// # use oculars_upgrades::{eips::eip7::Eip7, eip::{Eip}};
-    /// assert_eq!(Eip7.number(), 7);
+    /// # use asm::Mnemonic;
+    /// assert!(Eip7::introduced_mnemonic(Mnemonic::DELEGATECALL));
+    /// assert!(!Eip7::introduced_mnemonic(Mnemonic::GAS));
     /// ```
     #[must_use]
     #[inline]
-    fn number(&self) -> u32 {
-        Self::NUMBER
+    fn introduced_mnemonic(_mnemonic: Mnemonic) -> bool {
+        false
     }
 
-    /// Returns whether this EIP introduced a specific instruction.
-    ///
-    /// # Example
+    /// Returns [`true`] if this EIP introduced a new instruction.
     /// ```
-    /// # use oculars_upgrades::{execution::ExecutionUpgrade, eip::Eip, eips::{eip2::Eip2, eip7::Eip7}};
-    /// # use asm::instruction::DelegateCall;
-    /// assert!(!Eip2::introduces_instruction::<DelegateCall>());
-    /// assert!(Eip7::introduces_instruction::<DelegateCall>());
+    /// # use oculars_upgrades::{eips::eip7::Eip7, eip::{Eip}};
+    /// # use asm::instruction::*;
+    /// assert!(Eip7::introduced_instruction(&DelegateCall));
+    /// assert!(Eip7::introduced_instruction(&Instruction::DelegateCall(DelegateCall)));
+    /// assert!(!Eip7::introduced_instruction(&Gas));
+    /// assert!(!Eip7::introduced_instruction(&Unknown::new(0xF)));
     /// ```
     #[must_use]
     #[inline]
-    fn introduces_instruction<I>() -> bool
-    where
-        I: AssemblyInstruction,
-        Self: IntroducesInstruction<I>,
-    {
-        Self::eip_introduces_instruction()
+    fn introduced_instruction<I: AssemblyInstruction>(instruction: &I) -> bool {
+        match instruction.mnemonic() {
+            Some(mnemonic) => Self::introduced_mnemonic(mnemonic),
+            None => false,
+        }
     }
 }
 
-/// Trait that indicates whether EIP introduces an instruction.
-pub trait IntroducesInstruction<I: AssemblyInstruction> {
-    /// Returns whether this EIP introduced an instruction.
-    #[must_use]
-    fn eip_introduces_instruction() -> bool;
-}
+#[cfg(test)]
+mod tests {
+    use asm::instruction::{Add, Stop};
 
-// Make every [`Eip`] introduce no instructions by default.
-impl<I: AssemblyInstruction, E: Eip> IntroducesInstruction<I> for E {
-    default fn eip_introduces_instruction() -> bool {
-        false
-    }
-}
+    use super::*;
 
-/// A collection of [`Eip`]s.
-pub trait EipSet {
-    /// Returns whether this set contains a specific [`Eip`].
-    fn includes_eip<E: Eip + 'static>() -> bool;
+    #[test]
+    fn eip_instruction_introduction() {
+        struct EipThatIntroducesStop;
 
-    /// Returns whether this set supports an instruction.
-    fn supports_instruction<I: AssemblyInstruction>() -> bool;
-}
+        impl Eip for EipThatIntroducesStop {
+            const NUMBER: u32 = 1;
 
-// An empty tuple is considered an [`EipSet`].
-impl EipSet for () {
-    fn includes_eip<E: Eip + 'static>() -> bool {
-        false
+            fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+                mnemonic == Mnemonic::STOP
+            }
+        }
+
+        assert!(EipThatIntroducesStop::introduced_mnemonic(Mnemonic::STOP));
+        assert!(!EipThatIntroducesStop::introduced_mnemonic(Mnemonic::ADD));
+
+        assert!(EipThatIntroducesStop::introduced_instruction(&Stop));
+        assert!(!EipThatIntroducesStop::introduced_instruction(&Add));
     }
 
-    fn supports_instruction<I: AssemblyInstruction>() -> bool {
-        false
-    }
-}
+    #[test]
+    fn eip_multiple_instruction_introduction() {
+        struct EipThatIntroducesStopAndAdd;
 
-// A tuple of an [`Eip`] and a [`EipSet`] is considered an [`EipSet`].
-impl<A: Eip + 'static, B: EipSet> EipSet for (A, B) {
-    fn includes_eip<E: Eip + 'static>() -> bool {
-        TypeId::of::<A>() == TypeId::of::<E>() || B::includes_eip::<E>()
-    }
+        impl Eip for EipThatIntroducesStopAndAdd {
+            const NUMBER: u32 = 1;
 
-    fn supports_instruction<I: AssemblyInstruction>() -> bool {
-        <A as IntroducesInstruction<I>>::eip_introduces_instruction()
-            || B::supports_instruction::<I>()
-    }
-}
+            fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+                mnemonic == Mnemonic::STOP || mnemonic == Mnemonic::ADD
+            }
+        }
 
-// Implement [`IntroducesInstruction`] for [`EipSet`]s.
-impl<A, B, I> IntroducesInstruction<I> for (A, B)
-where
-    A: IntroducesInstruction<I>,
-    B: IntroducesInstruction<I>,
-    I: AssemblyInstruction,
-{
-    fn eip_introduces_instruction() -> bool {
-        A::eip_introduces_instruction() || B::eip_introduces_instruction()
-    }
-}
+        assert!(EipThatIntroducesStopAndAdd::introduced_mnemonic(
+            Mnemonic::STOP
+        ));
+        assert!(EipThatIntroducesStopAndAdd::introduced_mnemonic(
+            Mnemonic::ADD
+        ));
 
-// An empty [`EipSet`] introduces no instructions.
-impl<I> IntroducesInstruction<I> for ()
-where
-    I: AssemblyInstruction,
-{
-    fn eip_introduces_instruction() -> bool {
-        false
+        assert!(EipThatIntroducesStopAndAdd::introduced_instruction(&Stop));
+        assert!(EipThatIntroducesStopAndAdd::introduced_instruction(&Add));
     }
 }
 
 /// EIP helper macros.
 pub mod macros {
-    /// Create an [`super::EipSet`] from a list of EIPs.
-    /// Can extend an existing [`super::EipSet`] using the `eip_set!(OtherSet + Eip1, Eip2)` syntax.
-    macro_rules! eip_set {
-        ($a: ident) => {
-            ($a, ())
-        };
-        ($a: ident, $($b: ident),+) => {
-            ($a, eip_set!($($b),+))
-        };
-        ($upgrade: ident + $a: ident)=> {
-            ($a, <$upgrade as $crate::execution::ExecutionUpgrade>::EipSet)
-        };
-        ($upgrade: ident + $a: ident, $($rest: ident),+) => {
-            ($a, eip_set!($upgrade + $($rest),+))
+    /// Checks if `mnemonic` is equal to any of the `introduced` mnemonics.
+    macro_rules! introduced_mnemonics {
+        ($mnemonic: ident, $($introduced: ident),+) => {
+            $($mnemonic == asm::Mnemonic::$introduced)||+
         };
     }
 
-    /// Specifies that this EIP introduces a new instruction.
-    macro_rules! introduces_instructions {
-        ($eip: ident, $($instruction: path),+) => {
-            $(impl $crate::eip::IntroducesInstruction<$instruction> for $eip {
-                fn eip_introduces_instruction() -> bool {
-                    true
-                }
-            })+
-        };
-    }
-
-    pub(crate) use eip_set;
-    pub(crate) use introduces_instructions;
+    pub(crate) use introduced_mnemonics;
 }

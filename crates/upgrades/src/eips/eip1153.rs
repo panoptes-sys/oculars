@@ -244,15 +244,15 @@
 //!
 //! Alexey Akhunov (@`AlexeyAkhunov`), Moody Salem (@moodysalem), "EIP-1153: Transient storage opcodes," Ethereum Improvement Proposals, no. 1153, June 2018. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1153>.
 
-use asm::instruction::{TLoad, TStore};
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
 
 /// Transient storage opcodes.
 pub struct Eip1153;
 
 impl Eip for Eip1153 {
     const NUMBER: u32 = 1153;
-}
 
-introduces_instructions!(Eip1153, TLoad, TStore);
+    fn introduced_mnemonic(mnemonic: asm::Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, TLOAD, TSTORE)
+    }
+}

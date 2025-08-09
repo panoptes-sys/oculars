@@ -71,6 +71,10 @@ mod tests {
             fn disassemble(_: &[u8]) -> Result<Self, crate::assembly::DisassemblyError> {
                 todo!()
             }
+
+            fn mnemonic(&self) -> Option<Mnemonic> {
+                todo!()
+            }
         }
 
         forward_opcode_fmt!(Mock, Display, LowerHex, UpperHex, Binary, Octal);

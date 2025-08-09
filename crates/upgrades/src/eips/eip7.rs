@@ -62,18 +62,15 @@
 //!
 //! Vitalik Buterin (@vbuterin), "EIP-7: DELEGATECALL," Ethereum Improvement Proposals, no. 7, November 2015. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-7>.
 
-use crate::eip::{Eip, IntroducesInstruction};
-use asm::instruction::DelegateCall;
+use crate::eip::{Eip, macros::introduced_mnemonics};
 
 /// EIP-7: DELEGATECALL.
 pub struct Eip7;
 
 impl Eip for Eip7 {
     const NUMBER: u32 = 7;
-}
 
-impl IntroducesInstruction<DelegateCall> for Eip7 {
-    fn eip_introduces_instruction() -> bool {
-        true
+    fn introduced_mnemonic(mnemonic: asm::Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, DELEGATECALL)
     }
 }

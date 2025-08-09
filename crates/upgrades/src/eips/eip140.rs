@@ -47,15 +47,16 @@
 //!
 //! Alex Beregszaszi (@axic), Nikolai Mushegian <nikolai@nexusdev.us>, "EIP-140: REVERT instruction," Ethereum Improvement Proposals, no. 140, February 2017. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-140>.
 
-use asm::instruction::Revert;
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-140: REVERT instruction.
 pub struct Eip140;
 
 impl Eip for Eip140 {
     const NUMBER: u32 = 140;
-}
 
-introduces_instructions!(Eip140, Revert);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, REVERT)
+    }
+}

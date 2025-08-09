@@ -62,15 +62,17 @@
 //!
 //! Nick Johnson <arachnid@notdot.net>, Paweł Bylica <pawel@ethereum.org>, "EIP-1052: EXTCODEHASH opcode," Ethereum Improvement Proposals, no. 1052, May 2018. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1052>.
 
-use asm::instruction::ExtCodeHash;
+use asm::Mnemonic;
 
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
 
 /// EIP-1052: EXTCODEHASH opcode.
 pub struct Eip1052;
 
 impl Eip for Eip1052 {
     const NUMBER: u32 = 1052;
-}
 
-introduces_instructions!(Eip1052, ExtCodeHash);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, EXTCODEHASH)
+    }
+}

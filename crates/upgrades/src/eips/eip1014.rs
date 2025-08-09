@@ -100,15 +100,16 @@
 //!
 //! Vitalik Buterin (@vbuterin), "EIP-1014: Skinny CREATE2," Ethereum Improvement Proposals, no. 1014, April 2018. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1014>.
 
-use asm::instruction::Create2;
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-1014: Skinny CREATE2.
 pub struct Eip1014;
 
 impl Eip for Eip1014 {
     const NUMBER: u32 = 1014;
-}
 
-introduces_instructions!(Eip1014, Create2);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, CREATE2)
+    }
+}
