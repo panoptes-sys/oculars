@@ -6,7 +6,6 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-chains.workspace = true
 asm.workspace = true
 
 [lints]
