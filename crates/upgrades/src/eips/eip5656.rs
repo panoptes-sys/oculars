@@ -171,15 +171,16 @@
 //!
 //! Alex Beregszaszi (@axic), Paul Dworzanski (@poemm), Jared Wasinger (@jwasinger), Casey Detrio (@cdetrio), Pawel Bylica (@chfast), Charles Cooper (@charles-cooper), "EIP-5656: MCOPY - Memory copying instruction," Ethereum Improvement Proposals, no. 5656, February 2021. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-5656>.
 
-use asm::instruction::MCopy;
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-5656: MCOPY - Memory copying instruction.
 pub struct Eip5656;
 
 impl Eip for Eip5656 {
     const NUMBER: u32 = 5656;
-}
 
-introduces_instructions!(Eip5656, MCopy);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, MCOPY)
+    }
+}

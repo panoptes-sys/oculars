@@ -318,7 +318,6 @@ name = "oculars-upgrades"
 version = "0.1.0"
 dependencies = [
  "oculars-asm",
- "oculars-chains",
 ]
 
 [[package]]

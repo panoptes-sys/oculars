@@ -1,22 +1,43 @@
-//! Genesis state of Ethereum.
+//! Prague execution upgrade.
 
-use asm::Mnemonic;
+use crate::{
+    eip_set,
+    eips::{
+        eip2537::Eip2537, eip2935::Eip2935, eip6110::Eip6110, eip7002::Eip7002, eip7623::Eip7623,
+        eip7685::Eip7685, eip7702::Eip7702, eip7840::Eip7840,
+    },
+    execution::{ExecutionUpgrade, cancun::Cancun},
+};
 
-use crate::eip::{Eip, macros::introduced_mnemonics};
+/// Prague execution upgrade.
+pub struct Prague;
 
-/// Genesis state of Ethereum.
-pub struct Genesis;
+impl ExecutionUpgrade for Prague {
+    type EipSet = eip_set!(
+        Cancun + Eip2537,
+        Eip2935,
+        Eip6110,
+        Eip7002,
+        Eip7623,
+        Eip7685,
+        Eip7702,
+        Eip7840
+    );
+}
 
-impl Eip for Genesis {
-    const NUMBER: u32 = 0;
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    #[expect(
-        clippy::too_many_lines,
-        reason = "it's fine, but a mnemonic macro list would be nice"
-    )]
-    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
-        introduced_mnemonics!(
-            mnemonic,
+    #[test]
+    fn instruction_support() {
+        macro_rules! supports_mnemonics {
+            ($($mnemonic: ident),+) => {
+                $(assert!(Prague::supports_mnemonic(asm::Mnemonic::$mnemonic));)+
+            };
+        }
+
+        supports_mnemonics!(
             STOP,
             ADD,
             MUL,
@@ -40,6 +61,9 @@ impl Eip for Genesis {
             XOR,
             NOT,
             BYTE,
+            SHL,
+            SHR,
+            SAR,
             KECCAK256,
             ADDRESS,
             BALANCE,
@@ -54,12 +78,20 @@ impl Eip for Genesis {
             GASPRICE,
             EXTCODESIZE,
             EXTCODECOPY,
+            RETURNDATASIZE,
+            RETURNDATACOPY,
+            EXTCODEHASH,
             BLOCKHASH,
             COINBASE,
             TIMESTAMP,
             NUMBER,
             PREVRANDAO,
             GASLIMIT,
+            CHAINID,
+            SELFBALANCE,
+            BASEFEE,
+            BLOBHASH,
+            BLOBBASEFEE,
             POP,
             MLOAD,
             MSTORE,
@@ -72,6 +104,10 @@ impl Eip for Genesis {
             MSIZE,
             GAS,
             JUMPDEST,
+            TLOAD,
+            TSTORE,
+            MCOPY,
+            PUSH0,
             PUSH1,
             PUSH2,
             PUSH3,
@@ -145,8 +181,12 @@ impl Eip for Genesis {
             CALL,
             CALLCODE,
             RETURN,
+            DELEGATECALL,
+            CREATE2,
+            STATICCALL,
+            REVERT,
             INVALID,
             SELFDESTRUCT
-        )
+        );
     }
 }

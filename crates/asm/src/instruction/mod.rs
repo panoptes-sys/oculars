@@ -7,7 +7,7 @@ mod swap;
 mod unknown;
 
 use crate::{
-    AssemblyInstruction, OpCode,
+    AssemblyInstruction, Mnemonic, OpCode,
     assembly::DisassemblyError,
     defs::instruction::macros::{disassemble_instruction, match_instruction},
 };
@@ -22,6 +22,10 @@ pub use unknown::Unknown;
 impl AssemblyInstruction for Instruction {
     fn opcode(&self) -> OpCode {
         match_instruction!(self, AssemblyInstruction::opcode)
+    }
+
+    fn mnemonic(&self) -> Option<Mnemonic> {
+        match_instruction!(self, AssemblyInstruction::mnemonic)
     }
 
     fn immediate_size(&self) -> u8 {

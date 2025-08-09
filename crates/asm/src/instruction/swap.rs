@@ -90,6 +90,12 @@ impl<const N: u8> Default for Swap<N> {
 }
 
 impl<const N: u8> AssemblyInstruction for Swap<N> {
+    #[inline]
+    fn mnemonic(&self) -> Option<Mnemonic> {
+        Some(Self::mnemonic())
+    }
+
+    #[inline]
     fn opcode(&self) -> OpCode {
         OpCode::Known(Self::mnemonic())
     }

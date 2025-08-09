@@ -99,15 +99,16 @@
 //!
 //! Martin Holst Swende (@holiman), "EIP-1884: Repricing for trie-size-dependent opcodes," Ethereum Improvement Proposals, no. 1884, March 2019. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1884>.
 
-use asm::instruction::SelfBalance;
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-1884: Repricing for trie-size-dependent opcodes.
 pub struct Eip1884;
 
 impl Eip for Eip1884 {
     const NUMBER: u32 = 1844;
-}
 
-introduces_instructions!(Eip1884, SelfBalance);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, SELFBALANCE)
+    }
+}

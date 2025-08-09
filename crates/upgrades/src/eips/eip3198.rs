@@ -52,15 +52,16 @@
 //!
 //! Abdelhamid Bakhta (@abdelhamidbakhta), Vitalik Buterin (@vbuterin), "EIP-3198: BASEFEE opcode," Ethereum Improvement Proposals, no. 3198, January 2021. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-3198>.
 
-use asm::instruction::BaseFee;
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-3198: BASEFEE opcode.
 pub struct Eip3198;
 
 impl Eip for Eip3198 {
     const NUMBER: u32 = 3198;
-}
 
-introduces_instructions!(Eip3198, BaseFee);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, BASEFEE)
+    }
+}

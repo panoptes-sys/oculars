@@ -2,7 +2,7 @@
 
 use thiserror::Error;
 
-use crate::OpCode;
+use crate::{Mnemonic, OpCode};
 
 /// An EVM assembly instruction.
 pub trait AssemblyInstruction: Sized {
@@ -45,6 +45,17 @@ pub trait AssemblyInstruction: Sized {
     /// ```
     #[must_use]
     fn opcode(&self) -> OpCode;
+
+    /// Returns the instruction's [`Mnemonic`] if the instruction is not `Unknown`.
+    ///
+    /// # Example
+    /// ```
+    /// # use oculars_asm::{OpCode, Mnemonic, instruction::{Stop, Unknown}, AssemblyInstruction};
+    /// assert_eq!(Stop.mnemonic(), Some(Mnemonic::STOP));
+    /// assert!(Unknown::new(0xF).mnemonic().is_none());
+    /// ```
+    #[must_use]
+    fn mnemonic(&self) -> Option<Mnemonic>;
 
     /// Returns [`true`] if this instruction is of the type `PUSHx`.
     ///

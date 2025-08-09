@@ -381,15 +381,16 @@
 //!
 //! Alex Beregszaszi (@axic), Paweł Bylica (@chfast), "EIP-145: Bitwise shifting instructions in EVM," Ethereum Improvement Proposals, no. 145, February 2017. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-145>.
 
-use asm::instruction::{Sar, Shl, Shr};
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-145: Bitwise shifting instructions in EVM.
 pub struct Eip145;
 
 impl Eip for Eip145 {
     const NUMBER: u32 = 145;
-}
 
-introduces_instructions!(Eip145, Shl, Shr, Sar);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, SHL, SHR, SAR)
+    }
+}

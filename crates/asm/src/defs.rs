@@ -71,8 +71,14 @@ macro_rules! define_instruction {
         pub struct $name;
 
         impl $crate::assembly::AssemblyInstruction for $name {
+            #[inline]
             fn opcode(&self) -> $crate::opcode::OpCode {
-                $crate::opcode::OpCode::Known($crate::mnemonic::Mnemonic::$mnemonic)
+                $crate::opcode::OpCode::Known($crate::Mnemonic::$mnemonic)
+            }
+
+            #[inline]
+            fn mnemonic(&self) -> Option<$crate::mnemonic::Mnemonic> {
+                Some($crate::Mnemonic::$mnemonic)
             }
 
             fn disassemble(bytes: &[u8]) -> Result<Self, $crate::assembly::DisassemblyError> {

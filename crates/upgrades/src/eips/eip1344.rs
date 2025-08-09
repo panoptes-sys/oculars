@@ -33,15 +33,16 @@
 //!
 //! Richard Meissner (@rmeissner), Bryant Eisenbach (@fubuloubu), "EIP-1344: `ChainID` opcode," Ethereum Improvement Proposals, no. 1344, August 2018. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-1344>.
 
-use asm::instruction::ChainId;
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-1344: `ChainID` opcode.
 pub struct Eip1344;
 
 impl Eip for Eip1344 {
     const NUMBER: u32 = 1344;
-}
 
-introduces_instructions!(Eip1344, ChainId);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, CHAINID)
+    }
+}

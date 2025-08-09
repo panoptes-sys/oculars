@@ -1,6 +1,8 @@
 //! An unknown instruction.
 
-use crate::{AssemblyInstruction, OpCode, assembly::DisassemblyError, fmt::forward_opcode_fmt};
+use crate::{
+    AssemblyInstruction, Mnemonic, OpCode, assembly::DisassemblyError, fmt::forward_opcode_fmt,
+};
 
 /// An unidentified instruction.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
@@ -10,6 +12,11 @@ pub struct Unknown {
 }
 
 impl AssemblyInstruction for Unknown {
+    #[inline]
+    fn mnemonic(&self) -> Option<Mnemonic> {
+        None
+    }
+
     #[inline]
     fn opcode(&self) -> OpCode {
         OpCode::Unknown(self.byte)

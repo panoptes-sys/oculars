@@ -77,6 +77,12 @@ impl<const N: u8> Default for Log<N> {
 }
 
 impl<const N: u8> AssemblyInstruction for Log<N> {
+    #[inline]
+    fn mnemonic(&self) -> Option<Mnemonic> {
+        Some(Self::mnemonic())
+    }
+
+    #[inline]
     fn opcode(&self) -> crate::OpCode {
         OpCode::Known(Self::mnemonic())
     }

@@ -49,15 +49,16 @@
 //!
 //! Christian Reitwiessner <chris@ethereum.org>, "EIP-211: New opcodes: RETURNDATASIZE and RETURNDATACOPY," Ethereum Improvement Proposals, no. 211, February 2017. [Online serial]. Available: <https://eips.ethereum.org/EIPS/eip-211>.
 
-use asm::instruction::{ReturnDataCopy, ReturnDataSize};
-
-use crate::eip::{Eip, macros::introduces_instructions};
+use crate::eip::{Eip, macros::introduced_mnemonics};
+use asm::Mnemonic;
 
 /// EIP-211: New opcodes: RETURNDATASIZE and RETURNDATACOPY.
 pub struct Eip211;
 
 impl Eip for Eip211 {
     const NUMBER: u32 = 211;
-}
 
-introduces_instructions!(Eip211, ReturnDataSize, ReturnDataCopy);
+    fn introduced_mnemonic(mnemonic: Mnemonic) -> bool {
+        introduced_mnemonics!(mnemonic, RETURNDATASIZE, RETURNDATACOPY)
+    }
+}
