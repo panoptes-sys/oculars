@@ -45,11 +45,23 @@ pub trait Eip {
     }
 }
 
+/// EIP helper macros.
+pub mod macros {
+    /// Checks if `mnemonic` is equal to any of the `introduced` mnemonics.
+    macro_rules! introduced_mnemonics {
+        ($mnemonic: ident, $($introduced: ident),+) => {
+            $($mnemonic == asm::Mnemonic::$introduced)||+
+        };
+    }
+
+    pub(crate) use introduced_mnemonics;
+}
+
 #[cfg(test)]
 mod tests {
-    use asm::instruction::{Add, Stop};
-
     use super::*;
+    use crate::eip::macros::introduced_mnemonics;
+    use asm::instruction::{Add, Stop};
 
     #[test]
     fn eip_instruction_introduction() {
@@ -92,16 +104,12 @@ mod tests {
         assert!(EipThatIntroducesStopAndAdd::introduced_instruction(&Stop));
         assert!(EipThatIntroducesStopAndAdd::introduced_instruction(&Add));
     }
-}
 
-/// EIP helper macros.
-pub mod macros {
-    /// Checks if `mnemonic` is equal to any of the `introduced` mnemonics.
-    macro_rules! introduced_mnemonics {
-        ($mnemonic: ident, $($introduced: ident),+) => {
-            $($mnemonic == asm::Mnemonic::$introduced)||+
-        };
+    #[test]
+    fn introduced_mnemonics_macro_works() {
+        let m = Mnemonic::STOP;
+
+        assert!(introduced_mnemonics!(m, STOP, GAS));
+        assert!(!introduced_mnemonics!(m, GAS));
     }
-
-    pub(crate) use introduced_mnemonics;
 }
