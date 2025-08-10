@@ -3,7 +3,6 @@ resolver = "3"
 members = [ "bin/*", "crates/*"]
 
 [workspace.package]
-version = "0.1.0"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/panoptes-sys/oculars"
@@ -22,6 +21,8 @@ anyhow = "1.0.98"
 colored = "3.0.0" 
 minus = "5.6.1"
 clap = "4.5.41"
+
+tempfile = "3.20.0"
 
 [workspace.lints.clippy]
 pedantic = "warn"
