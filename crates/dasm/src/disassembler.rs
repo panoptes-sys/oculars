@@ -2,7 +2,6 @@
 
 use std::marker::PhantomData;
 
-use asm::{Mnemonic, instruction::Stop};
 use thiserror::Error;
 use upgrades::execution::ExecutionUpgrade;
 
@@ -36,17 +35,7 @@ impl<E: ExecutionUpgrade> Disassembler<E> {
     ///
     /// # Errors
     /// TODO
-    pub fn disassemble(&self, bytecode: &Bytecode) -> Result<Assembly, DasmError> {
-        for byte in bytecode.as_ref() {
-            match *byte {
-                byte if byte == Mnemonic::STOP as u8 && E::supports_instruction::<Stop>() => {
-                    todo!()
-                }
-                _ => todo!(),
-            }
-            //
-        }
-
+    pub fn disassemble(&self, _bytecode: &Bytecode) -> Result<Assembly, DasmError> {
         todo!()
     }
 
