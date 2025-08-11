@@ -107,6 +107,20 @@ macro_rules! define_instructions_enum {
             #[doc = "Unknown instruction."]
             Unknown(Unknown)
         }
+
+        $(
+            impl From<$value> for Instruction {
+                fn from(value: $value) -> Self {
+                    Self::$name(value)
+                }
+            }
+        )+
+
+        impl From<Unknown> for Instruction {
+            fn from(value: Unknown) -> Self {
+                Self::Unknown(value)
+            }
+        }
     };
 }
 
