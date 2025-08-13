@@ -2,7 +2,7 @@
 
 #![deny(unsafe_code)]
 
-mod assembly;
+pub mod assembly;
 mod defs;
 mod fmt;
 pub mod instruction;

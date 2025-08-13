@@ -47,6 +47,12 @@ impl Unknown {
         Self { byte }
     }
 
+    pub fn from_opcode(opcode: OpCode) -> Self {
+        Self {
+            byte: opcode.into_byte(),
+        }
+    }
+
     /// Returns the unidentified byte.
     ///
     /// # Example

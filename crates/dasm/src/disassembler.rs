@@ -2,10 +2,15 @@
 
 use std::marker::PhantomData;
 
+use asm::{assembly::DisassemblyError, instruction::Unknown, AssemblyInstruction, Instruction};
 use thiserror::Error;
 use upgrades::execution::ExecutionUpgrade;
 
-use crate::{assembly::Assembly, bytecode::Bytecode, source::BytecodeSource};
+use crate::{
+    assembly::{Assembly, PositionedInstruction},
+    bytecode::Bytecode,
+    source::BytecodeSource,
+};
 
 /// EVM disassembler.
 #[derive(Default)]
@@ -13,10 +18,6 @@ pub struct Disassembler<E: ExecutionUpgrade> {
     /// Marker for storing the `ExecutionUpgrade` generic.
     _marker: PhantomData<E>,
 }
-
-/// Errors that can happen when disassembling bytecode.
-#[derive(Debug, Error)]
-pub enum DasmError {}
 
 /// An error that can happen when disassembling from source.
 #[derive(Debug, Error)]
@@ -27,7 +28,7 @@ pub enum SourceDasmError<E> {
 
     /// A failure to disassemble the bytecode.
     #[error("disassembly failed: {0}")]
-    Dasm(#[from] DasmError),
+    Dasm(#[from] DisassemblyError),
 }
 
 impl<E: ExecutionUpgrade> Disassembler<E> {
@@ -35,8 +36,29 @@ impl<E: ExecutionUpgrade> Disassembler<E> {
     ///
     /// # Errors
     /// TODO
-    pub fn disassemble(&self, _bytecode: &Bytecode) -> Result<Assembly, DasmError> {
-        todo!()
+    pub fn disassemble(&self, bytecode: &Bytecode) -> Result<Assembly, DisassemblyError> {
+        let mut position = 0;
+        let mut instructions = vec![];
+
+        while position < bytecode.as_ref().len() {
+            let instruction = Instruction::disassemble(&bytecode.as_ref()[position..])?;
+
+            if E::supports_instruction(&instruction) {
+                let instruction_size = instruction.size();
+                instructions.push(PositionedInstruction::new(instruction, position));
+
+                position += instruction_size as usize;
+            } else {
+                instructions.push(PositionedInstruction::new(
+                    Unknown::from_opcode(instruction.opcode()).into(),
+                    position,
+                ));
+
+                position += 1;
+            }
+        }
+
+        Ok(Assembly::new(instructions))
     }
 
     /// Disassembles any source that provides [`Bytecode`] into EVM assembly.
